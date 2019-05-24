@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title type="text"> heise online Top-News </title><subtitle type="html">Nachrichten nicht nur aus der Welt der Computer</subtitle>
+    <updated>2019-05-23T19:13:00+02:00</updated>
+    <id>https://www.heise.de/rss/heise-top-atom.xml</id>
+    <author>
+        <name>heise online</name><uri>https://www.heise.de</uri>
+    </author>
+
+    <link rel="self" type="application/atom+xml" href="https://www.heise.de/rss/heise-top-atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://www.heise.de/"/>
+    <rights>Copyright (c) 2019 Heise Medien</rights>
+    <entry>
+        <title type="text">5G-Auktion überspringt Marke von sechs Milliarden Euro</title>
+        <id>http://heise.de/-4430944</id>
+        <updated>2019-05-23T19:13:00+02:00</updated>
+        <published>2019-05-23T19:13:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/6/9/2/04-Geschichte-5G-64b00fa203ba31da.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">The Orville, Staffel 2: Seth Trek wird zum besseren Star Trek</title>
+        <id>http://heise.de/-4430204</id>
+        <updated>2019-05-23T13:06:00+02:00</updated>
+        <published>2019-05-23T13:06:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/The-Orville-Staffel-2-Seth-Trek-wird-zum-besseren-Star-Trek-4430204.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Im Juni bringt ProSieben die neue Staffel der Serie von Familiy-Guy-Schöpfer Seth McFarlane. Sie kann es durchaus mit der Star-Trek-Konkurrenz aufnehmen.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/The-Orville-Staffel-2-Seth-Trek-wird-zum-besseren-Star-Trek-4430204.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/1/7/1/the-orville-season-2-2db88fe580f437dc.png" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Im Juni bringt ProSieben die neue Staffel der Serie von Familiy-Guy-Schöpfer Seth McFarlane. Sie kann es durchaus mit der Star-Trek-Konkurrenz aufnehmen.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">&quot;Autopilot&quot;: Verbraucherschützer und Verkehrssicherheits-Behörde stellen Tesla hart in Frage</title>
+        <id>http://heise.de/-4429702</id>
+        <updated>2019-05-23T10:37:00+02:00</updated>
+        <published>2019-05-23T10:37:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Autopilot-Verbraucherschuetzer-und-Verkehrssicherheits-Behoerde-stellen-Tesla-hart-in-Frage-4429702.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Consumer Reports hat sich Teslas &quot;Autopilot&quot; vorgeknöpft und stellt ihm ein sehr schlechtes Zeugnis aus. Autonomes Fahren gar sei für Tesla in weiter Ferne.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Autopilot-Verbraucherschuetzer-und-Verkehrssicherheits-Behoerde-stellen-Tesla-hart-in-Frage-4429702.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/3/9/0/2/tesla2-5f87ddf1774c9b33.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Consumer Reports hat sich Teslas "Autopilot" vorgeknöpft und stellt ihm ein sehr schlechtes Zeugnis aus. Autonomes Fahren gar sei für Tesla in weiter Ferne.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Account-Hijacking auf Bestellung: Black-Hat-Hacker mit miesem Kundenservice</title>
+        <id>http://heise.de/-4428912</id>
+        <updated>2019-05-23T10:00:00+02:00</updated>
+        <published>2019-05-23T10:00:00+02:00</published>
+        <link href="https://www.heise.de/security/meldung/Account-Hijacking-auf-Bestellung-Black-Hat-Hacker-mit-miesem-Kundenservice-4428912.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Forscher haben Hacker angeheuert, um Gmail-Test-Accounts zu knacken. Von 27 &quot;Hack-for-Hire&quot;-Services schafften das drei. Die meisten versuchten es gar nicht.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/security/meldung/Account-Hijacking-auf-Bestellung-Black-Hat-Hacker-mit-miesem-Kundenservice-4428912.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/3/3/0/5/cat-1351612_1280-3d9a48bc9829f214.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Forscher haben Hacker angeheuert, um Gmail-Test-Accounts zu knacken. Von 27 "Hack-for-Hire"-Services schafften das drei. Die meisten versuchten es gar nicht.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Huawei: Die möglichen Auswirkungen des US-Telekommunikationsnotstands</title>
+        <id>http://heise.de/-4425906</id>
+        <updated>2019-05-23T09:13:00+02:00</updated>
+        <published>2019-05-20T17:17:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Huawei-Die-moeglichen-Auswirkungen-des-US-Telekommunikationsnotstands-4425906.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Zahlreiche US-Unternehmen beliefern Huawei ab sofort nicht mehr. Kurzfristige Auswirkungen dürfte das nicht haben, mittel- und langfristige hingegen durchaus.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Huawei-Die-moeglichen-Auswirkungen-des-US-Telekommunikationsnotstands-4425906.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/1/2/5/1/huawei_logo-bd399aae425c5856.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Zahlreiche US-Unternehmen beliefern Huawei ab sofort nicht mehr. Kurzfristige Auswirkungen dürfte das nicht haben, mittel- und langfristige hingegen durchaus.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Robotik-Konferenz ICRA: Die Zukunft der Flugroboter - klein, intelligent und in Schwärmen</title>
+        <id>http://heise.de/-4429490</id>
+        <updated>2019-05-23T08:26:00+02:00</updated>
+        <published>2019-05-23T08:26:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Robotik-Konferenz-ICRA-Die-Zukunft-der-Flugroboter-klein-intelligent-und-in-Schwaermen-4429490.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Egal, ob Drohnen Menschen anziehen oder Gaswolken vermessen sollen: Sie brauchen immer eine ordentliche Flugzeit. Die Energiedichte von Akkus ist aber gering.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Robotik-Konferenz-ICRA-Die-Zukunft-der-Flugroboter-klein-intelligent-und-in-Schwaermen-4429490.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/3/7/5/6/Crazyfly-Drohne-4e15d5858093a427.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Egal, ob Drohnen Menschen anziehen oder Gaswolken vermessen sollen: Sie brauchen immer eine ordentliche Flugzeit. Die Energiedichte von Akkus ist aber gering.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Mai-Patchday: Einige Windows-Versionen beißen sich weiter mit McAfee und Sophos</title>
+        <id>http://heise.de/-4429226</id>
+        <updated>2019-05-22T18:48:00+02:00</updated>
+        <published>2019-05-22T18:48:00+02:00</published>
+        <link href="https://www.heise.de/security/meldung/Mai-Patchday-Einige-Windows-Versionen-beissen-sich-weiter-mit-McAfee-und-Sophos-4429226.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Microsofts Sicherheits-Updates für April machten Probleme im Zusammenspiel mit AV-Software. Auch auf die Mai-Updates trifft das in einigen Fällen zu.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/security/meldung/Mai-Patchday-Einige-Windows-Versionen-beissen-sich-weiter-mit-McAfee-und-Sophos-4429226.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/3/5/4/2/win1-b4ae85df06388a0c.png" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Microsofts Sicherheits-Updates für April machten Probleme im Zusammenspiel mit AV-Software. Auch auf die Mai-Updates trifft das in einigen Fällen zu.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Huawei: Auch ARM beendet Geschäftsbeziehungen</title>
+        <id>http://heise.de/-4429051</id>
+        <updated>2019-05-22T15:43:00+02:00</updated>
+        <published>2019-05-22T15:43:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Huawei-Auch-ARM-beendet-Geschaeftsbeziehungen-4429051.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Im Konflikt mit der US-Regierung kommt es für Huawei noch dicker: Ohne Geschäfte mit ARM könnte der Konzern bald ohne Mobilprozessoren dastehen.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Huawei-Auch-ARM-beendet-Geschaeftsbeziehungen-4429051.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/3/4/1/5/huawei-mwc-2018-vbr-c670521aa0d9b1e6.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Im Konflikt mit der US-Regierung kommt es für Huawei noch dicker: Ohne Geschäfte mit ARM könnte der Konzern bald ohne Mobilprozessoren dastehen.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Huawei: Eigenes Betriebssystem könnte schon im Herbst fertig sein</title>
+        <id>http://heise.de/-4428890</id>
+        <updated>2019-05-22T13:51:00+02:00</updated>
+        <published>2019-05-22T13:51:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Huawei-Eigenes-Betriebssystem-koennte-schon-im-Herbst-fertig-sein-4428890.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Huawei arbeitet an einem eigenen Betriebssystem – als Alternative zu Android und zu Windows. Ein Play-Store-Ersatz wird ebenfalls gesucht. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Huawei-Eigenes-Betriebssystem-koennte-schon-im-Herbst-fertig-sein-4428890.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/3/2/9/1/huawei-symbol-dunkel-schatten-mwc-2019-250219-vbr-8a976235294af8e0.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Huawei arbeitet an einem eigenen Betriebssystem – als Alternative zu Android und zu Windows. Ein Play-Store-Ersatz wird ebenfalls gesucht. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Windows 10 Mai 2019 Update (Version 1903) jetzt allgemein verfügbar</title>
+        <id>http://heise.de/-4428428</id>
+        <updated>2019-05-22T11:54:00+02:00</updated>
+        <published>2019-05-22T11:54:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Windows-10-Mai-2019-Update-Version-1903-jetzt-allgemein-verfuegbar-4428428.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Wie angekündigt hat Microsoft das Mai 2019 Update für Windows 10 bereitgestellt. Wer möchte, kann es jetzt installieren – wir erklären, wie.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Windows-10-Mai-2019-Update-Version-1903-jetzt-allgemein-verfuegbar-4428428.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/2/9/5/1/Screenshot-_279_-3dd84c9faa029250.png" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Wie angekündigt hat Microsoft das Mai 2019 Update für Windows 10 bereitgestellt. Wer möchte, kann es jetzt installieren – wir erklären, wie.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Firefox 67 bringt mehr Speed</title>
+        <id>http://heise.de/-4427896</id>
+        <updated>2019-05-21T17:38:00+02:00</updated>
+        <published>2019-05-21T17:38:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Firefox-67-bringt-mehr-Speed-4427896.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Optimierungen sollen den heute veröffentlichten Firefox 67 zum schnellsten Firefox jemals gemacht haben.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Firefox-67-bringt-mehr-Speed-4427896.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/2/5/9/3/Unbenannt-6-a830cfa4074aace1.png" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Optimierungen sollen den heute veröffentlichten Firefox 67 zum schnellsten Firefox jemals gemacht haben.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Honor 20 und 20 Pro im Hands-On: Top-Handys zur absoluten Unzeit</title>
+        <id>http://heise.de/-4427167</id>
+        <updated>2019-05-21T17:00:00+02:00</updated>
+        <published>2019-05-21T17:00:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Honor-20-und-20-Pro-im-Hands-On-Top-Handys-zur-absoluten-Unzeit-4427167.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Zum denkbar ungünstigsten Zeitpunkt zeigt Huawei die neue Honor-20-Reihe: beim ersten Ausprobieren tolle Handys. Die politische Lage wirft aber Fragen auf. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Honor-20-und-20-Pro-im-Hands-On-Top-Handys-zur-absoluten-Unzeit-4427167.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/2/0/3/1/Honor-20-Pro-live-1-d874e7e796558abf.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Zum denkbar ungünstigsten Zeitpunkt zeigt Huawei die neue Honor-20-Reihe: beim ersten Ausprobieren tolle Handys. Die politische Lage wirft aber Fragen auf. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Elektronische Patientenakte: Datenhoheit kommt später</title>
+        <id>http://heise.de/-4427379</id>
+        <updated>2019-05-21T12:17:00+02:00</updated>
+        <published>2019-05-21T12:17:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Elektronische-Patientenakte-Datenhoheit-kommt-spaeter-4427379.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Um die Einführung der elektronischen Patientenakte 2021 nicht zu gefährden, wird die Patientenkontrolle über die Dateneinträge erst einmal ausgesetzt. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Elektronische-Patientenakte-Datenhoheit-kommt-spaeter-4427379.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/2/1/9/7/Arzt_Notebook-c91788a1f6cc564f.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Um die Einführung der elektronischen Patientenakte 2021 nicht zu gefährden, wird die Patientenkontrolle über die Dateneinträge erst einmal ausgesetzt. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Robotik-Konferenz ICRA: Von malenden Drohnen, Nanorobotern und der Mensch-Roboter-Interaktion</title>
+        <id>http://heise.de/-4426944</id>
+        <updated>2019-05-21T07:56:00+02:00</updated>
+        <published>2019-05-21T07:56:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Robotik-Konferenz-ICRA-Von-malenden-Drohnen-Nanorobotern-und-der-Mensch-Roboter-Interaktion-4426944.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Malende Drohnen, Soft Robotics, Roboter in der Altenpflege, der Landwirtschaft und zur Klimabeobachtung sind nur einige Aspekte auf der IRCA Robotik-Konferenz.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Robotik-Konferenz-ICRA-Von-malenden-Drohnen-Nanorobotern-und-der-Mensch-Roboter-Interaktion-4426944.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/1/8/7/3/Roboter-c30ed29b14d54027.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Malende Drohnen, Soft Robotics, Roboter in der Altenpflege, der Landwirtschaft und zur Klimabeobachtung sind nur einige Aspekte auf der IRCA Robotik-Konferenz.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Verwaltungsgericht stoppt Wahl-O-Mat</title>
+        <id>http://heise.de/-4426878</id>
+        <updated>2019-05-20T19:01:00+02:00</updated>
+        <published>2019-05-20T19:01:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Verwaltungsgericht-stoppt-Wahl-O-Mat-4426878.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Der Wahl-O-Mat darf vorerst nicht mehr betrieben werden, entschied das Verwaltungsgericht Köln. Kleinere Parteien würden benachteiligt.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Verwaltungsgericht-stoppt-Wahl-O-Mat-4426878.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/1/8/1/1/wom-europa_2019-bd76a951c3c6fd28.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Der Wahl-O-Mat darf vorerst nicht mehr betrieben werden, entschied das Verwaltungsgericht Köln. Kleinere Parteien würden benachteiligt.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Google sperrt Huawei aus: Das bedeutet der Android-Bann für die Nutzer</title>
+        <id>http://heise.de/-4425587</id>
+        <updated>2019-05-20T10:39:00+02:00</updated>
+        <published>2019-05-20T10:39:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Google-sperrt-Huawei-aus-Das-bedeutet-der-Android-Bann-fuer-die-Nutzer-4425587.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Google stellt die Geschäfte mit Huawei ein. Können Besitzer von Huawei-Smartphones ihre Geräte jetzt nicht mehr benutzen? Antworten auf die wichtigsten Fragen. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Google-sperrt-Huawei-aus-Das-bedeutet-der-Android-Bann-fuer-die-Nutzer-4425587.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/1/0/0/4/urn-newsml-dpa-com-20090101-171016-99-475001_large_4_3-883e1a111a23af3f.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Google stellt die Geschäfte mit Huawei ein. Können Besitzer von Huawei-Smartphones ihre Geräte jetzt nicht mehr benutzen? Antworten auf die wichtigsten Fragen. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Google sperrt Android-Updates und den Play Store für Huawei</title>
+        <id>http://heise.de/-4425528</id>
+        <updated>2019-05-20T06:06:00+02:00</updated>
+        <published>2019-05-20T06:06:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Google-sperrt-Android-Updates-und-den-Play-Store-fuer-Huawei-4425528.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Der US-Telekommunikationsnotstand hat Konsequenzen: Huawei-Handys bekommen keine Updates mehr und können nicht mehr auf den Play Store zugreifen.  </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Google-sperrt-Android-Updates-und-den-Play-Store-fuer-Huawei-4425528.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/0/9/4/9/huawei_logo-1874ae1d8739f127.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Der US-Telekommunikationsnotstand hat Konsequenzen: Huawei-Handys bekommen keine Updates mehr und können nicht mehr auf den Play Store zugreifen.  </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Missing Link: Predictive Policing – die Kunst, Verbrechen vorherzusagen</title>
+        <id>http://heise.de/-4425204</id>
+        <updated>2019-05-19T08:05:00+02:00</updated>
+        <published>2019-05-19T08:05:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Missing-Link-Predictive-Policing-die-Kunst-Verbrechen-vorherzusagen-4425204.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">In ersten Untersuchungen wird die Wirksamkeit vorausschauender Polizeiarbeit geprüft. Was bringt Predictive Policing? Und welche Daten werden dafür genutzt?</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Missing-Link-Predictive-Policing-die-Kunst-Verbrechen-vorherzusagen-4425204.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/0/6/3/9/Polizei_Stadt-4562bc51705142da.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>In ersten Untersuchungen wird die Wirksamkeit vorausschauender Polizeiarbeit geprüft. Was bringt Predictive Policing? Und welche Daten werden dafür genutzt?</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">AR-Spiel Minecraft Earth angetestet: Wenn die echte Welt pixelig wird</title>
+        <id>http://heise.de/-4424861</id>
+        <updated>2019-05-17T15:08:00+02:00</updated>
+        <published>2019-05-17T15:08:00+02:00</published>
+        <link href="https://www.heise.de/ct/artikel/AR-Spiel-Minecraft-Earth-angetestet-Wenn-die-echte-Welt-pixelig-wird-4424861.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Das AR-Spiel Minecraft ist deutlich komplexer als Pokémon Go - und wird verwendet, um ein 3D-Modell der echten Welt zu bauen. c&apos;t hat in Redmond probegespielt.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/ct/artikel/AR-Spiel-Minecraft-Earth-angetestet-Wenn-die-echte-Welt-pixelig-wird-4424861.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/0/4/2/4/Minecraft_Earth_Key_Art_Horizonta_kleinl-2d872a32b6130caa.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Das AR-Spiel Minecraft ist deutlich komplexer als Pokémon Go - und wird verwendet, um ein 3D-Modell der echten Welt zu bauen. c't hat in Redmond probegespielt.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Bundesrat: E-Scooter dürfen nicht auf Gehwege und erst ab 14 genutzt werden</title>
+        <id>http://heise.de/-4424380</id>
+        <updated>2019-05-17T12:50:00+02:00</updated>
+        <published>2019-05-17T12:50:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/E-Scooter-Bundesrat-gibt-Elektrorollern-entscheidenden-Schubs-4424380.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Der Bundesrat hat der Verordnung grünes Licht erteilt, laut der demnächst Elektroroller auf öffentlichen Wegen fahren dürfen – allerdings nur auf Radwegen.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/E-Scooter-Bundesrat-gibt-Elektrorollern-entscheidenden-Schubs-4424380.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/0/0/5/8/shutterstock_472527049-0b4b923875b7e856.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Der Bundesrat hat der Verordnung grünes Licht erteilt, laut der demnächst Elektroroller auf öffentlichen Wegen fahren dürfen – allerdings nur auf Radwegen.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">KI-Konferenz AAMAS: Empathische Roboter kooperieren besser</title>
+        <id>http://heise.de/-4424239</id>
+        <updated>2019-05-17T07:49:00+02:00</updated>
+        <published>2019-05-17T07:49:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/KI-Konferenz-AAMAS-Empathische-Roboter-kooperieren-besser-4424239.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Um etwas gemeinsam zu erreichen, müssen Handelnde eine gewisse Empathie mitbringen. Das gilt auch für Roboter. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/KI-Konferenz-AAMAS-Empathische-Roboter-kooperieren-besser-4424239.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/9/9/4/8/Roboter_kooperativ-6e1b2c6c8aba3e77.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Um etwas gemeinsam zu erreichen, müssen Handelnde eine gewisse Empathie mitbringen. Das gilt auch für Roboter. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">US-Bann gegen Huawei: Widerspruch aus Deutschland und Europa</title>
+        <id>http://heise.de/-4424151</id>
+        <updated>2019-05-16T19:28:00+02:00</updated>
+        <published>2019-05-16T19:28:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/US-Bann-gegen-Huawei-Deutschland-bemueht-sich-um-Pragmatismus-4424151.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Nach dem der US-Präsident einen Bann gegen Huawei ausgesprochen hat, bemühen sich deutsche und europäische Vertreter um Mäßigung. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/US-Bann-gegen-Huawei-Deutschland-bemueht-sich-um-Pragmatismus-4424151.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/9/8/6/6/IMG_20180227_180923-ea04d9e27974f326.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Nach dem der US-Präsident einen Bann gegen Huawei ausgesprochen hat, bemühen sich deutsche und europäische Vertreter um Mäßigung. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">DSGVO: Ex-Datenschutzbeauftragte rügen Arbeitsverweigerung der Bundesregierung</title>
+        <id>http://heise.de/-4423875</id>
+        <updated>2019-05-16T15:50:00+02:00</updated>
+        <published>2019-05-16T15:50:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/DSGVO-Ex-Datenschutzbeauftragte-ruegen-Arbeitsverweigerung-der-Bundesregierung-4423875.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Peter Schaar und Alexander Dix räumen in einem Gutachten für die Grünen mit vielen Mythen rund um die DSGVO auf und fordern mehr Schutz vor Profiling.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/DSGVO-Ex-Datenschutzbeauftragte-ruegen-Arbeitsverweigerung-der-Bundesregierung-4423875.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/9/6/6/9/DSGVO-2154e3563a3d5822-b35bb4eb613c263f.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Peter Schaar und Alexander Dix räumen in einem Gutachten für die Grünen mit vielen Mythen rund um die DSGVO auf und fordern mehr Schutz vor Profiling.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">KI-Konferenz AAMAS: Mit Warmherzigkeit und Ironie gelingt der Roboter-Dialog</title>
+        <id>http://heise.de/-4423282</id>
+        <updated>2019-05-16T08:19:00+02:00</updated>
+        <published>2019-05-16T08:19:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/KI-Konferenz-AAMAS-Mit-Warmherzigkeit-und-Ironie-gelingt-der-Roboter-Dialog-4423282.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Zur besseren Kommunikation sollten Roboter menschliche Züge haben. In der Betreuung sollen sie warmherzig sein, aber ein Schuss Ironie darf auch nicht fehlen.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/KI-Konferenz-AAMAS-Mit-Warmherzigkeit-und-Ironie-gelingt-der-Roboter-Dialog-4423282.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/9/1/9/7/Irony_Man_02-05a8e90938984148.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Zur besseren Kommunikation sollten Roboter menschliche Züge haben. In der Betreuung sollen sie warmherzig sein, aber ein Schuss Ironie darf auch nicht fehlen.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Bundesregierung: Polizei soll mit Staatstrojaner Einbrecher jagen können</title>
+        <id>http://heise.de/-4422638</id>
+        <updated>2019-05-15T13:15:00+02:00</updated>
+        <published>2019-05-15T13:15:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Bundesregierung-Polizei-soll-mit-Staatstrojaner-Einbrecher-jagen-koennen-4422638.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Um Einbrüche effektiver aufklären zu können, will das Bundeskabinett die Befugnisse der Ermittler zur Telekommunikationsüberwachung erweitern.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Bundesregierung-Polizei-soll-mit-Staatstrojaner-Einbrecher-jagen-koennen-4422638.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/8/7/4/7/iphone-518101_1920-3c2286297887cb46.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Um Einbrüche effektiver aufklären zu können, will das Bundeskabinett die Befugnisse der Ermittler zur Telekommunikationsüberwachung erweitern.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Mobilitätsexperte über Tesla: &quot;Dümmste und obszönste Variante der E-Mobilität&quot;</title>
+        <id>http://heise.de/-4422502</id>
+        <updated>2019-05-15T12:00:00+02:00</updated>
+        <published>2019-05-15T12:00:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Mobilitaetsexperte-ueber-Tesla-Duemmste-und-obszoenste-Variante-der-E-Mobilitaet-4422502.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Auf E-Mobilität allein zu setzen findet Wolfgang Lohbeck falsch. Und aus Sicherheitsgründen sollten SUV aus Städten verbannt oder gebremst werden.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Mobilitaetsexperte-ueber-Tesla-Duemmste-und-obszoenste-Variante-der-E-Mobilitaet-4422502.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/8/6/3/2/tesla-d8fb03dff5188c89.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Auf E-Mobilität allein zu setzen findet Wolfgang Lohbeck falsch. Und aus Sicherheitsgründen sollten SUV aus Städten verbannt oder gebremst werden.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text"> KI-Konferenz AAMAS: Wie Roboter das Sprechen lernen</title>
+        <id>http://heise.de/-4422251</id>
+        <updated>2019-05-15T08:12:00+02:00</updated>
+        <published>2019-05-15T08:12:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/KI-Konferenz-AAMAS-Wie-Roboter-das-Sprechen-lernen-4422251.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Um mit Robotern kommunizieren zu können, müssen sie sprechen und Sprache verstehen können. Das sollen sie ähnlich wie Kinder erlernen. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/KI-Konferenz-AAMAS-Wie-Roboter-das-Sprechen-lernen-4422251.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/8/4/2/7/urn-newsml-dpa-com-20090101-181127-99-987995_large_4_3-d6e22de242975aab.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Um mit Robotern kommunizieren zu können, müssen sie sprechen und Sprache verstehen können. Das sollen sie ähnlich wie Kinder erlernen. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">ZombieLoad: Neue Sicherheitslücken in Intel-Prozessoren</title>
+        <id>http://heise.de/-4421217</id>
+        <updated>2019-05-14T19:00:00+02:00</updated>
+        <published>2019-05-14T19:00:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Neue-Sicherheitsluecken-in-Intel-Prozessoren-ZombieLoad-4421217.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Bei vielen bisherigen Core-i- und Xeon-Prozessoren kann Malware Daten laufender Prozesse belauschen, wenn sie auf demselben Kern läuft.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Neue-Sicherheitsluecken-in-Intel-Prozessoren-ZombieLoad-4421217.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/7/6/3/3/shutterstock_1196754286-b73433edb508814c.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Bei vielen bisherigen Core-i- und Xeon-Prozessoren kann Malware Daten laufender Prozesse belauschen, wenn sie auf demselben Kern läuft.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Alltag eines E-Sport-Profis: &quot;Wie im Showbusiness&quot;</title>
+        <id>http://heise.de/-4421447</id>
+        <updated>2019-05-14T10:55:00+02:00</updated>
+        <published>2019-05-14T10:55:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Alltag-eines-E-Sport-Profis-Wie-im-Showbusiness-4421447.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Gerrit &quot;Phrenic&quot; Stukemeier ist League-of-Legends-Profi. Mit heise online hat er sich über den Alltag und Berufsaussichten der modernen Athleten unterhalten.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Alltag-eines-E-Sport-Profis-Wie-im-Showbusiness-4421447.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/7/8/2/0/Phrenic_Premier_Finals-e3329c559b641b9e.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Gerrit "Phrenic" Stukemeier ist League-of-Legends-Profi. Mit heise online hat er sich über den Alltag und Berufsaussichten der modernen Athleten unterhalten.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">WhatsApp gehackt, bitte Update einspielen</title>
+        <id>http://heise.de/-4421379</id>
+        <updated>2019-05-14T05:31:00+02:00</updated>
+        <published>2019-05-14T05:31:00+02:00</published>
+        <link href="https://www.heise.de/security/meldung/Whatsapp-gehackt-bitte-Update-einspielen-4421379.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Facebook empfiehlt allen WhatsApp-Nutzern dringend, App und Betriebssystem auf den aktuellen Stand zu bringen. Betroffen sind sowohl Android als auch iOS.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/security/meldung/Whatsapp-gehackt-bitte-Update-einspielen-4421379.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/7/7/5/5/urn-newsml-dpa-com-20090101-170920-99-132335_large_4_3-66301218de7c99dc.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Facebook empfiehlt allen WhatsApp-Nutzern dringend, App und Betriebssystem auf den aktuellen Stand zu bringen. Betroffen sind sowohl Android als auch iOS.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Schwedens Staatsanwaltschaft nimmt Untersuchungen im Fall Assange wieder auf</title>
+        <id>http://heise.de/-4420908</id>
+        <updated>2019-05-13T11:45:00+02:00</updated>
+        <published>2019-05-13T11:45:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Schwedens-Staatsanwaltschaft-nimmt-Untersuchungen-im-Fall-Assange-wieder-auf-4420908.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">2017 wurden die schwedischen Ermittlungen wegen Vergewaltigungsvorwürfen gegen Julian Assange eingestellt. Nun sollen sie doch weitergehen. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Schwedens-Staatsanwaltschaft-nimmt-Untersuchungen-im-Fall-Assange-wieder-auf-4420908.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/7/3/9/3/urn-newsml-dpa-com-20090101-131124-99-01226_large_4_3-e372c9f9d2a97b0c.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>2017 wurden die schwedischen Ermittlungen wegen Vergewaltigungsvorwürfen gegen Julian Assange eingestellt. Nun sollen sie doch weitergehen. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Hackergruppe Fxmsp hat angeblich drei führende Anti-Viren-Hersteller geknackt</title>
+        <id>http://heise.de/-4420199</id>
+        <updated>2019-05-10T18:22:00+02:00</updated>
+        <published>2019-05-10T18:22:00+02:00</published>
+        <link href="https://www.heise.de/security/meldung/Hackergruppe-Fxmsp-hat-angeblich-drei-fuehrende-Anti-Viren-Hersteller-geknackt-4420199.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Die russischen Hacker behaupten, 30 Terabyte Daten erbeutet zu haben. Außerdem haben sie angeblich noch Netzwerkzugriff.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/security/meldung/Hackergruppe-Fxmsp-hat-angeblich-drei-fuehrende-Anti-Viren-Hersteller-geknackt-4420199.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/6/8/8/1/Allmende_Aufmacher-4a4258d68fdad43a.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Die russischen Hacker behaupten, 30 Terabyte Daten erbeutet zu haben. Außerdem haben sie angeblich noch Netzwerkzugriff.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Build 2019: Microsoft putzt Windows für Entwickler raus</title>
+        <id>http://heise.de/-4419243</id>
+        <updated>2019-05-10T17:28:00+02:00</updated>
+        <published>2019-05-10T17:28:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Build-2019-Wohin-des-Weges-Microsoft-4419243.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Microsofts Entwicklerkonferenz 2019 ist vorbei. Nicht nur die Ankündigungen zeigen den neuen Kurs. Spannender ist, was nicht erzählt wurde – eine Einordnung.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Build-2019-Wohin-des-Weges-Microsoft-4419243.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/6/1/1/9/Screenshot__139_-d5721ed56c556e5f.png" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Microsofts Entwicklerkonferenz 2019 ist vorbei. Nicht nur die Ankündigungen zeigen den neuen Kurs. Spannender ist, was nicht erzählt wurde – eine Einordnung.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">VPN-Software WireGuard jetzt als Pre-Alpha-Version für Windows verfügbar</title>
+        <id>http://heise.de/-4419936</id>
+        <updated>2019-05-10T15:22:00+02:00</updated>
+        <published>2019-05-10T15:22:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/VPN-Software-WireGuard-jetzt-als-Pre-Alpha-Version-fuer-Windows-verfuegbar-4419936.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">WireGuard gibt es jetzt auch für Windows: Eine erste, wenn auch noch unfertige Version steht zum Download bereit. Unser erster Test lief vielversprechend.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/VPN-Software-WireGuard-jetzt-als-Pre-Alpha-Version-fuer-Windows-verfuegbar-4419936.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/6/6/6/6/Wireguard-Windows-Aktiver-T-70fd4f5b1739ca69.png" class="webfeedsFeaturedVisual" alt="" /></a></p><p>WireGuard gibt es jetzt auch für Windows: Eine erste, wenn auch noch unfertige Version steht zum Download bereit. Unser erster Test lief vielversprechend.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Fake-Bewerbungsmails: Trojaner versteckt sich erfolgreich vor Antiviren-Software</title>
+        <id>http://heise.de/-4419591</id>
+        <updated>2019-05-10T09:58:00+02:00</updated>
+        <published>2019-05-10T09:58:00+02:00</published>
+        <link href="https://www.heise.de/security/meldung/Fake-Bewerbungsmails-Trojaner-versteckt-sich-erfolgreich-vor-Antiviren-Software-4419591.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Derzeit rollt eine neue Welle von Fake-Bewerbungen durch das Internet. Ziel ist es, den Erpressungstrojaner Gandcrab auf Computer zu bringen. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/security/meldung/Fake-Bewerbungsmails-Trojaner-versteckt-sich-erfolgreich-vor-Antiviren-Software-4419591.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/6/3/9/4/gandcrab-94b341214be78b7e.png" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Derzeit rollt eine neue Welle von Fake-Bewerbungen durch das Internet. Ziel ist es, den Erpressungstrojaner Gandcrab auf Computer zu bringen. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Blue Moon: Jeff Bezos präsentiert Mondlandefähre für Lastentransporte</title>
+        <id>http://heise.de/-4419572</id>
+        <updated>2019-05-10T09:46:00+02:00</updated>
+        <published>2019-05-10T09:46:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Blue-Moon-Jeff-Bezos-praesentiert-Mondlandefaehre-fuer-Lastentransporte-4419572.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Jeff Bezos hält die Erschließung des Sonnensystems für unumgänglich. Mit einer Landefähre soll sein Unternehmen Blue Origin bei der Besiedlung des Monds helfen.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Blue-Moon-Jeff-Bezos-praesentiert-Mondlandefaehre-fuer-Lastentransporte-4419572.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/6/3/8/1/blueorigin-bluemoon-lander-reveal-d8d58875eb69b94c.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Jeff Bezos hält die Erschließung des Sonnensystems für unumgänglich. Mit einer Landefähre soll sein Unternehmen Blue Origin bei der Besiedlung des Monds helfen.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Googles Betriebssystem Fuchsia wird kein Android-Ersatz</title>
+        <id>http://heise.de/-4419509</id>
+        <updated>2019-05-10T09:36:00+02:00</updated>
+        <published>2019-05-10T09:36:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Googles-Betriebssystem-Fuchsia-wird-kein-Android-Ersatz-4419509.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Der Hype um Googles Betriebssystem Fuchsia hat auf der I/O einen Dämpfer bekommen: Es soll weder Android noch ChromeOS ersetzen. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Googles-Betriebssystem-Fuchsia-wird-kein-Android-Ersatz-4419509.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/6/3/3/5/Google_IO_Spielplatz_Bausteine_2019-a2fb64031e7a458e.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Der Hype um Googles Betriebssystem Fuchsia hat auf der I/O einen Dämpfer bekommen: Es soll weder Android noch ChromeOS ersetzen. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Ressourcenbedarf: Musik-Streaming ist schlecht fürs Klima</title>
+        <id>http://heise.de/-4404089</id>
+        <updated>2019-05-10T07:44:00+02:00</updated>
+        <published>2019-05-10T07:44:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Forscher-Streaming-schlecht-fuers-Klima-4404089.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Schottische und norwegische Forscher haben untersucht, welche Form des Musikvertriebs die Erde stärker erwärmen könnte.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Forscher-Streaming-schlecht-fuers-Klima-4404089.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/6/5/4/2/1/urn-newsml-dpa-com-20090101-190416-99-847102_large_4_3-7794d204afa6a2ea.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Schottische und norwegische Forscher haben untersucht, welche Form des Musikvertriebs die Erde stärker erwärmen könnte.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">bloxberg: Neues Blockchain-Forschungsprojekt für Wissenschaftler</title>
+        <id>http://heise.de/-4418797</id>
+        <updated>2019-05-09T15:52:00+02:00</updated>
+        <published>2019-05-09T15:52:00+02:00</published>
+        <link href="https://www.heise.de/ix/meldung/bloxberg-Neues-Blockchain-Forschungsprojekt-fuer-Wissenschaftler-4418797.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Unter Federführung der Max Planck Digital Library arbeiten bedeutende Forschungseinrichtungen an einer Blockchain für den Wissenschaftsbetrieb.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/ix/meldung/bloxberg-Neues-Blockchain-Forschungsprojekt-fuer-Wissenschaftler-4418797.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/5/8/2/9/bloxberg-762f6b1e4d1074d7.png" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Unter Federführung der Max Planck Digital Library arbeiten bedeutende Forschungseinrichtungen an einer Blockchain für den Wissenschaftsbetrieb.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Intel plant 7-nm-Chips ab 2021</title>
+        <id>http://heise.de/-4418708</id>
+        <updated>2019-05-09T14:51:00+02:00</updated>
+        <published>2019-05-09T14:51:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Intel-plant-7-nm-Chips-ab-2021-4418708.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Intel verspricht für 2021 den Xe-Rechenbeschleuniger mit 7-nm-Strukturen und für 2020 optimierte 10-nm-Prozessoren.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Intel-plant-7-nm-Chips-ab-2021-4418708.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/5/7/7/1/Intel-2019-7nm-a27c079ace515128.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Intel verspricht für 2021 den Xe-Rechenbeschleuniger mit 7-nm-Strukturen und für 2020 optimierte 10-nm-Prozessoren.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Weltraumsimulation Star Citizen: Traum und Wirklichkeit</title>
+        <id>http://heise.de/-4418035</id>
+        <updated>2019-05-09T11:00:00+02:00</updated>
+        <published>2019-05-09T11:00:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Weltraumsimulation-Star-Citizen-Traum-und-Wirklichkeit-4418035.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Dem größten Crowd-Funding-Projekt der Geschichte wird Misswirtschaft, Nepotismus und Verschwendung vorgeworfen. Was ist dran an der Kritik? Eine Analyse.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Weltraumsimulation-Star-Citizen-Traum-und-Wirklichkeit-4418035.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/5/3/0/5/sc-gamescom-2016-0b0610842494f5cc.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Dem größten Crowd-Funding-Projekt der Geschichte wird Misswirtschaft, Nepotismus und Verschwendung vorgeworfen. Was ist dran an der Kritik? Eine Analyse.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Ausprobiert: Android Automotive im Elektroauto Polestar 2</title>
+        <id>http://heise.de/-4418107</id>
+        <updated>2019-05-09T08:29:00+02:00</updated>
+        <published>2019-05-09T08:29:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Ausprobiert-Android-Automotive-im-Elektroauto-Polestar-2-4418107.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Der Polestar 2 gehört zu den spannendsten E-Autos und nutzt als erstes Serienfahrzeug Android Automotive. Wir haben einen Blick darauf geworfen. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Ausprobiert-Android-Automotive-im-Elektroauto-Polestar-2-4418107.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/5/3/6/3/IMG_20190508_120150-01-338539888a3f09a9.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Der Polestar 2 gehört zu den spannendsten E-Autos und nutzt als erstes Serienfahrzeug Android Automotive. Wir haben einen Blick darauf geworfen. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">re:publica: Hybride Kriegführung in Sozialen Medien</title>
+        <id>http://heise.de/-4417382</id>
+        <updated>2019-05-08T12:38:00+02:00</updated>
+        <published>2019-05-08T12:38:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/re-publica-Hybride-Kriegfuehrung-in-Sozialen-Medien-4417382.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Was früher Radiosender wie RIAS Berlin und Radio Free Europe für den Osten waren, ist heute das Geschäft von Medien wie Ruptly und Redfisch für den Westen.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/re-publica-Hybride-Kriegfuehrung-in-Sozialen-Medien-4417382.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/4/8/2/1/Hybride_Kriegfuehrung-8c7cb86c595fb0b9.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Was früher Radiosender wie RIAS Berlin und Radio Free Europe für den Osten waren, ist heute das Geschäft von Medien wie Ruptly und Redfisch für den Westen.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Google Assistant: Digitaler Assistent, the Next Generation</title>
+        <id>http://heise.de/-4417057</id>
+        <updated>2019-05-08T11:12:00+02:00</updated>
+        <published>2019-05-08T11:12:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Google-Assistant-Digitaler-Assistent-the-Next-Generation-4417057.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Flotter, noch persönlicher, und dabei datenschutzfreundlicher, da auch lokaler – so preist Google die nächste Generation seines Assistenten an. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Google-Assistant-Digitaler-Assistent-the-Next-Generation-4417057.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/4/5/8/0/urn-newsml-dpa-com-20090101-190225-99-128435_large_4_3-423957bb4c63e6bf.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Flotter, noch persönlicher, und dabei datenschutzfreundlicher, da auch lokaler – so preist Google die nächste Generation seines Assistenten an. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Googles große Datenschutz-Initiative</title>
+        <id>http://heise.de/-4417127</id>
+        <updated>2019-05-08T10:39:00+02:00</updated>
+        <published>2019-05-08T10:39:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Googles-grosse-Datenschutz-Initiative-4417127.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Google verzichtet bald auf erhebliche Datenmengen. So möchte sich der Datenkonzern noch stärker vom Mitbewerb abheben und wohl auch Kosten senken. </summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Googles-grosse-Datenschutz-Initiative-4417127.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/4/6/4/3/Pichai_Google_IO_2019-98257615dca58e5a.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Google verzichtet bald auf erhebliche Datenmengen. So möchte sich der Datenkonzern noch stärker vom Mitbewerb abheben und wohl auch Kosten senken. </p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">re:publica zum DSGVO-Armageddon: Wenn Kirchen nicht mehr live streamen dürfen</title>
+        <id>http://heise.de/-4417069</id>
+        <updated>2019-05-08T08:46:00+02:00</updated>
+        <published>2019-05-08T08:46:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/re-publica-zum-DSGVO-Armageddon-Wenn-Kirchen-nicht-mehr-live-streamen-duerfen-4417069.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Die Reiter der Apokalypse der Datenschutz-Grundverordnung bis hin zum Internet-Crash sind zwar ausgeblieben, das Absurditäten-Kabinett ist aber gut gefüllt.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/re-publica-zum-DSGVO-Armageddon-Wenn-Kirchen-nicht-mehr-live-streamen-duerfen-4417069.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/4/5/9/2/shutterstock_637827229-8afdd6e60ab0dc9c.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Die Reiter der Apokalypse der Datenschutz-Grundverordnung bis hin zum Internet-Crash sind zwar ausgeblieben, das Absurditäten-Kabinett ist aber gut gefüllt.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">re:publica: Steve Jobs und &quot;Don&apos;t be evil&quot; – Das Silicon Valley als Religion</title>
+        <id>http://heise.de/-4416769</id>
+        <updated>2019-05-07T17:10:00+02:00</updated>
+        <published>2019-05-07T17:10:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/re-publica-Steve-Jobs-und-Don-t-be-evil-Das-Silicon-Valley-als-Religion-4416769.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Von der Mensch-Maschine bis zur Erschaffung eines neuen Gottes – der Soziologe Oliver Nachtwey sieht die Ideologie des Silicon Valley als Religion.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/re-publica-Steve-Jobs-und-Don-t-be-evil-Das-Silicon-Valley-als-Religion-4416769.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/4/3/5/4/shutterstock_86494345-21badb650ac370de.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Von der Mensch-Maschine bis zur Erschaffung eines neuen Gottes – der Soziologe Oliver Nachtwey sieht die Ideologie des Silicon Valley als Religion.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Mit AMD-Technik: Cray baut 1,5-Exaflops-Superrechner für Oak Ridge</title>
+        <id>http://heise.de/-4415699</id>
+        <updated>2019-05-07T13:05:00+02:00</updated>
+        <published>2019-05-07T13:05:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Mit-AMD-Technik-Cray-baut-1-5-Exaflops-Superrechner-fuer-Oak-Ridge-4415699.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Ziel Top500-Spitze: Der 1,5-EFlops-Bolide &quot;Frontier&quot; startet 2021 mit AMD Epyc, Radeon Instinct und Infinity Fabric am US-Nationallabor Oak Ridge.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Mit-AMD-Technik-Cray-baut-1-5-Exaflops-Superrechner-fuer-Oak-Ridge-4415699.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/3/7/3/7/AMD-Epyc-IF-Radeon-2acb491251a6a117.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Ziel Top500-Spitze: Der 1,5-EFlops-Bolide "Frontier" startet 2021 mit AMD Epyc, Radeon Instinct und Infinity Fabric am US-Nationallabor Oak Ridge.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">re:publica: Sascha Lobos Realitätsschock – &quot;Ihr seid nicht wütend genug!&quot;</title>
+        <id>http://heise.de/-4415676</id>
+        <updated>2019-05-07T10:59:00+02:00</updated>
+        <published>2019-05-07T10:59:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/re-publica-Sascha-Lobos-Realitaetsschock-Ihr-seid-nicht-wuetend-genug-4415676.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Die Welt ist aus den Fugen – doch in der Filterblase Europa wird es nicht bemerkt, meint Sascha Lobo. Wir seien nicht im 21. Jahrhundert angekommen.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/re-publica-Sascha-Lobos-Realitaetsschock-Ihr-seid-nicht-wuetend-genug-4415676.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/3/7/1/6/47791183081_f868c3d6fa_k-218238051046aa3d.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Die Welt ist aus den Fugen – doch in der Filterblase Europa wird es nicht bemerkt, meint Sascha Lobo. Wir seien nicht im 21. Jahrhundert angekommen.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Symantec: NSA verlor Hacking-Werkzeuge nicht nur an Shadow Brokers</title>
+        <id>http://heise.de/-4415406</id>
+        <updated>2019-05-07T10:16:00+02:00</updated>
+        <published>2019-05-07T10:16:00+02:00</published>
+        <link href="https://www.heise.de/security/meldung/Symantec-China-schon-vor-den-Shadow-Brokers-im-Besitz-von-Hacking-Tools-der-NSA-4415406.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Mutmaßlich chinesische Hacker haben schon vor den Shadow Brokers NSA-Werkzeuge eingesetzt. Das zeigt die Gefahren der Hackingprivilegien für Geheimdienste.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/security/meldung/Symantec-China-schon-vor-den-Shadow-Brokers-im-Besitz-von-Hacking-Tools-der-NSA-4415406.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/3/5/5/1/china-1184107-ec4f940d23bcdd4e.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Mutmaßlich chinesische Hacker haben schon vor den Shadow Brokers NSA-Werkzeuge eingesetzt. Das zeigt die Gefahren der Hackingprivilegien für Geheimdienste.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Entwicklerkonferenz Microsoft Build: Viel Azure-Cloud, wenig Windows</title>
+        <id>http://heise.de/-4413876</id>
+        <updated>2019-05-06T17:32:00+02:00</updated>
+        <published>2019-05-06T17:32:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Entwicklerkonferenz-Microsoft-Build-Viel-Azure-wenig-Windows-4413876.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Microsofts Entwicklerkonferenz hat begonnen und macht deutlich, was dem Unternehmen wichtig ist: Azure und Microsoft 365. Zu Apps und Store schweigt man.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Entwicklerkonferenz-Microsoft-Build-Viel-Azure-wenig-Windows-4413876.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/2/5/9/3/satya-97822c403a22d52f.png" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Microsofts Entwicklerkonferenz hat begonnen und macht deutlich, was dem Unternehmen wichtig ist: Azure und Microsoft 365. Zu Apps und Store schweigt man.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Build 2019: Microsoft führt Mono und .NET Core zusammen zu .NET 5.0</title>
+        <id>http://heise.de/-4414166</id>
+        <updated>2019-05-06T17:30:00+02:00</updated>
+        <published>2019-05-06T17:30:00+02:00</published>
+        <link href="https://www.heise.de/developer/meldung/Build-2019-Microsoft-fuehrt-Mono-und-NET-Core-zusammen-zu-NET-5-0-4414166.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Im November 2020 soll ein neues Produkt unter dem Namen &quot;.NET 5.0&quot; erscheinen, das die Produktlinien .NET Framework, .NET Core und Mono zusammenführt.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/developer/meldung/Build-2019-Microsoft-fuehrt-Mono-und-NET-Core-zusammen-zu-NET-5-0-4414166.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/2/7/9/8/jd-00c5e0012d541fb5.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Im November 2020 soll ein neues Produkt unter dem Namen ".NET 5.0" erscheinen, das die Produktlinien .NET Framework, .NET Core und Mono zusammenführt.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">re:publica 19: Bundespräsident fordert mehr Zivilität und Vernunft im Internet</title>
+        <id>http://heise.de/-4414016</id>
+        <updated>2019-05-06T13:25:00+02:00</updated>
+        <published>2019-05-06T13:25:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/re-publica-19-Bundespraesident-fordert-mehr-Zivilitaet-und-Vernunft-im-Internet-4414016.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">&quot;Überlassen wir die politischen Räume im Netz nicht den politischen Scheinriesen&quot;, warb Frank-Walter Steinmeier für eine &quot;Demokratisierung des Digitalen&quot;.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/re-publica-19-Bundespraesident-fordert-mehr-Zivilitaet-und-Vernunft-im-Internet-4414016.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/2/6/8/7/DSC_2367-5c2d8595a0a8873c.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>"Überlassen wir die politischen Räume im Netz nicht den politischen Scheinriesen", warb Frank-Walter Steinmeier für eine "Demokratisierung des Digitalen".</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">UN-Bericht: Menschheit tilgt die Natur von der Erde</title>
+        <id>http://heise.de/-4413892</id>
+        <updated>2019-05-06T12:29:00+02:00</updated>
+        <published>2019-05-06T12:29:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/UN-Bericht-Menschheit-tilgt-die-Natur-von-der-Erde-4413892.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Es gibt inzwischen überwältigende Beweise, die ein unheilvolles Bild zeichneten, warnt der Weltbiodiversitätsrat.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/UN-Bericht-Menschheit-tilgt-die-Natur-von-der-Erde-4413892.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/2/6/0/7/mohamed-ahzam-1354979-unsplash-6a84473c9657e3df.png" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Es gibt inzwischen überwältigende Beweise, die ein unheilvolles Bild zeichneten, warnt der Weltbiodiversitätsrat.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Firefox und abgeschaltete Add-ons: Neue Version behebt Zertifikats-Problem</title>
+        <id>http://heise.de/-4413574</id>
+        <updated>2019-05-06T08:28:00+02:00</updated>
+        <published>2019-05-06T08:28:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Firefox-und-abgeschaltete-Add-ons-Neue-Version-behebt-Zertifikats-Problem-4413574.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Eine neue Firefox-Version beseitigt ein Problem mit einem abgelaufenen Zertifikat, das Add-ons deaktiviert und bei Benutzern weltweit für Frust gesorgt hatte.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Firefox-und-abgeschaltete-Add-ons-Neue-Version-behebt-Zertifikats-Problem-4413574.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/2/3/7/3/urn-newsml-dpa-com-20090101-161102-99-26078_large_4_3-02e0d4df2862061e.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Eine neue Firefox-Version beseitigt ein Problem mit einem abgelaufenen Zertifikat, das Add-ons deaktiviert und bei Benutzern weltweit für Frust gesorgt hatte.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Missing Link: Beobachter und Nerd – zum 500. Todestag von Leonardo da Vinci</title>
+        <id>http://heise.de/-4413238</id>
+        <updated>2019-05-05T08:10:00+02:00</updated>
+        <published>2019-05-05T08:10:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Missing-Link-Beobachter-und-Nerd-zum-500-Todestag-von-Leonardo-da-Vinci-4413238.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Leonardo da Vinci starb vor 500 Jahren. Er galt als Genie und Universalgelehrter und perfektionierte die Kunst, aus Beobachtungen zu lernen.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Missing-Link-Beobachter-und-Nerd-zum-500-Todestag-von-Leonardo-da-Vinci-4413238.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/2/0/7/7/Leonardo_da_Vinci_-_presumed_self-portrait_-_WGA12798-6129cd7925389e1c.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Leonardo da Vinci starb vor 500 Jahren. Er galt als Genie und Universalgelehrter und perfektionierte die Kunst, aus Beobachtungen zu lernen.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Das neue Super Plus: Ladestrom für E-Autos teurer als Dieselkraftstoff</title>
+        <id>http://heise.de/-4411434</id>
+        <updated>2019-05-03T07:24:00+02:00</updated>
+        <published>2019-05-03T07:24:00+02:00</published>
+        <link href="https://www.heise.de/autos/artikel/Das-neue-Super-Plus-Ladestrom-teurer-als-Dieselkraftstoff-4411434.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Gleichstrom an öffentlichen Ladesäulen ist heute so teuer, dass die Kilometerkosten von E-Mobilen mit denen herkömmlicher Autos gleichziehen. Was passiert da?</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/autos/artikel/Das-neue-Super-Plus-Ladestrom-teurer-als-Dieselkraftstoff-4411434.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/1/2/5/7/KWH02-421e8b5677aa28c3.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Gleichstrom an öffentlichen Ladesäulen ist heute so teuer, dass die Kilometerkosten von E-Mobilen mit denen herkömmlicher Autos gleichziehen. Was passiert da?</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Pharmakonzern Charles River Laboratories von Hackern angegriffen</title>
+        <id>http://heise.de/-4411956</id>
+        <updated>2019-05-02T15:12:00+02:00</updated>
+        <published>2019-05-02T15:12:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Pharmakonzern-Charles-River-Laboratories-von-Hackern-angegriffen-4411956.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Die Hacker sollen Kundendaten erbeutet haben. Charles-River-Produkte sind auch hierzulande in vielen Labors und Kliniken im Einsatz.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Pharmakonzern-Charles-River-Laboratories-von-Hackern-angegriffen-4411956.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/1/1/5/5/CR-000142-1c343a3f33085cda.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Die Hacker sollen Kundendaten erbeutet haben. Charles-River-Produkte sind auch hierzulande in vielen Labors und Kliniken im Einsatz.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Neue gute Kandidaten für Gravitationswellen entdeckt</title>
+        <id>http://heise.de/-4411870</id>
+        <updated>2019-05-02T14:26:00+02:00</updated>
+        <published>2019-05-02T14:26:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Neue-gute-Kandidaten-fuer-Gravitationswellen-entdeckt-4411870.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Einer der neuen Kandidaten könnte ein erstmals detektierter Zusammenstoß eines Neutronensterns mit einem Schwarzen Loch sein.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Neue-gute-Kandidaten-fuer-Gravitationswellen-entdeckt-4411870.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/1/0/9/3/7185b06dcf058d86c18bda31589d41cba2aabc0a_3144957___800_600_85-4133d514f1c122f3.png" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Einer der neuen Kandidaten könnte ein erstmals detektierter Zusammenstoß eines Neutronensterns mit einem Schwarzen Loch sein.</p>]]></content>
+    </entry>
+    <entry>
+        <title type="text">Wikileaks-Gründer Julian Assange zu 50 Wochen Gefängnis verurteilt</title>
+        <id>http://heise.de/-4411174</id>
+        <updated>2019-05-01T13:45:00+02:00</updated>
+        <published>2019-05-01T13:45:00+02:00</published>
+        <link href="https://www.heise.de/newsticker/meldung/Wikileaks-Gruender-Julian-Assange-zu-50-Wochen-Gefaengnis-verurteilt-4411174.html?wt_mc=rss.ho.top-news.atom"/>
+        <summary type="html">Der Verstoß gegen Kautionsauflagen bringt Julian Assange ins Gefängnis. Über das Auslieferungsersuchen der USA wird noch entschieden.</summary>
+        <content type="html"><![CDATA[<p><a href="https://www.heise.de/newsticker/meldung/Wikileaks-Gruender-Julian-Assange-zu-50-Wochen-Gefaengnis-verurteilt-4411174.html"><img src="https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/7/0/6/0/2/JULIAN_ASSANGE-34fb2eaf2657f3d3.jpeg" class="webfeedsFeaturedVisual" alt="" /></a></p><p>Der Verstoß gegen Kautionsauflagen bringt Julian Assange ins Gefängnis. Über das Auslieferungsersuchen der USA wird noch entschieden.</p>]]></content>
+    </entry>
+</feed>
