@@ -9,5 +9,6 @@ data class Feed (
         var updated: Instant = Instant.MIN,
         var linkSelf: String = "",
         var linkAlternate: String = "",
-        val entries: MutableList<Entry> = mutableListOf()
+        val entries: MutableList<Entry> = mutableListOf(),
+        val source: FeedSource = FeedSource.Atom
 )

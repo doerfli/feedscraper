@@ -1,4 +1,4 @@
-package li.doerf.feeder.scraper.atom
+package li.doerf.feeder.scraper.rss
 
 import li.doerf.feeder.scraper.dto.Entry
 import li.doerf.feeder.scraper.dto.Feed
@@ -7,11 +7,11 @@ import li.doerf.feeder.scraper.util.getLogger
 import org.xml.sax.Attributes
 import org.xml.sax.helpers.DefaultHandler
 import java.io.InputStream
+import java.text.SimpleDateFormat
 import java.time.Instant
 import javax.xml.parsers.SAXParserFactory
 
-
-class AtomFeedParser : DefaultHandler() {
+class RssFeedParser : DefaultHandler() {
 
     companion object {
         @Suppress("JAVA_CLASS_ON_COMPANION")
@@ -19,16 +19,15 @@ class AtomFeedParser : DefaultHandler() {
     }
 
     private lateinit var feed: Feed
-    private var isParsingEntry = false
+    private var isItemParsing = false
+    private var isImageParsing = false
 
     private lateinit var id: String
     private lateinit var title: String
+    private lateinit var description: String
     private lateinit var content: String
-    private lateinit var summary: String
     private lateinit var link: String
-    private lateinit var updated: Instant
     private lateinit var published: Instant
-    private var rel: String? = null
 
     private var parsedString = StringBuffer()
 
@@ -38,9 +37,9 @@ class AtomFeedParser : DefaultHandler() {
         }
         val factory = SAXParserFactory.newInstance()
         val parser = factory.newSAXParser()
-        log.debug("starting to parse atom feed")
+        log.debug("starting to parse rss feed")
         parser.parse(input, this)
-        log.debug("finished parsing atom feed")
+        log.debug("finished to parse rss feed")
         return feed
     }
 
@@ -48,22 +47,18 @@ class AtomFeedParser : DefaultHandler() {
         if(log.isTraceEnabled) log.trace("startElement: $qName")
         parsedString = StringBuffer()
         when(qName) {
-            "feed" -> feed = Feed(source = FeedSource.Atom)
-            "entry" -> {
-                isParsingEntry = true
+            "channel" -> feed = Feed(source = FeedSource.RSS)
+            "item" -> {
+                isItemParsing = true
                 id = ""
                 title = ""
+                description = ""
                 content = ""
-                summary = ""
                 link = ""
-                updated = Instant.MIN
                 published = Instant.MIN
             }
-            "link" -> {
-                if(attributes != null) {
-                    parsedString.append(attributes.getValue("href"))
-                    rel = attributes.getValue("rel")
-                }
+            "image" -> {
+                isImageParsing = true
             }
         }
     }
@@ -71,49 +66,44 @@ class AtomFeedParser : DefaultHandler() {
     override fun endElement(uri: String?, localName: String?, qName: String?) {
         if(log.isTraceEnabled) log.trace("endElement: $qName")
         when(qName) {
-            "entry" -> {
-                feed.entries.add(Entry(id, title, link, summary, content, published, updated))
-                isParsingEntry = false
+            "item" -> {
+                isItemParsing = false
+                feed.entries.add(Entry(id, title, link, description, content, published, published))
+            }
+            "image" -> {
+                isImageParsing = false
             }
             "title" -> {
-                if (! isParsingEntry) {
+                if (!isItemParsing && !isImageParsing) {
                     feed.title = getParsedString()
                 } else {
                     title = getParsedString()
                 }
             }
-            "subtitle" -> {
-                if (!isParsingEntry) {
-                    feed.subtitle = getParsedString()
-                }
-            }
-            "id" -> {
-                if (!isParsingEntry) {
-                    feed.id = getParsedString()
-                } else {
-                    id = getParsedString()
-                }
-            }
-            "updated" -> {
-                if (!isParsingEntry) {
-                    feed.updated = Instant.parse(getParsedString())
-                } else {
-                    updated = Instant.parse(getParsedString())
-                }
-            }
-            "published" -> published = Instant.parse(getParsedString())
             "link" -> {
-                if (! isParsingEntry ) {
-                    when(rel) {
-                        "self" -> feed.linkSelf = getParsedString()
-                        "alternate" -> feed.linkAlternate = getParsedString()
-                    }
+                if (!isItemParsing) {
+                    feed.linkAlternate = getParsedString()
                 } else {
                     link = getParsedString()
                 }
             }
-            "summary" -> summary = getParsedString()
-            "content" -> content = getParsedString()
+            "pubDate" ->  {
+                val dateParser = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss X")
+                if (!isItemParsing) {
+                    feed.updated = dateParser.parse(getParsedString()).toInstant()
+                } else {
+                    published = dateParser.parse(getParsedString()).toInstant()
+                }
+            }
+            "description" -> {
+                description = getParsedString()
+            }
+            "guid" -> {
+                id = getParsedString()
+            }
+            "encoded" -> {
+                content = getParsedString()
+            }
         }
     }
 
@@ -126,5 +116,4 @@ class AtomFeedParser : DefaultHandler() {
         val t = ch.sliceArray(IntRange(start, start + length - 1)) // IntRange end is inclusive
         parsedString.append(t)
     }
-
 }
