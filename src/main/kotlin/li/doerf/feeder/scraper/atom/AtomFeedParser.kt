@@ -1,24 +1,21 @@
 package li.doerf.feeder.scraper.atom
 
+import li.doerf.feeder.scraper.FeedParserBase
 import li.doerf.feeder.scraper.dto.Entry
 import li.doerf.feeder.scraper.dto.Feed
 import li.doerf.feeder.scraper.dto.FeedSource
 import li.doerf.feeder.scraper.util.getLogger
 import org.xml.sax.Attributes
-import org.xml.sax.helpers.DefaultHandler
-import java.io.InputStream
 import java.time.Instant
-import javax.xml.parsers.SAXParserFactory
 
 
-class AtomFeedParser : DefaultHandler() {
+class AtomFeedParser : FeedParserBase() {
 
     companion object {
         @Suppress("JAVA_CLASS_ON_COMPANION")
         private val log = getLogger(javaClass)
     }
 
-    private lateinit var feed: Feed
     private var isParsingEntry = false
 
     private lateinit var id: String
@@ -30,25 +27,14 @@ class AtomFeedParser : DefaultHandler() {
     private lateinit var published: Instant
     private var rel: String? = null
 
-    private var parsedString = StringBuffer()
-
-    fun parse(input: InputStream): Feed {
-        if (::feed.isInitialized) {
-            throw IllegalStateException("parse may only be called once")
-        }
-        val factory = SAXParserFactory.newInstance()
-        val parser = factory.newSAXParser()
-        log.debug("starting to parse atom feed")
-        parser.parse(input, this)
-        log.debug("finished parsing atom feed")
-        return feed
-    }
-
     override fun startElement(uri: String?, localName: String?, qName: String?, attributes: Attributes?) {
         if(log.isTraceEnabled) log.trace("startElement: $qName")
         parsedString = StringBuffer()
         when(qName) {
-            "feed" -> feed = Feed(source = FeedSource.Atom)
+            "feed" -> {
+                log.debug("creating new atom feed object")
+                feed = Feed(source = FeedSource.Atom)
+            }
             "entry" -> {
                 isParsingEntry = true
                 id = ""
@@ -115,16 +101,6 @@ class AtomFeedParser : DefaultHandler() {
             "summary" -> summary = getParsedString()
             "content" -> content = getParsedString()
         }
-    }
-
-    private fun getParsedString() = parsedString.toString().trim()
-
-    override fun characters(ch: CharArray?, start: Int, length: Int) {
-        if (ch == null) {
-            return
-        }
-        val t = ch.sliceArray(IntRange(start, start + length - 1)) // IntRange end is inclusive
-        parsedString.append(t)
     }
 
 }
