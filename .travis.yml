@@ -16,6 +16,7 @@ matrix:
 #      before_install:
 #        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #      script:
-#        - ./scripts/build-docker-image-api.sh
+#        - docker build -t doerfli/scraper:latest .
+#        - docker push doerfli/scraper:latest
 #      env:
-#        - BUILD_NAME=docker_api
+#        - BUILD_NAME=docker_scraper
