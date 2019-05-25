@@ -21,7 +21,7 @@ class FeedParserStep @Autowired constructor(
         private val log = getLogger(javaClass)
         private val atomStartRegex = Regex("\\<feed\\s.*[^>]>")
         private val atomEndRegex = Regex("\\<\\/feed>")
-        private val rssStartRegex = Regex("\\<rss\\sversion=\\\"\\d\\.\\d\\\">")
+        private val rssStartRegex = Regex("\\<rss\\s.*[^>]>")
         private val rssEndRegex = Regex("\\<\\/rss>")
     }
 

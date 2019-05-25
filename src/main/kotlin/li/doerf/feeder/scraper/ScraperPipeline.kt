@@ -40,7 +40,7 @@ class ScraperPipeline @Autowired constructor(
             val parserChannel = Channel<Pair<String, String>>()
             val persisterChannel = Channel<Pair<String, FeedDto>>()
             repeat(2) { launchFeedUrlDownloader(it, feedUrlProducer, parserChannel) }
-            repeat(2) { launchFeedParser(it, parserChannel) }
+            repeat(2) { launchFeedParser(it, parserChannel, persisterChannel) }
             launchFeedPersister(0, persisterChannel)
         }
     }
@@ -65,12 +65,12 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
-    fun CoroutineScope.launchFeedParser(id: Int, channel: ReceiveChannel<Pair<String,String>>) = launch {
+    fun CoroutineScope.launchFeedParser(id: Int, channel: ReceiveChannel<Pair<String,String>>, persisterChannel: Channel<Pair<String, FeedDto>>) = launch {
         log.info("starting feed parser #$id")
         for ((uri, feedAsString) in channel) {
             log.debug("FeedDto Parser #$id received content for $uri")
             val feed = feedParserStep.parse(uri, feedAsString)
-//            send(Pair(uri, feed))
+            persisterChannel.send(Pair(uri, feed))
         }
     }
 
