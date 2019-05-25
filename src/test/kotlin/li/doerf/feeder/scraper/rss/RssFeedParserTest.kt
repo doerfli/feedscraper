@@ -3,7 +3,7 @@ package li.doerf.feeder.scraper.rss
 import li.doerf.feeder.scraper.dto.FeedSource
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.text.SimpleDateFormat
 
 class RssFeedParserTest {

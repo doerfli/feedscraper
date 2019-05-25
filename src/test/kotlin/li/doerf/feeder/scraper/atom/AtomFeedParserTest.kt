@@ -3,7 +3,7 @@ package li.doerf.feeder.scraper.atom
 import li.doerf.feeder.scraper.dto.FeedSource
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.time.Instant
 
 class AtomFeedParserTest {
