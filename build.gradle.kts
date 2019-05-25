@@ -38,6 +38,7 @@ dependencies {
         exclude("junit", "junit")
     }
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
+    testImplementation("org.mockito:mockito-junit-jupiter:2.23.4")
 }
 
 tasks.withType<KotlinCompile> {
