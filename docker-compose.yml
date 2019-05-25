@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    image: postgres:11.3-alpine
+    restart: always
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  web:
+    # TODO image: registry.gitlab.com/doerfli/zueriluft-flow:master
+    build: .
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"

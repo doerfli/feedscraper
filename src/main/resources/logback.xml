@@ -9,7 +9,10 @@
         </encoder>
     </appender>
 
-    <root level="debug">
+    <logger name="li.doerf" level="debug">
+    </logger>
+
+    <root level="info">
         <appender-ref ref="STDOUT"/>
     </root>
 
