@@ -1,6 +1,6 @@
 package li.doerf.feeder.scraper.entities
 
-import li.doerf.feeder.scraper.dto.FeedSource
+import li.doerf.feeder.scraper.dto.FeedSourceType
 import java.time.Instant
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -12,6 +12,7 @@ data class Feed (
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         val pkey: Long,
+        // TODO unique
         val url: String,
         var lastDownloaded: Instant? = null,
         var id: String? = null,
@@ -20,5 +21,5 @@ data class Feed (
         var updated: Instant? = null,
         var linkSelf: String? = null,
         var linkAlternate: String? = null,
-        val source: FeedSource? = null
+        var sourceType: FeedSourceType? = null
 )

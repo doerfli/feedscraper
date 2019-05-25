@@ -1,6 +1,6 @@
 package li.doerf.feeder.scraper.atom
 
-import li.doerf.feeder.scraper.dto.FeedSource
+import li.doerf.feeder.scraper.dto.FeedSourceType
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
@@ -20,7 +20,7 @@ class AtomFeedParserTest {
         assertThat(feed.linkSelf).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
         assertThat(feed.linkAlternate).isEqualTo("https://www.heise.de/")
         assertThat(feed.updated).isEqualTo(Instant.parse("2019-05-23T19:13:00+02:00"))
-        assertThat(feed.source).isEqualTo(FeedSource.Atom)
+        assertThat(feed.sourceType).isEqualTo(FeedSourceType.Atom)
 
         assertThat(feed.entries.size).isEqualTo(60)
 

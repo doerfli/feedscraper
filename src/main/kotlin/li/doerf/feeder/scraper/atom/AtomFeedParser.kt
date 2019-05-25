@@ -1,9 +1,9 @@
 package li.doerf.feeder.scraper.atom
 
 import li.doerf.feeder.scraper.FeedParserBase
-import li.doerf.feeder.scraper.dto.Entry
-import li.doerf.feeder.scraper.dto.Feed
-import li.doerf.feeder.scraper.dto.FeedSource
+import li.doerf.feeder.scraper.dto.EntryDto
+import li.doerf.feeder.scraper.dto.FeedDto
+import li.doerf.feeder.scraper.dto.FeedSourceType
 import li.doerf.feeder.scraper.util.getLogger
 import org.xml.sax.Attributes
 import java.time.Instant
@@ -33,7 +33,7 @@ class AtomFeedParser : FeedParserBase() {
         when(qName) {
             "feed" -> {
                 log.debug("creating new atom feed object")
-                feed = Feed(source = FeedSource.Atom)
+                feed = FeedDto(sourceType = FeedSourceType.Atom)
             }
             "entry" -> {
                 isParsingEntry = true
@@ -58,7 +58,7 @@ class AtomFeedParser : FeedParserBase() {
         if(log.isTraceEnabled) log.trace("endElement: $qName")
         when(qName) {
             "entry" -> {
-                feed.entries.add(Entry(id, title, link, summary, content, published, updated))
+                feed.entries.add(EntryDto(id, title, link, summary, content, published, updated))
                 isParsingEntry = false
             }
             "title" -> {

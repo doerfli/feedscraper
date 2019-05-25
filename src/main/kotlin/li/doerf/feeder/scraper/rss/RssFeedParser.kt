@@ -1,9 +1,9 @@
 package li.doerf.feeder.scraper.rss
 
 import li.doerf.feeder.scraper.FeedParserBase
-import li.doerf.feeder.scraper.dto.Entry
-import li.doerf.feeder.scraper.dto.Feed
-import li.doerf.feeder.scraper.dto.FeedSource
+import li.doerf.feeder.scraper.dto.EntryDto
+import li.doerf.feeder.scraper.dto.FeedDto
+import li.doerf.feeder.scraper.dto.FeedSourceType
 import li.doerf.feeder.scraper.util.getLogger
 import org.xml.sax.Attributes
 import java.text.SimpleDateFormat
@@ -32,7 +32,7 @@ class RssFeedParser : FeedParserBase() {
         when(qName) {
             "channel" -> {
                 log.debug("creating new rss feed object")
-                feed = Feed(source = FeedSource.RSS)
+                feed = FeedDto(sourceType = FeedSourceType.RSS)
             }
             "item" -> {
                 isItemParsing = true
@@ -54,7 +54,7 @@ class RssFeedParser : FeedParserBase() {
         when(qName) {
             "item" -> {
                 isItemParsing = false
-                feed.entries.add(Entry(id, title, link, description, content, published, published))
+                feed.entries.add(EntryDto(id, title, link, description, content, published, published))
             }
             "image" -> {
                 isImageParsing = false

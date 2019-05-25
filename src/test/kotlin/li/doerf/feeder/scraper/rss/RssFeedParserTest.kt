@@ -1,6 +1,6 @@
 package li.doerf.feeder.scraper.rss
 
-import li.doerf.feeder.scraper.dto.FeedSource
+import li.doerf.feeder.scraper.dto.FeedSourceType
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,7 +18,7 @@ class RssFeedParserTest {
 //        assertThat(feed.id).isEqualTo("")
         assertThat(feed.title).isEqualTo("SPIEGEL ONLINE - Schlagzeilen")
         assertThat(feed.linkAlternate).isEqualTo("https://www.spiegel.de")
-        assertThat(feed.source).isEqualTo(FeedSource.RSS)
+        assertThat(feed.sourceType).isEqualTo(FeedSourceType.RSS)
         assertThat(feed.updated).isEqualTo(dateParser.parse("Fri, 24 May 2019 22:01:28 +0200").toInstant())
 
 

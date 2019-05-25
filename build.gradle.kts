@@ -30,15 +30,17 @@ dependencies {
     implementation("com.github.kittinunf.fuel:fuel:2.1.0")
     implementation("com.github.kittinunf.fuel:fuel-coroutines:2.1.0")
 
-
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")
+    
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude("junit", "junit")
     }
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
     testImplementation("org.mockito:mockito-junit-jupiter:2.23.4")
+
+    testRuntime("com.h2database:h2")
 }
 
 tasks.withType<KotlinCompile> {

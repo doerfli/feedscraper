@@ -1,11 +1,13 @@
 package li.doerf.feeder.scraper
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import li.doerf.feeder.scraper.dto.FeedDto
 import li.doerf.feeder.scraper.entities.Feed
 import li.doerf.feeder.scraper.repositories.FeedRepository
 import li.doerf.feeder.scraper.util.getLogger
@@ -15,7 +17,9 @@ import org.springframework.stereotype.Service
 @Service
 class ScraperPipeline @Autowired constructor(
         private val feedRepository: FeedRepository,
-        private val feedDownloader: FeedDownloader
+        private val feedDownloaderStep: FeedDownloaderStep,
+        private val feedParserStep: FeedParserStep,
+        private val feedPersisterStep: FeedPersisterStep
 ) {
 
     companion object {
@@ -32,7 +36,12 @@ class ScraperPipeline @Autowired constructor(
     private fun startPipeline() {
         runBlocking {
             val feedUrlProducer = produceFeedUrls()
-            repeat(2) { launchFeedUrlDownloader(it, feedUrlProducer) }
+
+            val parserChannel = Channel<Pair<String, String>>()
+            val persisterChannel = Channel<Pair<String, FeedDto>>()
+            repeat(2) { launchFeedUrlDownloader(it, feedUrlProducer, parserChannel) }
+            repeat(2) { launchFeedParser(it, parserChannel) }
+            launchFeedPersister(0, persisterChannel)
         }
     }
 
@@ -46,15 +55,34 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
-    fun CoroutineScope.launchFeedUrlDownloader(id: Int, channel: ReceiveChannel<String>) = launch {
+    suspend fun CoroutineScope.launchFeedUrlDownloader(id: Int, channel: ReceiveChannel<String>, parserChannel: Channel<Pair<String, String>>) = launch {
         log.info("starting feed downloader #$id")
-        for (msg in channel) {
-            log.debug("Feed Downloader #$id received url $msg")
-            val feedAsString = feedDownloader.download(msg)
+        for (uri in channel) {
+            log.debug("FeedDto Downloader #$id received uri $uri")
+            val feedAsString = feedDownloaderStep.download(uri)
             // TODO handle error in downloader
+            parserChannel.send(Pair(uri, feedAsString))
         }
     }
 
+    fun CoroutineScope.launchFeedParser(id: Int, channel: ReceiveChannel<Pair<String,String>>) = launch {
+        log.info("starting feed parser #$id")
+        for ((uri, feedAsString) in channel) {
+            log.debug("FeedDto Parser #$id received content for $uri")
+            val feed = feedParserStep.parse(uri, feedAsString)
+//            send(Pair(uri, feed))
+        }
+    }
+
+    fun CoroutineScope.launchFeedPersister(id: Int, channel: ReceiveChannel<Pair<String, FeedDto>>) = launch {
+        log.info("starting feed persister #$id")
+        for ((uri, feed) in channel) {
+            log.debug("FeedDto Perister #$id received feed for $uri")
+            feedPersisterStep.persist(uri, feed)
+        }
+    }
+
+    // TODO remove this once ui works
     private fun addDefaultEntries() {
         val urls = listOf("https://www.heise.de/rss/heise-top-atom.xml", "http://www.spiegel.de/schlagzeilen/tops/index.rss")
         urls.forEach {

@@ -1,6 +1,6 @@
 package li.doerf.feeder.scraper
 
-import li.doerf.feeder.scraper.dto.Feed
+import li.doerf.feeder.scraper.dto.FeedDto
 import li.doerf.feeder.scraper.util.getLogger
 import org.xml.sax.helpers.DefaultHandler
 import java.io.InputStream
@@ -13,10 +13,10 @@ open class FeedParserBase : DefaultHandler() {
         protected val log = getLogger(javaClass)
     }
 
-    protected lateinit var feed: Feed
+    protected lateinit var feed: FeedDto
     protected var parsedString = StringBuffer()
 
-    fun parse(input: InputStream): Feed {
+    fun parse(input: InputStream): FeedDto {
         if (::feed.isInitialized) {
             throw IllegalStateException("parse may only be called once")
         }
