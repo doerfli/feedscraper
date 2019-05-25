@@ -1,4 +1,4 @@
-# Scraper
+# Scraper [![Build Status](https://travis-ci.com/doerfli/scraper.svg?branch=master)](https://travis-ci.com/doerfli/scraper)
 
 ## Containers
 
