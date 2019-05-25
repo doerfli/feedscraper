@@ -1,0 +1,21 @@
+matrix:
+  include:
+    - language: java
+      install: true
+      jdk:
+        - openjdk12
+      script:
+        - ./gradlew build
+      env:
+        - BUILD_NAME=gradle
+
+# TODO enable when docker set up
+#    - language: generic
+#      services:
+#        - docker
+#      before_install:
+#        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#      script:
+#        - ./scripts/build-docker-image-api.sh
+#      env:
+#        - BUILD_NAME=docker_api
