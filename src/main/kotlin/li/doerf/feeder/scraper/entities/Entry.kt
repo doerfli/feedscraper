@@ -15,6 +15,7 @@ data class Entry (
         var title: String,
         var link: String,
         var summary: String,
+        @Column(length = 4095)
         var content: String?,
         var published: Instant,
         var updated: Instant
