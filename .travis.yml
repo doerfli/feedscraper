@@ -5,9 +5,19 @@ matrix:
       jdk:
         - openjdk12
       script:
+        - cd scraper
         - ./gradlew build
       env:
-        - BUILD_NAME=gradle
+        - BUILD_NAME=scraper
+    - language: java
+      install: true
+      jdk:
+        - openjdk12
+      script:
+        - cd viewer
+        - ./gradlew build
+      env:
+        - BUILD_NAME=viewer
 
 # TODO enable when docker set up
 #    - language: generic
@@ -16,6 +26,7 @@ matrix:
 #      before_install:
 #        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #      script:
-#        - ./scripts/build-docker-image-api.sh
+#        - docker build -t doerfli/scraper:latest .
+#        - docker push doerfli/scraper:latest
 #      env:
-#        - BUILD_NAME=docker_api
+#        - BUILD_NAME=docker_scraper

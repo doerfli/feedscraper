@@ -47,11 +47,11 @@ class ScraperPipeline @Autowired constructor(
 
     fun CoroutineScope.produceFeedUrls() = produce {
         log.info("starting feed url producer")
-        while (true) { // TODO repeat every 10s
+        while (true) {
             feedRepository.findAll().forEach {feed ->
                 send(feed.url)
             }
-            delay(10000)
+            delay(60000) // TODO put in config
         }
     }
 

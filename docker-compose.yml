@@ -7,9 +7,17 @@ services:
       - ./pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  web:
+  scraper:
     # TODO image: registry.gitlab.com/doerfli/zueriluft-flow:master
-    build: .
+    build: 
+      context: ./scraper
+    restart: always
+    depends_on:
+      - db
+  viewer:
+    # TODO image: registry.gitlab.com/doerfli/zueriluft-flow:master
+    build: 
+      context: ./viewer
     restart: always
     depends_on:
       - db
