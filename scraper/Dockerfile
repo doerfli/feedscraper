@@ -5,7 +5,6 @@ WORKDIR /workspace
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle.kts .
-COPY gradle.properties .
 COPY settings.gradle.kts .
 
 COPY src src
