@@ -1,8 +1,9 @@
 .gradle
-/build/
+build/
 !gradle/wrapper/gradle-wrapper.jar
-/log/
-/pgdata/
+log/
+pgdata/
+node_modules/
 
 ### STS ###
 .apt_generated
@@ -18,7 +19,7 @@
 *.iws
 *.iml
 *.ipr
-/out/
+out/
 
 ### NetBeans ###
 /nbproject/private/

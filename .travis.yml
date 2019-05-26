@@ -5,9 +5,19 @@ matrix:
       jdk:
         - openjdk12
       script:
+        - cd scraper
         - ./gradlew build
       env:
-        - BUILD_NAME=gradle
+        - BUILD_NAME=scraper
+    - language: java
+      install: true
+      jdk:
+        - openjdk12
+      script:
+        - cd viewer
+        - ./gradlew build
+      env:
+        - BUILD_NAME=viewer
 
 # TODO enable when docker set up
 #    - language: generic
