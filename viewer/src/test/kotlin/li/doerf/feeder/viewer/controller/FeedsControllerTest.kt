@@ -29,7 +29,7 @@ class FeedsControllerTest {
     private lateinit var feedRepository: FeedRepository
 
     @Test
-    fun testSomething() {
+    fun testIndex() {
         // given
         val feed1 = Feed(0, "https://www.heise.de/rss/heise-atom.xml", Instant.now(), "https://www.heise.de/rss/heise-atom.xml",
                 "Heise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedSourceType.Atom)
@@ -49,7 +49,6 @@ class FeedsControllerTest {
                 .andExpect(jsonPath("$", hasSize<Any>(2)))
                 .andExpect(jsonPath("$[0].title", `is`("aaaaaHeise News")))
                 .andExpect(jsonPath("$[1].title", `is`("Heise News")))
-
     }
 
 }
