@@ -1,0 +1,55 @@
+package li.doerf.feeder.viewer.controller
+
+import li.doerf.feeder.viewer.entities.Feed
+import li.doerf.feeder.viewer.entities.FeedSourceType
+import li.doerf.feeder.viewer.repositories.FeedRepository
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.Matchers.hasSize
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.time.Instant
+
+
+@SpringBootTest
+@AutoConfigureMockMvc
+class FeedsControllerTest {
+
+    @Autowired
+    private lateinit var mvc: MockMvc
+
+    @Autowired
+    private lateinit var feedRepository: FeedRepository
+
+    @Test
+    fun testSomething() {
+        // given
+        val feed1 = Feed(0, "https://www.heise.de/rss/heise-atom.xml", Instant.now(), "https://www.heise.de/rss/heise-atom.xml",
+                "Heise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedSourceType.Atom)
+        feedRepository.save(feed1)
+        val feed2 = Feed(0, "https://www.heise.de/rss/heise-atom.xml")
+        feedRepository.save(feed2)
+        val feed3 = Feed(0, "https://www.aaa.com/xml", Instant.now(), "https://www.aaa.com",
+                "aaaaaHeise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedSourceType.Atom)
+        feedRepository.save(feed3)
+
+        // when
+        mvc.perform(get("/feeds").contentType(MediaType.APPLICATION_JSON))
+
+        // then
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize<Any>(2)))
+                .andExpect(jsonPath("$[0].title", `is`("aaaaaHeise News")))
+                .andExpect(jsonPath("$[1].title", `is`("Heise News")))
+
+    }
+
+}
