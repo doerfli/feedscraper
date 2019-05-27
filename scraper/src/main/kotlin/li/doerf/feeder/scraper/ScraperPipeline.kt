@@ -84,7 +84,7 @@ class ScraperPipeline @Autowired constructor(
 
     // TODO remove this once ui works
     private fun addDefaultEntries() {
-        val urls = listOf("https://www.heise.de/rss/heise-top-atom.xml", "http://www.spiegel.de/schlagzeilen/tops/index.rss")
+        val urls = listOf("https://www.heise.de/rss/heise-top-atom.xml", "https://www.heise.de/rss/heise-atom.xml", "http://www.spiegel.de/schlagzeilen/tops/index.rss")
         urls.forEach {
             if (feedRepository.countFeedsByUrl(it) == 0) {
                 val feed = Feed(pkey = 0L, url = it)
