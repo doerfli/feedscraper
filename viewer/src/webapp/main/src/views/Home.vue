@@ -6,7 +6,7 @@
 
 <script>
 
-import Feeds from "../components/Feeds";
+import Feeds from "../components/feed/Feeds";
 
 export default {
   name: 'home',

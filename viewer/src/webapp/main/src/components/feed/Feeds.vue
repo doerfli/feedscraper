@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import HeroHeader from "./HeroHeader";
+    import HeroHeader from "../HeroHeader";
     import FeedList from "./FeedList";
     export default {
         name: "Feeds",
