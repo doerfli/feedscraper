@@ -2,7 +2,7 @@ package li.doerf.feeder.scraper
 
 import li.doerf.feeder.scraper.dto.EntryDto
 import li.doerf.feeder.scraper.dto.FeedDto
-import li.doerf.feeder.scraper.dto.FeedSourceType
+import li.doerf.feeder.scraper.entities.FeedSourceType
 import li.doerf.feeder.scraper.entities.Entry
 import li.doerf.feeder.scraper.entities.Feed
 import li.doerf.feeder.scraper.repositories.EntryRepository

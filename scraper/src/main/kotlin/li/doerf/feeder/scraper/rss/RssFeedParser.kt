@@ -3,7 +3,7 @@ package li.doerf.feeder.scraper.rss
 import li.doerf.feeder.scraper.FeedParserBase
 import li.doerf.feeder.scraper.dto.EntryDto
 import li.doerf.feeder.scraper.dto.FeedDto
-import li.doerf.feeder.scraper.dto.FeedSourceType
+import li.doerf.feeder.scraper.entities.FeedSourceType
 import li.doerf.feeder.scraper.util.getLogger
 import org.xml.sax.Attributes
 import java.text.SimpleDateFormat

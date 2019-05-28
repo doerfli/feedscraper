@@ -1,4 +1,4 @@
-package li.doerf.feeder.scraper.dto
+package li.doerf.feeder.scraper.entities
 
 enum class FeedSourceType {
     Atom, RSS

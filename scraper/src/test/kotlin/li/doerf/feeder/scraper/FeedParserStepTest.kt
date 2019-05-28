@@ -1,6 +1,6 @@
 package li.doerf.feeder.scraper
 
-import li.doerf.feeder.scraper.dto.FeedSourceType
+import li.doerf.feeder.scraper.entities.FeedSourceType
 import li.doerf.feeder.scraper.entities.Feed
 import li.doerf.feeder.scraper.repositories.FeedRepository
 import org.assertj.core.api.Assertions.assertThat

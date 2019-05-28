@@ -1,6 +1,5 @@
 package li.doerf.feeder.scraper.entities
 
-import li.doerf.feeder.scraper.dto.FeedSourceType
 import java.time.Instant
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue

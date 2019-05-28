@@ -11,12 +11,16 @@ data class Entry (
         @ManyToOne
         @JoinColumn(name = "feed_id")
         val feed: Feed,
+        @Column(length = 1024)
         val id: String,
+        @Column(length = 1024)
         var title: String,
+        @Column(length = 1024)
         var link: String,
+        @Column(length = 4096)
         var summary: String,
-        @Column(length = 4095)
+        @Column(length = 4096)
         var content: String?,
         var published: Instant,
         var updated: Instant
-        )
+)
