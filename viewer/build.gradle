@@ -10,6 +10,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.github.node-gradle.node" version "1.3.0"
+}
+
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'kotlin-jpa'
@@ -82,4 +86,28 @@ tasks.test {
 
 noArg {
     annotation("li.doerf.feeder.scraper.util.NoArg")
+}
+
+node {
+    workDir = file("${project.buildDir}/nodejs")
+    yarnWorkDir = file('src/webapp/main')
+    nodeModulesDir = file('src/webapp/main')
+}
+
+task yarnInstall(type: YarnTask) {
+    args = ["install"]
+}
+
+
+task compileVue(type: YarnTask) {
+    args = ["build"]
+}
+
+compileVue.dependsOn yarnInstall
+processWebappResources.dependsOn compileVue
+
+clean.doFirst {
+    delete "${rootDir}/src/webapp/generated/"
+    delete "${rootDir}/src/webapp/main/node_modules/"
+    delete "${rootDir}/src/webapp/main/yarn-latest/"
 }
