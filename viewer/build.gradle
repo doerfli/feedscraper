@@ -1,13 +1,3 @@
-//plugins {
-//    id("org.springframework.boot") version ""
-//    id("io.spring.dependency-management") version "1.0.7.RELEASE"
-//    id("org.jetbrains.kotlin.plugin.noarg") version "1.3.31"
-//    kotlin("plugin.jpa") version "1.3.31"
-//    kotlin("jvm") version "1.3.31"
-//    kotlin("plugin.spring") version "1.3.31"
-//}
-//
-//
 buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.5.RELEASE")
