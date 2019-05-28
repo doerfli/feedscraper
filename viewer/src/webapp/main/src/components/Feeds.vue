@@ -1,23 +1,31 @@
 <template>
-  <section class="hero">
-    <div class="hero-body">
+  <div>
+    <HeroHeader title="Feeds" />
+    <section>
       <div class="container">
-        <h1 class="title">
-          Feeds
-        </h1>
-        <!--
-        <h2 class="subtitle">
-          Hero subtitle
-        </h2>
-        -->
+        <div class="columns">
+          <div class="column is-one-fifth">
+            <FeedList />
+          </div>
+          <div class="column">Data here ...</div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
+    import HeroHeader from "./HeroHeader";
+    import FeedList from "./FeedList";
     export default {
-        name: "Feeds"
+        name: "Feeds",
+        components: {
+            HeroHeader,
+            FeedList
+        },
+        created() {
+            this.$store.dispatch('feeds/getAll');
+        }
     }
 </script>
 

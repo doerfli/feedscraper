@@ -1,9 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import feeds from "./stores/feeds";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
+
+const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
+  modules: {
+    feeds
+  },
   state: {
 
   },
@@ -12,5 +18,6 @@ export default new Vuex.Store({
   },
   actions: {
 
-  }
+  },
+  strict: debug
 })
