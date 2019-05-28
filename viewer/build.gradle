@@ -89,6 +89,9 @@ noArg {
 }
 
 node {
+    version = '10.15.3'
+    yarnVersion = '1.16.0'
+    download = true
     workDir = file("${project.buildDir}/nodejs")
     yarnWorkDir = file('src/webapp/main')
     nodeModulesDir = file('src/webapp/main')
