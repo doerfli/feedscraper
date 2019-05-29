@@ -1,6 +1,6 @@
 package li.doerf.feeder.scraper.dto
 
-import li.doerf.feeder.scraper.entities.FeedSourceType
+import li.doerf.feeder.scraper.entities.FeedType
 import java.time.Instant
 
 data class FeedDto (
@@ -10,6 +10,6 @@ data class FeedDto (
         var updated: Instant = Instant.MIN,
         var linkSelf: String = "",
         var linkAlternate: String = "",
-        val entries: MutableList<EntryDto> = mutableListOf(),
-        val sourceType: FeedSourceType = FeedSourceType.Atom
+        val items: MutableList<ItemDto> = mutableListOf(),
+        val type: FeedType = FeedType.Atom
 )

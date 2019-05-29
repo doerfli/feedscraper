@@ -1,6 +1,6 @@
 package li.doerf.feeder.scraper.atom
 
-import li.doerf.feeder.scraper.entities.FeedSourceType
+import li.doerf.feeder.scraper.entities.FeedType
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
@@ -20,11 +20,11 @@ class AtomFeedParserTest {
         assertThat(feed.linkSelf).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
         assertThat(feed.linkAlternate).isEqualTo("https://www.heise.de/")
         assertThat(feed.updated).isEqualTo(Instant.parse("2019-05-23T19:13:00+02:00"))
-        assertThat(feed.sourceType).isEqualTo(FeedSourceType.Atom)
+        assertThat(feed.type).isEqualTo(FeedType.Atom)
 
-        assertThat(feed.entries.size).isEqualTo(60)
+        assertThat(feed.items.size).isEqualTo(60)
 
-        val firstEntry = feed.entries.first()
+        val firstEntry = feed.items.first()
         assertThat(firstEntry.id).isEqualTo("http://heise.de/-4430944")
         assertThat(firstEntry.title).isEqualTo("5G-Auktion überspringt Marke von sechs Milliarden Euro")
         assertThat(firstEntry.link).isEqualTo("https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom")
@@ -33,12 +33,12 @@ class AtomFeedParserTest {
         assertThat(firstEntry.published).isEqualTo(Instant.parse("2019-05-23T19:13:00+02:00"))
         assertThat(firstEntry.updated).isEqualTo(Instant.parse("2019-05-23T19:13:00+02:00"))
 
-        val fourthEntry = feed.entries.get(4)
+        val fourthEntry = feed.items.get(4)
         assertThat(fourthEntry.id).isEqualTo("http://heise.de/-4425906")
         assertThat(fourthEntry.published).isEqualTo(Instant.parse("2019-05-20T17:17:00+02:00"))
         assertThat(fourthEntry.updated).isEqualTo(Instant.parse("2019-05-23T09:13:00+02:00"))
 
-        val lastEntry = feed.entries.get(59)
+        val lastEntry = feed.items.get(59)
         assertThat(lastEntry.id).isEqualTo("http://heise.de/-4411174")
         assertThat(lastEntry.title).isEqualTo("Wikileaks-Gründer Julian Assange zu 50 Wochen Gefängnis verurteilt")
         assertThat(lastEntry.link).isEqualTo("https://www.heise.de/newsticker/meldung/Wikileaks-Gruender-Julian-Assange-zu-50-Wochen-Gefaengnis-verurteilt-4411174.html?wt_mc=rss.ho.top-news.atom")

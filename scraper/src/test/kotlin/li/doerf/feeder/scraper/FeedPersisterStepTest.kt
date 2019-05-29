@@ -1,11 +1,11 @@
 package li.doerf.feeder.scraper
 
-import li.doerf.feeder.scraper.dto.EntryDto
+import li.doerf.feeder.scraper.dto.ItemDto
 import li.doerf.feeder.scraper.dto.FeedDto
-import li.doerf.feeder.scraper.entities.FeedSourceType
-import li.doerf.feeder.scraper.entities.Entry
+import li.doerf.feeder.scraper.entities.FeedType
+import li.doerf.feeder.scraper.entities.Item
 import li.doerf.feeder.scraper.entities.Feed
-import li.doerf.feeder.scraper.repositories.EntryRepository
+import li.doerf.feeder.scraper.repositories.ItemRepository
 import li.doerf.feeder.scraper.repositories.FeedRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -26,15 +26,15 @@ class FeedPersisterStepTest {
     @Autowired
     private lateinit var feedRepository: FeedRepository
     @Autowired
-    private lateinit var entryRepository: EntryRepository
+    private lateinit var itemRepository: ItemRepository
     @Autowired
     private lateinit var feedPersisterStep: FeedPersisterStep
 
     @Test
-    fun testPersist__NewFeed_NewEntry() {
+    fun testPersist__NewFeed_NewItem() {
         // given
         val uri = "http://www.someurl.com/atom.xml"
-        val feed = Feed(0, uri, sourceType = FeedSourceType.Atom)
+        val feed = Feed(0, uri, type = FeedType.Atom)
         feedRepository.save(feed)
 
         val instant1 = Instant.now()
@@ -47,7 +47,7 @@ class FeedPersisterStepTest {
                 "https://www.heise.de/atom/heise-top-atom.xml",
                 "https://www.heise.de"
         )
-        feedDto.entries.add(EntryDto(
+        feedDto.items.add(ItemDto(
                 "http://heise.de/-4430944",
                 "5G-Auktion überspringt Marke von sechs Milliarden Euro",
                 "https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom",
@@ -70,22 +70,22 @@ class FeedPersisterStepTest {
         assertThat(rFeed.linkAlternate).isEqualTo("https://www.heise.de")
         assertThat(rFeed.lastDownloaded).isAfter(instant1)
 
-        val rEntries = entryRepository.findAllByFeed(rFeed)
+        val rEntries = itemRepository.findAllByFeed(rFeed)
         assertThat(rEntries).isNotEmpty
         assertThat(rEntries.size).isEqualTo(1)
 
-        val firstEntry = rEntries.first()
-        assertThat(firstEntry.id).isEqualTo("http://heise.de/-4430944")
-        assertThat(firstEntry.title).isEqualTo("5G-Auktion überspringt Marke von sechs Milliarden Euro")
-        assertThat(firstEntry.link).isEqualTo("https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom")
-        assertThat(firstEntry.summary).isEqualTo("Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.")
-        assertThat(firstEntry.content).isEqualTo("<p><a href=\"https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html\"><img src=\"https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/6/9/2/04-Geschichte-5G-64b00fa203ba31da.jpeg\" class=\"webfeedsFeaturedVisual\" alt=\"\" /></a></p><p>Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</p>")
-        assertThat(firstEntry.published).isEqualTo(instant1)
-        assertThat(firstEntry.updated).isEqualTo(instant1)
+        val firstItem = rEntries.first()
+        assertThat(firstItem.id).isEqualTo("http://heise.de/-4430944")
+        assertThat(firstItem.title).isEqualTo("5G-Auktion überspringt Marke von sechs Milliarden Euro")
+        assertThat(firstItem.link).isEqualTo("https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom")
+        assertThat(firstItem.summary).isEqualTo("Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.")
+        assertThat(firstItem.content).isEqualTo("<p><a href=\"https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html\"><img src=\"https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/6/9/2/04-Geschichte-5G-64b00fa203ba31da.jpeg\" class=\"webfeedsFeaturedVisual\" alt=\"\" /></a></p><p>Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</p>")
+        assertThat(firstItem.published).isEqualTo(instant1)
+        assertThat(firstItem.updated).isEqualTo(instant1)
     }
 
     @Test
-    fun testPersist__SameFeed_NewEntry() {
+    fun testPersist__SameFeed_NewItem() {
         // given
         val uri = "http://www.someurl.com/atom.xml"
         val fiveMinAgo = Instant.now().minus(5, ChronoUnit.MINUTES)
@@ -99,7 +99,7 @@ class FeedPersisterStepTest {
                 fiveMinAgo,
                 "https://www.heise.de/atom/heise-top-atom.xml",
                 "https://www.heise.de",
-                FeedSourceType.Atom)
+                FeedType.Atom)
         feedRepository.save(feed)
 
 
@@ -111,7 +111,7 @@ class FeedPersisterStepTest {
                 "https://www.heise.de/atom/heise-top-atom.xml",
                 "https://www.heise.de"
         )
-        feedDto.entries.add(EntryDto(
+        feedDto.items.add(ItemDto(
                 "http://heise.de/-4430944",
                 "5G-Auktion überspringt Marke von sechs Milliarden Euro",
                 "https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom",
@@ -130,18 +130,18 @@ class FeedPersisterStepTest {
         assertThat(rFeed.updated).isEqualTo(instant1)
         assertThat(rFeed.lastDownloaded).isAfter(instant1)
 
-        val rEntries = entryRepository.findAllByFeed(rFeed)
+        val rEntries = itemRepository.findAllByFeed(rFeed)
         assertThat(rEntries).isNotEmpty
         assertThat(rEntries.size).isEqualTo(1)
 
-        val firstEntry = rEntries.first()
-        assertThat(firstEntry.id).isEqualTo("http://heise.de/-4430944")
-        assertThat(firstEntry.title).isEqualTo("5G-Auktion überspringt Marke von sechs Milliarden Euro")
-        assertThat(firstEntry.link).isEqualTo("https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom")
-        assertThat(firstEntry.summary).isEqualTo("Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.")
-        assertThat(firstEntry.content).isEqualTo("<p><a href=\"https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html\"><img src=\"https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/6/9/2/04-Geschichte-5G-64b00fa203ba31da.jpeg\" class=\"webfeedsFeaturedVisual\" alt=\"\" /></a></p><p>Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</p>")
-        assertThat(firstEntry.published).isEqualTo(instant1)
-        assertThat(firstEntry.updated).isEqualTo(instant1)
+        val firstItem = rEntries.first()
+        assertThat(firstItem.id).isEqualTo("http://heise.de/-4430944")
+        assertThat(firstItem.title).isEqualTo("5G-Auktion überspringt Marke von sechs Milliarden Euro")
+        assertThat(firstItem.link).isEqualTo("https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom")
+        assertThat(firstItem.summary).isEqualTo("Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.")
+        assertThat(firstItem.content).isEqualTo("<p><a href=\"https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html\"><img src=\"https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/6/9/2/04-Geschichte-5G-64b00fa203ba31da.jpeg\" class=\"webfeedsFeaturedVisual\" alt=\"\" /></a></p><p>Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</p>")
+        assertThat(firstItem.published).isEqualTo(instant1)
+        assertThat(firstItem.updated).isEqualTo(instant1)
     }
 
     @Test
@@ -159,7 +159,7 @@ class FeedPersisterStepTest {
                 fiveMinAgo,
                 "https://www.heise.de/atom/heise-top-atom.xml",
                 "https://www.heise.de",
-                FeedSourceType.Atom)
+                FeedType.Atom)
         feedRepository.save(feed)
 
 
@@ -171,7 +171,7 @@ class FeedPersisterStepTest {
                 "https://www.heise.de/atom/heise-top-atom.xml",
                 "https://www.heise.de"
         )
-        feedDto.entries.add(EntryDto(
+        feedDto.items.add(ItemDto(
                 "http://heise.de/-4430944",
                 "5G-Auktion überspringt Marke von sechs Milliarden Euro",
                 "https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom",
@@ -190,13 +190,13 @@ class FeedPersisterStepTest {
         assertThat(rFeed.updated).isEqualTo(fiveMinAgo)
         assertThat(rFeed.lastDownloaded).isAfter(instant1)
 
-        val rEntries = entryRepository.findAllByFeed(rFeed)
+        val rEntries = itemRepository.findAllByFeed(rFeed)
         assertThat(rEntries).isEmpty()
 
     }
 
     @Test
-    fun testPersist__SameFeed_SameEntry() {
+    fun testPersist__SameFeed_SameItem() {
         // given
         val uri = "http://www.someurl.com/atom.xml"
         val fiveMinAgo = Instant.now().minus(5, ChronoUnit.MINUTES)
@@ -210,10 +210,10 @@ class FeedPersisterStepTest {
                 fiveMinAgo,
                 "https://www.heise.de/atom/heise-top-atom.xml",
                 "https://www.heise.de",
-                FeedSourceType.Atom)
+                FeedType.Atom)
         feedRepository.save(feed)
 
-        val entry = Entry(
+        val item = Item(
                 0,
                 feed,
                 "http://heise.de/-4430944",
@@ -224,7 +224,7 @@ class FeedPersisterStepTest {
                 fiveMinAgo,
                 fiveMinAgo
         )
-        entryRepository.save(entry)
+        itemRepository.save(item)
 
 
         val feedDto = FeedDto(
@@ -235,7 +235,7 @@ class FeedPersisterStepTest {
                 "https://www.heise.de/atom/heise-top-atom.xml",
                 "https://www.heise.de"
         )
-        feedDto.entries.add(EntryDto(
+        feedDto.items.add(ItemDto(
                 "http://heise.de/-4430944",
                 "5G-Auktion überspringt Marke von sechs Milliarden Euro",
                 "https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom",
@@ -254,22 +254,22 @@ class FeedPersisterStepTest {
         assertThat(rFeed.updated).isEqualTo(fiveMinAgo)
         assertThat(rFeed.lastDownloaded).isAfter(instant1)
 
-        val rEntries = entryRepository.findAllByFeed(rFeed)
+        val rEntries = itemRepository.findAllByFeed(rFeed)
         assertThat(rEntries).isNotEmpty
         assertThat(rEntries.size).isEqualTo(1)
 
-        val firstEntry = rEntries.first()
-        assertThat(firstEntry.id).isEqualTo("http://heise.de/-4430944")
-        assertThat(firstEntry.title).isEqualTo("5G-Auktion überspringt Marke von sechs Milliarden Euro")
-        assertThat(firstEntry.link).isEqualTo("https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom")
-        assertThat(firstEntry.summary).isEqualTo("Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.")
-        assertThat(firstEntry.content).isEqualTo("<p><a href=\"https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html\"><img src=\"https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/6/9/2/04-Geschichte-5G-64b00fa203ba31da.jpeg\" class=\"webfeedsFeaturedVisual\" alt=\"\" /></a></p><p>Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</p>")
-        assertThat(firstEntry.published).isEqualTo(fiveMinAgo)
-        assertThat(firstEntry.updated).isEqualTo(fiveMinAgo)
+        val firstItem = rEntries.first()
+        assertThat(firstItem.id).isEqualTo("http://heise.de/-4430944")
+        assertThat(firstItem.title).isEqualTo("5G-Auktion überspringt Marke von sechs Milliarden Euro")
+        assertThat(firstItem.link).isEqualTo("https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom")
+        assertThat(firstItem.summary).isEqualTo("Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.")
+        assertThat(firstItem.content).isEqualTo("<p><a href=\"https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html\"><img src=\"https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/6/9/2/04-Geschichte-5G-64b00fa203ba31da.jpeg\" class=\"webfeedsFeaturedVisual\" alt=\"\" /></a></p><p>Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</p>")
+        assertThat(firstItem.published).isEqualTo(fiveMinAgo)
+        assertThat(firstItem.updated).isEqualTo(fiveMinAgo)
     }
 
     @Test
-    fun testPersist__UpdatedFeed_UnchangedEntry() {
+    fun testPersist__UpdatedFeed_UnchangedItem() {
         // given
         val uri = "http://www.someurl.com/atom.xml"
         val fiveMinAgo = Instant.now().minus(5, ChronoUnit.MINUTES)
@@ -283,10 +283,10 @@ class FeedPersisterStepTest {
                 fiveMinAgo,
                 "https://www.heise.de/atom/heise-top-atom.xml",
                 "https://www.heise.de",
-                FeedSourceType.Atom)
+                FeedType.Atom)
         feedRepository.save(feed)
 
-        val entry = Entry(
+        val item = Item(
                 0,
                 feed,
                 "http://heise.de/-4430944",
@@ -297,7 +297,7 @@ class FeedPersisterStepTest {
                 fiveMinAgo,
                 fiveMinAgo
         )
-        entryRepository.save(entry)
+        itemRepository.save(item)
 
 
         val feedDto = FeedDto(
@@ -308,7 +308,7 @@ class FeedPersisterStepTest {
                 "https://www.heise.de/atom/heise-top-atom.xml",
                 "https://www.heise.de"
         )
-        feedDto.entries.add(EntryDto(
+        feedDto.items.add(ItemDto(
                 "http://heise.de/-4430944",
                 "5G-Auktion überspringt Marke von sechs Milliarden Euro",
                 "https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom",
@@ -327,22 +327,22 @@ class FeedPersisterStepTest {
         assertThat(rFeed.updated).isEqualTo(instant1)
         assertThat(rFeed.lastDownloaded).isAfter(instant1)
 
-        val rEntries = entryRepository.findAllByFeed(rFeed)
+        val rEntries = itemRepository.findAllByFeed(rFeed)
         assertThat(rEntries).isNotEmpty
         assertThat(rEntries.size).isEqualTo(1)
 
-        val firstEntry = rEntries.first()
-        assertThat(firstEntry.id).isEqualTo("http://heise.de/-4430944")
-        assertThat(firstEntry.title).isEqualTo("5G-Auktion überspringt Marke von sechs Milliarden Euro")
-        assertThat(firstEntry.link).isEqualTo("https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom")
-        assertThat(firstEntry.summary).isEqualTo("Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.")
-        assertThat(firstEntry.content).isEqualTo("<p><a href=\"https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html\"><img src=\"https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/6/9/2/04-Geschichte-5G-64b00fa203ba31da.jpeg\" class=\"webfeedsFeaturedVisual\" alt=\"\" /></a></p><p>Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</p>")
-        assertThat(firstEntry.published).isEqualTo(fiveMinAgo)
-        assertThat(firstEntry.updated).isEqualTo(fiveMinAgo)
+        val firstItem = rEntries.first()
+        assertThat(firstItem.id).isEqualTo("http://heise.de/-4430944")
+        assertThat(firstItem.title).isEqualTo("5G-Auktion überspringt Marke von sechs Milliarden Euro")
+        assertThat(firstItem.link).isEqualTo("https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom")
+        assertThat(firstItem.summary).isEqualTo("Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.")
+        assertThat(firstItem.content).isEqualTo("<p><a href=\"https://www.heise.de/newsticker/meldung/5G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html\"><img src=\"https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/6/9/2/04-Geschichte-5G-64b00fa203ba31da.jpeg\" class=\"webfeedsFeaturedVisual\" alt=\"\" /></a></p><p>Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</p>")
+        assertThat(firstItem.published).isEqualTo(fiveMinAgo)
+        assertThat(firstItem.updated).isEqualTo(fiveMinAgo)
     }
 
     @Test
-    fun testPersist__UpdatedFeed_UpdatedEntry() {
+    fun testPersist__UpdatedFeed_UpdatedItem() {
         // given
         val uri = "http://www.someurl.com/atom.xml"
         val fiveMinAgo = Instant.now().minus(5, ChronoUnit.MINUTES)
@@ -356,10 +356,10 @@ class FeedPersisterStepTest {
                 fiveMinAgo,
                 "https://www.heise.de/atom/heise-top-atom.xml",
                 "https://www.heise.de",
-                FeedSourceType.Atom)
+                FeedType.Atom)
         feedRepository.save(feed)
 
-        val entry = Entry(
+        val item = Item(
                 0,
                 feed,
                 "http://heise.de/-4430944",
@@ -370,7 +370,7 @@ class FeedPersisterStepTest {
                 fiveMinAgo,
                 fiveMinAgo
         )
-        entryRepository.save(entry)
+        itemRepository.save(item)
 
 
         val feedDto = FeedDto(
@@ -381,7 +381,7 @@ class FeedPersisterStepTest {
                 "https://www.heise.de/atom/heise-top-atom.xml",
                 "https://www.heise.de"
         )
-        feedDto.entries.add(EntryDto(
+        feedDto.items.add(ItemDto(
                 "http://heise.de/-4430944",
                 "6G-Auktion überspringt Marke von sechs Milliarden Euro",
                 "https://www.heise.de/newsticker/meldung/6G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom",
@@ -400,18 +400,18 @@ class FeedPersisterStepTest {
         assertThat(rFeed.updated).isEqualTo(instant1)
         assertThat(rFeed.lastDownloaded).isAfter(instant1)
 
-        val rEntries = entryRepository.findAllByFeed(rFeed)
+        val rEntries = itemRepository.findAllByFeed(rFeed)
         assertThat(rEntries).isNotEmpty
         assertThat(rEntries.size).isEqualTo(1)
 
-        val firstEntry = rEntries.first()
-        assertThat(firstEntry.id).isEqualTo("http://heise.de/-4430944")
-        assertThat(firstEntry.title).isEqualTo("6G-Auktion überspringt Marke von sechs Milliarden Euro")
-        assertThat(firstEntry.link).isEqualTo("https://www.heise.de/newsticker/meldung/6G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom")
-        assertThat(firstEntry.summary).isEqualTo("Bei der Versteigerung für die 6G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.")
-        assertThat(firstEntry.content).isEqualTo("<p><a href=\"https://www.heise.de/newsticker/meldung/6G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html\"><img src=\"https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/6/9/2/04-Geschichte-5G-64b00fa203ba31da.jpeg\" class=\"webfeedsFeaturedVisual\" alt=\"\" /></a></p><p>Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</p>")
-        assertThat(firstEntry.published).isEqualTo(fiveMinAgo)
-        assertThat(firstEntry.updated).isEqualTo(instant1)
+        val firstItem = rEntries.first()
+        assertThat(firstItem.id).isEqualTo("http://heise.de/-4430944")
+        assertThat(firstItem.title).isEqualTo("6G-Auktion überspringt Marke von sechs Milliarden Euro")
+        assertThat(firstItem.link).isEqualTo("https://www.heise.de/newsticker/meldung/6G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html?wt_mc=rss.ho.top-news.atom")
+        assertThat(firstItem.summary).isEqualTo("Bei der Versteigerung für die 6G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.")
+        assertThat(firstItem.content).isEqualTo("<p><a href=\"https://www.heise.de/newsticker/meldung/6G-Auktion-ueberspringt-Marke-von-sechs-Milliarden-Euro-4430944.html\"><img src=\"https://www.heise.de/scale/geometry/450/q80//imgs/18/2/6/8/4/6/9/2/04-Geschichte-5G-64b00fa203ba31da.jpeg\" class=\"webfeedsFeaturedVisual\" alt=\"\" /></a></p><p>Bei der Versteigerung für die 5G-Frequenzen sind mehr als sechs Milliarden Euro zusammengekommen. Ein Ende der ermüdenden Versteigerung ist nicht in Sicht.</p>")
+        assertThat(firstItem.published).isEqualTo(fiveMinAgo)
+        assertThat(firstItem.updated).isEqualTo(instant1)
     }
 
 }

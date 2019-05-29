@@ -20,5 +20,5 @@ data class Feed (
         var updated: Instant? = null,
         var linkSelf: String? = null,
         var linkAlternate: String? = null,
-        var sourceType: FeedSourceType? = null
+        var type: FeedType? = null
 )

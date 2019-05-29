@@ -1,10 +1,10 @@
 package li.doerf.feeder.scraper
 
-import li.doerf.feeder.scraper.dto.EntryDto
+import li.doerf.feeder.scraper.dto.ItemDto
 import li.doerf.feeder.scraper.dto.FeedDto
-import li.doerf.feeder.scraper.entities.Entry
+import li.doerf.feeder.scraper.entities.Item
 import li.doerf.feeder.scraper.entities.Feed
-import li.doerf.feeder.scraper.repositories.EntryRepository
+import li.doerf.feeder.scraper.repositories.ItemRepository
 import li.doerf.feeder.scraper.repositories.FeedRepository
 import li.doerf.feeder.scraper.util.getLogger
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,7 +15,7 @@ import java.time.Instant
 @Service
 class FeedPersisterStep @Autowired constructor(
         val feedRepository: FeedRepository,
-        val entryRepository: EntryRepository
+        val itemRepository: ItemRepository
 ) {
 
     companion object {
@@ -32,8 +32,8 @@ class FeedPersisterStep @Autowired constructor(
         if (feed.updated != feedDto.updated) {
             log.debug("updating feed")
             updateFeed(feedDto, feed)
-            updateEntries(feedDto.entries, feed)
-            log.info("feed and entries updated")
+            updateItems(feedDto.items, feed)
+            log.info("feed and items updated")
         } else {
             log.debug("feed did not change - nothing to update")
         }
@@ -59,46 +59,46 @@ class FeedPersisterStep @Autowired constructor(
         log.debug("feed updated")
     }
 
-    private fun updateEntries(downloadedEntries: MutableList<EntryDto>, feed: Feed) {
-        val entries = entryRepository.findAllByFeed(feed)
+    private fun updateItems(downloadedItems: MutableList<ItemDto>, feed: Feed) {
+        val entries = itemRepository.findAllByFeed(feed)
         val entriesMap = entries.map{ it.id to it}.toMap()
 
-        downloadedEntries.forEach{ dEntry ->
-            val entry = entriesMap[dEntry.id]
-            if (entry != null) {
-                if (dEntry.updated != entry.updated) {
-                    updateEntry(entry, dEntry)
+        downloadedItems.forEach{ dItem ->
+            val item = entriesMap[dItem.id]
+            if (item != null) {
+                if (dItem.updated != item.updated) {
+                    updateEntry(item, dItem)
                 }
             } else {
-                createEntry(feed, dEntry)
+                createItem(feed, dItem)
             }
         }
     }
 
-    private fun createEntry(feed: Feed, dEntry: EntryDto) {
-        val newEntry = Entry(
+    private fun createItem(feed: Feed, dItem: ItemDto) {
+        val item = Item(
                 0,
                 feed,
-                dEntry.id,
-                dEntry.title,
-                dEntry.link,
-                dEntry.summary,
-                dEntry.content,
-                dEntry.published,
-                dEntry.updated)
-        entryRepository.save(newEntry)
-        log.debug("saved new entry ${dEntry.id}")
+                dItem.id,
+                dItem.title,
+                dItem.link,
+                dItem.summary,
+                dItem.content,
+                dItem.published,
+                dItem.updated)
+        itemRepository.save(item)
+        log.debug("saved new item ${dItem.id}")
     }
 
-    private fun updateEntry(entry: Entry, dEntry: EntryDto) {
-        // entry has changed
-        entry.title = dEntry.title
-        entry.summary = dEntry.summary
-        entry.content = dEntry.content
-        entry.link = dEntry.link
-        entry.updated = dEntry.updated
-        entryRepository.save(entry)
-        log.debug("updated entry ${entry.id}")
+    private fun updateEntry(item: Item, dItem: ItemDto) {
+        // item has changed
+        item.title = dItem.title
+        item.summary = dItem.summary
+        item.content = dItem.content
+        item.link = dItem.link
+        item.updated = dItem.updated
+        itemRepository.save(item)
+        log.debug("updated item ${item.id}")
     }
 
 }

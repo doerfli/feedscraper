@@ -2,7 +2,7 @@ package li.doerf.feeder.scraper
 
 import li.doerf.feeder.scraper.atom.AtomFeedParser
 import li.doerf.feeder.scraper.dto.FeedDto
-import li.doerf.feeder.scraper.entities.FeedSourceType
+import li.doerf.feeder.scraper.entities.FeedType
 import li.doerf.feeder.scraper.entities.Feed
 import li.doerf.feeder.scraper.repositories.FeedRepository
 import li.doerf.feeder.scraper.rss.RssFeedParser
@@ -33,27 +33,27 @@ class FeedParserStep @Autowired constructor(
         }
         val feed = feedOpt.get()
 
-        if (feed.sourceType == null) {
+        if (feed.type == null) {
             determineFeedSourceType(feed, feedAsString)
         }
 
-        return when(feed.sourceType) {
-            FeedSourceType.Atom -> AtomFeedParser().parse(ByteArrayInputStream(feedAsString.toByteArray()))
-            FeedSourceType.RSS -> RssFeedParser().parse(ByteArrayInputStream(feedAsString.toByteArray()))
-            else -> throw IllegalArgumentException("unknown sourceType ${feed.sourceType}")
+        return when(feed.type) {
+            FeedType.Atom -> AtomFeedParser().parse(ByteArrayInputStream(feedAsString.toByteArray()))
+            FeedType.RSS -> RssFeedParser().parse(ByteArrayInputStream(feedAsString.toByteArray()))
+            else -> throw IllegalArgumentException("unknown type ${feed.type}")
         }
     }
 
     private fun determineFeedSourceType(feed: Feed, feedAsString: String) {
         log.debug("determining feed type")
         if (feedAsString.contains(atomStartRegex) && feedAsString.contains(atomEndRegex)) {
-            feed.sourceType = FeedSourceType.Atom
+            feed.type = FeedType.Atom
         } else if (feedAsString.contains(rssStartRegex) && feedAsString.contains(rssEndRegex)) {
-            feed.sourceType = FeedSourceType.RSS
+            feed.type = FeedType.RSS
         } else {
             throw IllegalStateException("unable to determine tye of feed")
         }
         feedRepository.save(feed)
-        log.info("feed is type ${feed.sourceType}")
+        log.info("feed is type ${feed.type}")
     }
 }

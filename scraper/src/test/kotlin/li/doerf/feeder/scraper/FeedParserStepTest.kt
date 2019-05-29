@@ -1,6 +1,6 @@
 package li.doerf.feeder.scraper
 
-import li.doerf.feeder.scraper.entities.FeedSourceType
+import li.doerf.feeder.scraper.entities.FeedType
 import li.doerf.feeder.scraper.entities.Feed
 import li.doerf.feeder.scraper.repositories.FeedRepository
 import org.assertj.core.api.Assertions.assertThat
@@ -27,7 +27,7 @@ class FeedParserStepTest {
     fun testParseRss() {
         // given
         val uri = "http://www.rssurl.com/rss"
-        val feed = Feed(0, uri, sourceType = FeedSourceType.RSS)
+        val feed = Feed(0, uri, type = FeedType.RSS)
         feedRepository.save(feed)
         val feedAsString = this.javaClass.getResourceAsStream("rss/rss_spiegel.xml").bufferedReader().use(BufferedReader::readText)
 
@@ -36,7 +36,7 @@ class FeedParserStepTest {
 
         // then
         assertThat(feedDto.title).isNotNull()
-        assertThat(feedDto.entries).isNotEmpty
+        assertThat(feedDto.items).isNotEmpty
     }
 
     @Test
@@ -52,18 +52,18 @@ class FeedParserStepTest {
 
         // then
         assertThat(feedDto.title).isNotNull()
-        assertThat(feedDto.sourceType).isEqualTo(FeedSourceType.RSS)
-        assertThat(feedDto.entries).isNotEmpty
+        assertThat(feedDto.type).isEqualTo(FeedType.RSS)
+        assertThat(feedDto.items).isNotEmpty
 
         val feedAfter = feedRepository.findById(feed.pkey)
-        assertThat(feedAfter.get().sourceType).isEqualTo(FeedSourceType.RSS)
+        assertThat(feedAfter.get().type).isEqualTo(FeedType.RSS)
     }
 
     @Test
     fun testParseAtom() {
         // given
         val uri = "http://www.rssurl.com/rss"
-        val feed = Feed(0, uri, sourceType = FeedSourceType.Atom)
+        val feed = Feed(0, uri, type = FeedType.Atom)
         feedRepository.save(feed)
         val feedAsString = this.javaClass.getResourceAsStream("atom/atom_heise.xml").bufferedReader().use(BufferedReader::readText)
 
@@ -72,7 +72,7 @@ class FeedParserStepTest {
 
         // then
         assertThat(feedDto.title).isNotNull()
-        assertThat(feedDto.entries).isNotEmpty
+        assertThat(feedDto.items).isNotEmpty
     }
 
     @Test
@@ -88,10 +88,10 @@ class FeedParserStepTest {
 
         // then
         assertThat(feedDto.title).isNotNull()
-        assertThat(feedDto.sourceType).isEqualTo(FeedSourceType.Atom)
-        assertThat(feedDto.entries).isNotEmpty
+        assertThat(feedDto.type).isEqualTo(FeedType.Atom)
+        assertThat(feedDto.items).isNotEmpty
 
         val feedAfter = feedRepository.findById(feed.pkey)
-        assertThat(feedAfter.get().sourceType).isEqualTo(FeedSourceType.Atom)
+        assertThat(feedAfter.get().type).isEqualTo(FeedType.Atom)
     }
 }

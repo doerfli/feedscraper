@@ -2,7 +2,7 @@ package li.doerf.feeder.scraper.dto
 
 import java.time.Instant
 
-data class EntryDto (
+data class ItemDto (
         val id: String,
         val title: String,
         val link: String,
