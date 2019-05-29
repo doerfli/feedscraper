@@ -12,10 +12,10 @@ const getters = {};
 const actions = {
     async getByFeed({ commit }, payload) {
         let pkey = payload.feedPkey;
-        console.log(`retrieving entries for pkey ${pkey}`);
-        return AXIOS.get(`/entries/${pkey}`).then(async response => {
+        console.log(`retrieving items for pkey ${pkey}`);
+        return AXIOS.get(`/items/${pkey}`).then(async response => {
             console.log(response);
-            commit('setEntries', {pkey: pkey, entries: response.data})
+            commit('setItems', {pkey: pkey, items: response.data})
         })
         .catch(e => {
             console.log(e)
@@ -25,12 +25,9 @@ const actions = {
 
 // mutations
 const mutations = {
-    setEntries(state, payload) {
-        console.log(payload.entries);
-        state.all[payload.pkey] = payload.entries
-    },
-    add(state, feed) {
-        state.all.push(feed)
+    setItems(state, payload) {
+        console.log(payload.items);
+        state.all[payload.pkey] = payload.items
     }
 };
 

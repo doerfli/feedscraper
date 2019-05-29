@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: "Entry",
+        name: "Item",
         props: {
             data: {}
         }

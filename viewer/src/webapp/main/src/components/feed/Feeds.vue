@@ -8,7 +8,7 @@
             <FeedList />
           </div>
           <div class="column">
-            <Entries />
+            <Items />
           </div>
         </div>
       </div>
@@ -19,13 +19,13 @@
 <script>
     import HeroHeader from "../HeroHeader";
     import FeedList from "./FeedList";
-    import Entries from "../entries/Entries";
+    import Items from "../items/Items";
     export default {
         name: "Feeds",
         components: {
             HeroHeader,
             FeedList,
-            Entries
+            Items
         },
         created() {
             this.$store.dispatch('feeds/getAll');

@@ -2,25 +2,25 @@
   <div>
     <div class="content">
       <ul>
-        <Entry
-            v-for="entry in entries" v-bind:key="entry.pkey" v-bind:data="entry" />
+        <Item
+            v-for="item in items" v-bind:key="item.pkey" v-bind:data="item" />
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-    import Entry from "./Entry";
+    import Item from "./Item";
 
     export default {
-        name: "Entries",
+        name: "Items",
         components: {
-            Entry
+            Item
         },
         computed: {
-            entries () {
+            items() {
                 let activeFeedPkey = this.$store.state.session.activeFeed;
-                return this.$store.state.entries.all[activeFeedPkey];
+                return this.$store.state.items.all[activeFeedPkey];
             }
         }
     }
