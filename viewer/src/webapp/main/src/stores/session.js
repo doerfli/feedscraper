@@ -1,7 +1,7 @@
 
 // initial state
 const state = {
-    activeFeed: 0
+    activeFeed: -1
 };
 
 // getters
@@ -9,7 +9,8 @@ const getters = {};
 
 // actions
 const actions = {
-    setActiveFeed({ commit }, payload) {
+    async setActiveFeed({ commit }, payload) {
+        await this.dispatch('entries/getByFeed', { feedPkey: payload.pkey});
         commit('setActiveFeed', { pkey: payload.pkey})
     }
 };

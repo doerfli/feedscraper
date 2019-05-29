@@ -16,7 +16,7 @@ const actions = {
             commit('setAll', response.data);
             if (response.data.length > 0) {
                 console.log(response.data[0].pkey);
-                await this.dispatch('entries/getByFeed', { feedPkey: response.data[0].pkey});
+                // enable first feed
                 this.dispatch('session/setActiveFeed', { pkey: response.data[0].pkey});
             }
         })

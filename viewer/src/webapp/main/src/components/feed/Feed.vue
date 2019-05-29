@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li v-on:click="selectFeed">
     {{data.title}}
   </li>
 </template>
@@ -9,6 +9,12 @@
         name: "Feed",
         props: {
             data: {}
+        },
+        methods: {
+            selectFeed: function() {
+                console.log(this);
+                this.$store.dispatch('session/setActiveFeed', { pkey: this.data.pkey});
+            }
         }
     }
 </script>
