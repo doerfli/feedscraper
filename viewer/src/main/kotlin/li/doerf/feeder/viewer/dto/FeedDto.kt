@@ -1,6 +1,6 @@
 package li.doerf.feeder.viewer.dto
 
-import li.doerf.feeder.viewer.entities.FeedSourceType
+import li.doerf.feeder.viewer.entities.FeedType
 import java.time.Instant
 
 data class FeedDto (
@@ -13,5 +13,5 @@ data class FeedDto (
         val updated: Instant?,
         val linkSelf: String?,
         val linkAlternate: String?,
-        val sourceType: FeedSourceType
+        val type: FeedType
 )

@@ -2,7 +2,7 @@ package li.doerf.feeder.viewer.dto
 
 import java.time.Instant
 
-data class EntryDto (
+data class ItemDto (
         val pkey: Long,
         val feedPkey: Long,
         val id: String,

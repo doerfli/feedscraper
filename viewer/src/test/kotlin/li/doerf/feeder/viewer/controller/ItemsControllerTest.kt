@@ -1,10 +1,10 @@
 package li.doerf.feeder.viewer.controller
 
-import li.doerf.feeder.viewer.entities.Entry
 import li.doerf.feeder.viewer.entities.Feed
-import li.doerf.feeder.viewer.entities.FeedSourceType
-import li.doerf.feeder.viewer.repositories.EntryRepository
+import li.doerf.feeder.viewer.entities.FeedType
+import li.doerf.feeder.viewer.entities.Item
 import li.doerf.feeder.viewer.repositories.FeedRepository
+import li.doerf.feeder.viewer.repositories.ItemRepository
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test
@@ -23,7 +23,7 @@ import java.time.Instant
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class EntriesControllerTest {
+class ItemsControllerTest {
 
     @Autowired
     private lateinit var mvc: MockMvc
@@ -31,7 +31,7 @@ class EntriesControllerTest {
     @Autowired
     private lateinit var feedRepository: FeedRepository
     @Autowired
-    private lateinit var entriesRepository: EntryRepository
+    private lateinit var entriesRepository: ItemRepository
 
     @Test
     fun testGetAllByFeed() {
@@ -50,7 +50,7 @@ class EntriesControllerTest {
 
 
         // when
-        mvc.perform(MockMvcRequestBuilders.get("/entries/${feed1.pkey}").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/items/${feed1.pkey}").contentType(MediaType.APPLICATION_JSON))
 
                 // then
                 .andDo(MockMvcResultHandlers.print())
@@ -61,8 +61,8 @@ class EntriesControllerTest {
 
     }
 
-    private fun createEntry(feed1: Feed, id: String, title: String, link: String, summary: String, content: String, published: Instant, updated: Instant): Entry {
-        val entry1 = Entry(0, feed1, id, title, link,
+    private fun createEntry(feed1: Feed, id: String, title: String, link: String, summary: String, content: String, published: Instant, updated: Instant): Item {
+        val entry1 = Item(0, feed1, id, title, link,
                 summary, content,
                 published,
                 updated)
@@ -72,7 +72,7 @@ class EntriesControllerTest {
 
     private fun createFeed(): Feed {
         val feed1 = Feed(0, "https://www.heise.de/rss/heise-atom.xml", Instant.now(), "https://www.heise.de/rss/heise-atom.xml",
-                "Heise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedSourceType.Atom)
+                "Heise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedType.Atom)
         feedRepository.save(feed1)
         return feed1
     }

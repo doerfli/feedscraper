@@ -1,7 +1,7 @@
 package li.doerf.feeder.viewer.controller
 
 import li.doerf.feeder.viewer.entities.Feed
-import li.doerf.feeder.viewer.entities.FeedSourceType
+import li.doerf.feeder.viewer.entities.FeedType
 import li.doerf.feeder.viewer.repositories.FeedRepository
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.Matchers.hasSize
@@ -34,12 +34,12 @@ class FeedsControllerTest {
     fun testIndex() {
         // given
         val feed1 = Feed(0, "https://www.heise.de/rss/heise-atom.xml", Instant.now(), "https://www.heise.de/rss/heise-atom.xml",
-                "Heise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedSourceType.Atom)
+                "Heise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedType.Atom)
         feedRepository.save(feed1)
         val feed2 = Feed(0, "https://www.heise.de/rss/heise-atom.xml")
         feedRepository.save(feed2)
         val feed3 = Feed(0, "https://www.aaa.com/xml", Instant.now(), "https://www.aaa.com",
-                "aaaaaHeise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedSourceType.Atom)
+                "aaaaaHeise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedType.Atom)
         feedRepository.save(feed3)
 
         // when

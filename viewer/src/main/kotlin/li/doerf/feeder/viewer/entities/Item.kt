@@ -4,7 +4,7 @@ import java.time.Instant
 import javax.persistence.*
 
 @Entity
-data class Entry (
+data class Item (
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         val pkey: Long,

@@ -1,7 +1,7 @@
 package li.doerf.feeder.viewer.dto
 
-import li.doerf.feeder.viewer.entities.Entry
 import li.doerf.feeder.viewer.entities.Feed
+import li.doerf.feeder.viewer.entities.Item
 
 fun Feed.toDto(): FeedDto {
     return FeedDto(
@@ -14,11 +14,11 @@ fun Feed.toDto(): FeedDto {
             updated,
             linkSelf,
             linkAlternate,
-            sourceType!!)
+            type!!)
 }
 
-fun Entry.toDto(): EntryDto {
-    return EntryDto(
+fun Item.toDto(): ItemDto {
+    return ItemDto(
             pkey,
             feed.pkey,
             id,

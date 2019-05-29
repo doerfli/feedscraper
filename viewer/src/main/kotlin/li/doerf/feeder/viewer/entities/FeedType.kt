@@ -1,5 +1,5 @@
 package li.doerf.feeder.viewer.entities
 
-enum class FeedSourceType {
+enum class FeedType {
     Atom, RSS
 }
