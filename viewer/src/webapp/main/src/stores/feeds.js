@@ -10,10 +10,15 @@ const getters = {};
 
 // actions
 const actions = {
-    getAll({ commit }) {
-        AXIOS.get(`/feeds`).then(response => {
+    async getAll({ commit }) {
+        return AXIOS.get(`/feeds`).then(async response => {
             console.log(response);
-            commit('setAll', response.data)
+            commit('setAll', response.data);
+            if (response.data.length > 0) {
+                console.log(response.data[0].pkey);
+                await this.dispatch('entries/getByFeed', { feedPkey: response.data[0].pkey});
+                this.dispatch('session/setActiveFeed', { pkey: response.data[0].pkey});
+            }
         })
         .catch(e => {
             console.log(e)
@@ -24,10 +29,10 @@ const actions = {
 // mutations
 const mutations = {
     setAll(state, feeds) {
-        state.all = feeds
+        state.all = feeds;
     },
     add(state, feed) {
-        state.all.push(feed)
+        state.all.push(feed);
     }
 };
 

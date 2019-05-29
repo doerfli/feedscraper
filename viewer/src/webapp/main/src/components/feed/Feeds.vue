@@ -7,7 +7,9 @@
           <div class="column is-one-fifth">
             <FeedList />
           </div>
-          <div class="column">Data here ...</div>
+          <div class="column">
+            <Entries />
+          </div>
         </div>
       </div>
     </section>
@@ -17,11 +19,13 @@
 <script>
     import HeroHeader from "../HeroHeader";
     import FeedList from "./FeedList";
+    import Entries from "../entries/Entries";
     export default {
         name: "Feeds",
         components: {
             HeroHeader,
-            FeedList
+            FeedList,
+            Entries
         },
         created() {
             this.$store.dispatch('feeds/getAll');
