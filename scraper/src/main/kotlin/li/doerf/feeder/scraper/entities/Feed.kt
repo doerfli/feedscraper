@@ -1,10 +1,7 @@
 package li.doerf.feeder.scraper.entities
 
 import java.time.Instant
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class Feed (
@@ -20,5 +17,7 @@ data class Feed (
         var updated: Instant? = null,
         var linkSelf: String? = null,
         var linkAlternate: String? = null,
+        @Enumerated(EnumType.STRING)
+        @Column(length = 64)
         var type: FeedType? = null
 )
