@@ -18,20 +18,12 @@ version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
-    implementation project(":common")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutinesVersion}")
 
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation 'org.springframework.boot:spring-boot-starter'
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-
-    implementation("com.github.kittinunf.fuel:fuel:2.1.0")
-    implementation("com.github.kittinunf.fuel:fuel-coroutines:2.1.0")
-
-    runtimeOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("org.postgresql:postgresql")
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
@@ -56,6 +48,14 @@ compileTestKotlin {
         freeCompilerArgs = ["-Xjsr305=strict"]
         jvmTarget = "1.8"
     }
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
 }
 
 tasks.test {

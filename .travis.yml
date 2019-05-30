@@ -5,19 +5,7 @@ matrix:
       jdk:
         - openjdk12
       script:
-        - cd scraper
         - ./gradlew build
-      env:
-        - BUILD_NAME=scraper
-    - language: java
-      install: true
-      jdk:
-        - openjdk12
-      script:
-        - cd viewer
-        - ./gradlew build
-      env:
-        - BUILD_NAME=viewer
 
     - language: generic
       services:
@@ -25,7 +13,7 @@ matrix:
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       script:
-        - docker build -t doerfli/feedscraper_scraper:latest scraper
+        - docker build -t doerfli/feedscraper_scraper:latest -f Dockerfile-scraper .
         - docker push doerfli/feedscraper_scraper:latest
       env:
         - BUILD_NAME=docker_scraper
@@ -36,7 +24,7 @@ matrix:
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       script:
-        - docker build -t doerfli/feedscraper_viewer:latest viewer
+        - docker build -t doerfli/feedscraper_viewer:latest -f Dockerfile-viewer .
         - docker push doerfli/feedscraper_viewer:latest
       env:
         - BUILD_NAME=docker_viewer

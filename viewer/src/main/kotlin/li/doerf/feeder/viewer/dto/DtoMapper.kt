@@ -1,7 +1,7 @@
 package li.doerf.feeder.viewer.dto
 
-import li.doerf.feeder.viewer.entities.Feed
-import li.doerf.feeder.viewer.entities.Item
+import li.doerf.feeder.common.entities.Feed
+import li.doerf.feeder.common.entities.Item
 
 fun Feed.toDto(): FeedDto {
     return FeedDto(

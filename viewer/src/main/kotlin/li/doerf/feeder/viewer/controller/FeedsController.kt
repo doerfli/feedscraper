@@ -1,9 +1,9 @@
 package li.doerf.feeder.viewer.controller
 
-import li.doerf.feeder.scraper.util.getLogger
+import li.doerf.feeder.common.repositories.FeedRepository
+import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.dto.FeedDto
 import li.doerf.feeder.viewer.dto.toDto
-import li.doerf.feeder.viewer.repositories.FeedRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Sort
 import org.springframework.http.HttpStatus

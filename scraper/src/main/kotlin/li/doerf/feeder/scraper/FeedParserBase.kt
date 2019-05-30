@@ -1,7 +1,7 @@
 package li.doerf.feeder.scraper
 
 import li.doerf.feeder.scraper.dto.FeedDto
-import li.doerf.feeder.scraper.util.getLogger
+import li.doerf.feeder.common.util.getLogger
 import org.xml.sax.helpers.DefaultHandler
 import java.io.InputStream
 import javax.xml.parsers.SAXParserFactory

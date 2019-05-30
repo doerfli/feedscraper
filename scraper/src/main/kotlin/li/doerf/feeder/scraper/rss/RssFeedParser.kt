@@ -1,10 +1,10 @@
 package li.doerf.feeder.scraper.rss
 
+import li.doerf.feeder.common.entities.FeedType
 import li.doerf.feeder.scraper.FeedParserBase
-import li.doerf.feeder.scraper.dto.ItemDto
 import li.doerf.feeder.scraper.dto.FeedDto
-import li.doerf.feeder.scraper.entities.FeedType
-import li.doerf.feeder.scraper.util.getLogger
+import li.doerf.feeder.scraper.dto.ItemDto
+import li.doerf.feeder.common.util.getLogger
 import org.xml.sax.Attributes
 import java.text.SimpleDateFormat
 import java.time.Instant

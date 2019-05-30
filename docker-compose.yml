@@ -8,16 +8,18 @@ services:
     ports:
       - "5432:5432"
   scraper:
-    # TODO image: registry.gitlab.com/doerfli/zueriluft-flow:master
+     image: doerfli/feedscraper_scraper
     build: 
-      context: ./scraper
+      context: .
+      dockerfile: Dockerfile-scraper
     restart: always
     depends_on:
       - db
   viewer:
-    # TODO image: registry.gitlab.com/doerfli/zueriluft-flow:master
+    image: doerfli/feedscraper_viewer
     build: 
-      context: ./viewer
+      context: .
+      dockerfile: Dockerfile-viewer
     restart: always
     depends_on:
       - db
