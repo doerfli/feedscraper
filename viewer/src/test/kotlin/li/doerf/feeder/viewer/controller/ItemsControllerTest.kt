@@ -3,8 +3,8 @@ package li.doerf.feeder.viewer.controller
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.entities.FeedType
 import li.doerf.feeder.common.entities.Item
-import li.doerf.feeder.viewer.repositories.FeedRepository
-import li.doerf.feeder.viewer.repositories.ItemRepository
+import li.doerf.feeder.common.repositories.FeedRepository
+import li.doerf.feeder.common.repositories.ItemRepository
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test

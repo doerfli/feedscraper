@@ -2,7 +2,7 @@ package li.doerf.feeder.viewer.controller
 
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.entities.FeedType
-import li.doerf.feeder.viewer.repositories.FeedRepository
+import li.doerf.feeder.common.repositories.FeedRepository
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.Matchers.hasSize
 import org.junit.jupiter.api.Test

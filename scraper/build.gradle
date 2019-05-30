@@ -26,14 +26,14 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation('org.flywaydb:flyway-core:5.2.4')
 
     implementation("com.github.kittinunf.fuel:fuel:2.1.0")
     implementation("com.github.kittinunf.fuel:fuel-coroutines:2.1.0")
 
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")
-    
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude group: "junit", module: "junit"

@@ -1,9 +1,9 @@
 package li.doerf.feeder.viewer.controller
 
+import li.doerf.feeder.common.repositories.ItemRepository
 import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.dto.ItemDto
 import li.doerf.feeder.viewer.dto.toDto
-import li.doerf.feeder.viewer.repositories.ItemRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
