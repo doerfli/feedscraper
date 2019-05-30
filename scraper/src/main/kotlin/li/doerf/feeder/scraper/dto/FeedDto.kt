@@ -1,6 +1,6 @@
 package li.doerf.feeder.scraper.dto
 
-import li.doerf.feeder.scraper.entities.FeedType
+import li.doerf.feeder.common.entities.FeedType
 import java.time.Instant
 
 data class FeedDto (

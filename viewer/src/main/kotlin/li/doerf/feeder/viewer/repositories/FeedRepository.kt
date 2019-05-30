@@ -1,6 +1,6 @@
 package li.doerf.feeder.viewer.repositories
 
-import li.doerf.feeder.viewer.entities.Feed
+import li.doerf.feeder.common.entities.Feed
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository

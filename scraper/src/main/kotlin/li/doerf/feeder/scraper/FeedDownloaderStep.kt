@@ -2,7 +2,7 @@ package li.doerf.feeder.scraper
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
-import li.doerf.feeder.scraper.util.getLogger
+import li.doerf.feeder.common.util.getLogger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

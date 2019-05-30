@@ -1,6 +1,6 @@
 package li.doerf.feeder.scraper.atom
 
-import li.doerf.feeder.scraper.entities.FeedType
+import li.doerf.feeder.common.entities.FeedType
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test

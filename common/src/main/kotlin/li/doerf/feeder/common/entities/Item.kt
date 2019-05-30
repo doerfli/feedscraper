@@ -1,4 +1,4 @@
-package li.doerf.feeder.viewer.entities
+package li.doerf.feeder.common.entities
 
 import java.time.Instant
 import javax.persistence.*

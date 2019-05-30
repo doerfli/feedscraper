@@ -1,7 +1,7 @@
 package li.doerf.feeder.viewer.controller
 
-import li.doerf.feeder.viewer.entities.Feed
-import li.doerf.feeder.viewer.entities.FeedType
+import li.doerf.feeder.common.entities.Feed
+import li.doerf.feeder.common.entities.FeedType
 import li.doerf.feeder.viewer.repositories.FeedRepository
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.Matchers.hasSize

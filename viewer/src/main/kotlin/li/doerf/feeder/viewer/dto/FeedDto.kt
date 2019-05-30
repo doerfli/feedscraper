@@ -1,6 +1,6 @@
 package li.doerf.feeder.viewer.dto
 
-import li.doerf.feeder.viewer.entities.FeedType
+import li.doerf.feeder.common.entities.FeedType
 import java.time.Instant
 
 data class FeedDto (

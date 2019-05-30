@@ -1,8 +1,8 @@
 package li.doerf.feeder.viewer.controller
 
-import li.doerf.feeder.viewer.entities.Feed
-import li.doerf.feeder.viewer.entities.FeedType
-import li.doerf.feeder.viewer.entities.Item
+import li.doerf.feeder.common.entities.Feed
+import li.doerf.feeder.common.entities.FeedType
+import li.doerf.feeder.common.entities.Item
 import li.doerf.feeder.viewer.repositories.FeedRepository
 import li.doerf.feeder.viewer.repositories.ItemRepository
 import org.hamcrest.CoreMatchers

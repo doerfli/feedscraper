@@ -1,12 +1,12 @@
 package li.doerf.feeder.scraper
 
+import li.doerf.feeder.common.entities.Feed
+import li.doerf.feeder.common.entities.FeedType
 import li.doerf.feeder.scraper.atom.AtomFeedParser
 import li.doerf.feeder.scraper.dto.FeedDto
-import li.doerf.feeder.scraper.entities.FeedType
-import li.doerf.feeder.scraper.entities.Feed
 import li.doerf.feeder.scraper.repositories.FeedRepository
 import li.doerf.feeder.scraper.rss.RssFeedParser
-import li.doerf.feeder.scraper.util.getLogger
+import li.doerf.feeder.common.util.getLogger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.io.ByteArrayInputStream

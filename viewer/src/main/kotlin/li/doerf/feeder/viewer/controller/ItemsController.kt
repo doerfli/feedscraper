@@ -1,6 +1,6 @@
 package li.doerf.feeder.viewer.controller
 
-import li.doerf.feeder.scraper.util.getLogger
+import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.dto.ItemDto
 import li.doerf.feeder.viewer.dto.toDto
 import li.doerf.feeder.viewer.repositories.ItemRepository

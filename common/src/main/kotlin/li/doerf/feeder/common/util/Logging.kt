@@ -1,4 +1,4 @@
-package li.doerf.feeder.scraper.util
+package li.doerf.feeder.common.util
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

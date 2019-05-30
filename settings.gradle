@@ -1,3 +1,4 @@
 rootProject.name = 'feedscraper'
+include 'common'
 include 'scraper'
 include 'viewer'
