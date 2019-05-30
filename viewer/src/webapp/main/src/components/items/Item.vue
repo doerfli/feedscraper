@@ -1,7 +1,10 @@
 <template>
     <li>
         <span v-on:click="showContent">{{data.title}}</span>
-        <div v-if="isContentVisible" class="content" v-html="data.summary">
+        <div v-if="isContentVisible" class="content" >
+            <div v-html="data.summary">
+            </div>
+            <a v-bind:href="data.link" target="_blank">Open full version</a>
         </div>
     </li>
 </template>
