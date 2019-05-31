@@ -8,7 +8,7 @@ services:
     ports:
       - "5432:5432"
   scraper:
-     image: doerfli/feedscraper_scraper
+    image: doerfli/feedscraper_scraper
     build: 
       context: .
       dockerfile: Dockerfile-scraper
