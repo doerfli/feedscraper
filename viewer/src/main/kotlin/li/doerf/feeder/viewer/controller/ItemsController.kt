@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@PrefixController
 class ItemsController @Autowired constructor(
         private val itemRepository: ItemRepository
 ) {
