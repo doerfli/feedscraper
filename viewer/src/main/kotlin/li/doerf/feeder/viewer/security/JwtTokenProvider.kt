@@ -25,7 +25,7 @@ class JwtTokenProvider @Autowired constructor(
      * TODO security - THIS IS NOT A SECURE PRACTICE! For simplicity, we are storing a static key here. Ideally, in a
      * microservices environment, this key would be kept on a config-server.
      */
-    @Value("\${security.jwt.token.secret-key:secret-key}")
+    @Value("\${security.jwt.token.secret-key:secret-keysecret-keysecret-keysecret-key}")
     private var secretKey: String? = null
 
     // TODO put in configuration
