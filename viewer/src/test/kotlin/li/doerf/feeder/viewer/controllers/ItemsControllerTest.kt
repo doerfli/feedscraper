@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
+import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
@@ -34,6 +35,17 @@ class ItemsControllerTest {
     private lateinit var entriesRepository: ItemRepository
 
     @Test
+    fun testIndexMethodIsSecured() {
+        // when
+        mvc.perform(MockMvcRequestBuilders.get("/api/items/1234").contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isForbidden)
+    }
+
+    @WithMockUser(username="test@test123.com")
+    @Test
     fun testGetAllByFeed() {
         // given
         val feed1 = createFeed()
@@ -50,7 +62,7 @@ class ItemsControllerTest {
 
 
         // when
-        mvc.perform(MockMvcRequestBuilders.get("/items/${feed1.pkey}").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/api/items/${feed1.pkey}").contentType(MediaType.APPLICATION_JSON))
 
                 // then
                 .andDo(MockMvcResultHandlers.print())

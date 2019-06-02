@@ -29,3 +29,6 @@ subprojects {
 repositories {
     mavenCentral()
 }
+
+// workaround for mockito bug https://github.com/mockito/mockito/issues/1604
+ext['mockito.version'] = mockitoVersion

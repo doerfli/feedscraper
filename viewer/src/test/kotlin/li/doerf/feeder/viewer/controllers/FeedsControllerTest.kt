@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
+import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -31,6 +32,17 @@ class FeedsControllerTest {
     private lateinit var feedRepository: FeedRepository
 
     @Test
+    fun testIndexMethodIsSecured() {
+        // when
+        mvc.perform(get("/api/feeds").contentType(MediaType.APPLICATION_JSON))
+
+        // then
+                .andDo(print())
+                .andExpect(status().isForbidden)
+    }
+
+    @WithMockUser(username="test@test123.com")
+    @Test
     fun testIndex() {
         // given
         val feed1 = Feed(0, "https://www.heise.de/rss/heise-atom.xml", Instant.now(), "https://www.heise.de/rss/heise-atom.xml",
@@ -43,7 +55,7 @@ class FeedsControllerTest {
         feedRepository.save(feed3)
 
         // when
-        mvc.perform(get("/feeds").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/api/feeds").contentType(MediaType.APPLICATION_JSON))
 
         // then
                 .andDo(print())
