@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @PrefixController
+// TODO @RequestMapping("/feeds")
 class FeedsController @Autowired constructor(
         private val feedRepository: FeedRepository
 ) {

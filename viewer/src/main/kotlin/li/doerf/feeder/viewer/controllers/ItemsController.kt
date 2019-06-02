@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @PrefixController
+// TODO @RequestMapping("/items")
 class ItemsController @Autowired constructor(
         private val itemRepository: ItemRepository
 ) {
