@@ -27,5 +27,5 @@ create table item (
     primary key (pkey)
 );
 alter table item
-    add constraint FK_item_feed_id foreign key (feed_id) references feed;
+    add constraint fk_item_feed_id foreign key (feed_id) references feed;
 

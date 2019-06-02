@@ -24,7 +24,7 @@ class ScraperApplication {
 fun main(args: Array<String>) {
     val context = runApplication<ScraperApplication>(*args)
 
-    // TODO kotlin stype
+    // TODO kotlin style
     Executors.newSingleThreadExecutor().execute {
         context.getBean(ScraperPipeline::class.java).execute()
     }

@@ -1,7 +1,7 @@
 package li.doerf.feeder.viewer
 
 import li.doerf.feeder.common.util.getLogger
-import li.doerf.feeder.viewer.controller.PrefixController
+import li.doerf.feeder.viewer.controllers.PrefixController
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.runApplication
