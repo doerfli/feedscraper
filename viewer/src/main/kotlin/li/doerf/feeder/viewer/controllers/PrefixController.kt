@@ -1,4 +1,4 @@
-package li.doerf.feeder.viewer.controller
+package li.doerf.feeder.viewer.controllers
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

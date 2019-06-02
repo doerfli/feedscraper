@@ -1,4 +1,4 @@
-package li.doerf.feeder.viewer.controller
+package li.doerf.feeder.viewer.controllers
 
 import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.util.getLogger
