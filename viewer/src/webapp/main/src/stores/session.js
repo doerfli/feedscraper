@@ -1,7 +1,8 @@
 
 // initial state
 const state = {
-    activeFeed: -1
+    activeFeed: -1,
+    token: null
 };
 
 // getters
@@ -12,16 +13,19 @@ const actions = {
     async setActiveFeed({ commit }, payload) {
         await this.dispatch('items/getByFeed', { feedPkey: payload.pkey});
         commit('setActiveFeed', { pkey: payload.pkey})
+    },
+    setToken({commit}, payload) {
+        commit('setToken', { token: payload.token })
     }
 };
 
 // mutations
 const mutations = {
     setActiveFeed(state, payload) {
-        state.activeFeed = payload.pkey
+        state.activeFeed = payload.pkey;
     },
-    add(state, feed) {
-        state.all.push(feed)
+    setToken(state, payload) {
+        state.token = payload.token;
     }
 };
 

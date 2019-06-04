@@ -5,6 +5,7 @@ import li.doerf.feeder.viewer.security.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -32,6 +33,7 @@ class WebSecurityConfig @Autowired constructor(
 
         // Entry points
         http.authorizeRequests()//
+                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll() // allow preflight CORS requests
                 .antMatchers("/api/users/signin").permitAll()
                 .antMatchers("/api/users/signup").permitAll()
                 .anyRequest().authenticated()

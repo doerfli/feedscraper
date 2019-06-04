@@ -1,4 +1,4 @@
-import {AXIOS} from "@/http-common"
+import AXIOS from "@/http-common";
 
 // initial state
 const state = {
