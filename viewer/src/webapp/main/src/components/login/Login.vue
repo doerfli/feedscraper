@@ -48,6 +48,7 @@
                         console.log(response.data);
                         console.log(response.data.token);
                         this.$store.dispatch('session/setToken', { token: response.data.token});
+                        this.$router.go("home");
                     }
                     // TODO handle login failure
                 })
