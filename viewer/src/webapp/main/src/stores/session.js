@@ -1,6 +1,7 @@
 
 // initial state
 import * as localforage from "localforage";
+import router from '@/router';
 
 const state = {
     activeFeed: -1,
@@ -18,6 +19,10 @@ const actions = {
     },
     setToken({commit}, payload) {
         commit('setToken', { token: payload.token });
+    },
+    logout({commit}) {
+        commit('setToken', { token: null});
+        router.push({name: "login"});
     }
 };
 
@@ -28,7 +33,11 @@ const mutations = {
     },
     setToken(state, payload) {
         state.token = payload.token;
-        localforage.setItem('token', payload.token);
+        if (payload.token) {
+            localforage.setItem('token', payload.token);
+        } else {
+            localforage.removeItem('token');
+        }
     }
 };
 

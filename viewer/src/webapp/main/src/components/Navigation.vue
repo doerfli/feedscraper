@@ -18,8 +18,8 @@
 
           <router-link to="/" class="navbar-item">Home</router-link>
           <router-link to="/about" class="navbar-item">About</router-link>
-          <router-link to="/login" class="navbar-item">Login</router-link>
-
+          <a           v-if="isNotLoginPage && isAuthenticated" class="navbar-item" v-on:click="logout">Logout</a>
+          <router-link v-else-if="isNotLoginPage" to="/login" class="navbar-item">Login</router-link>
         </div>
 
         <div class="navbar-end">
@@ -43,7 +43,21 @@
 
 <script>
     export default {
-        name: "Navigation"
+      name: "Navigation",
+      computed: {
+        isAuthenticated: function() {
+          return this.$store.state.session.token != null;
+        },
+        isNotLoginPage: function () {
+          console.log(this.$route);
+          return this.$route.name !== "login";
+        }
+      },
+      methods: {
+        logout: function () {
+          this.$store.dispatch("session/logout");
+        },
+      }
     }
 </script>
 
