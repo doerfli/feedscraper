@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Feeds from "./views/Home";
 import store from "./store";
+import * as localforage from "localforage";
 
 Vue.use(Router);
 
@@ -36,17 +37,28 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   console.log(to);
-  if (to.name !== "login") {
-    if (store.state.session.token == null) {
-      next("/login");
+  updateStoreFromLocalStorage().then(() => {
+    if (to.name !== "login") {
+      if (store.state.session.token == null) {
+        console.log("token not set - redirecting to login");
+        next({name: 'login'});
+      } else {
+        next();
+      }
     } else {
       next();
     }
-  } else {
-    next();
-  }
-
+  });
 });
+
+function updateStoreFromLocalStorage() {
+  return localforage.getItem('token').then(function (value) {
+    console.log(value);
+    if (value) {
+      store.commit('session/setToken', {token: value});
+    }
+  });
+}
 
 export default router
 

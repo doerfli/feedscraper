@@ -1,5 +1,7 @@
 
 // initial state
+import * as localforage from "localforage";
+
 const state = {
     activeFeed: -1,
     token: null
@@ -12,10 +14,10 @@ const getters = {};
 const actions = {
     async setActiveFeed({ commit }, payload) {
         await this.dispatch('items/getByFeed', { feedPkey: payload.pkey});
-        commit('setActiveFeed', { pkey: payload.pkey})
+        commit('setActiveFeed', { pkey: payload.pkey});
     },
     setToken({commit}, payload) {
-        commit('setToken', { token: payload.token })
+        commit('setToken', { token: payload.token });
     }
 };
 
@@ -26,6 +28,7 @@ const mutations = {
     },
     setToken(state, payload) {
         state.token = payload.token;
+        localforage.setItem('token', payload.token);
     }
 };
 

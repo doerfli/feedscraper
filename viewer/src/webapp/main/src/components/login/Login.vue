@@ -45,10 +45,10 @@
                 }).then(async response => {
                     console.log(response);
                     if (response.status === 200) {
-                        console.log(response.data);
-                        console.log(response.data.token);
+                        console.log("login successful");
                         this.$store.dispatch('session/setToken', { token: response.data.token});
-                        this.$router.go("home");
+                        this.$router.push({name: 'home'});
+                        console.log("redirect to /")
                     }
                     // TODO handle login failure
                 })
