@@ -18,8 +18,9 @@
 
           <router-link to="/" class="navbar-item">Home</router-link>
           <router-link to="/about" class="navbar-item">About</router-link>
-          <a           v-if="isNotLoginPage && isAuthenticated" class="navbar-item" v-on:click="logout">Logout</a>
-          <router-link v-if="isNotLoginPage && !isAuthenticated" to="/login" class="navbar-item">Login</router-link>
+          <a           v-if="!isLoginPage && isAuthenticated" class="navbar-item" v-on:click="logout">Logout</a>
+          <router-link v-if="!isLoginPage && !isAuthenticated" to="/login" class="navbar-item">Login</router-link>
+          <router-link v-if="isLoginPage" to="/signup" class="navbar-item">Signup</router-link>
         </div>
 
         <div class="navbar-end">
@@ -48,9 +49,9 @@
         isAuthenticated: function() {
           return this.$store.state.session.token != null;
         },
-        isNotLoginPage: function () {
+        isLoginPage: function () {
           console.log(this.$route);
-          return this.$route.name !== "login";
+          return this.$route.name === "login";
         }
       },
       methods: {
