@@ -65,7 +65,8 @@
                     console.log(response);
                     if (response.status === 200) {
                         console.log("signup successful");
-                        // TODO show message
+                        // TODO show message - via store
+                        this.$store.dispatch('messages/add', { text: "Signup successful", type: "notification"});
                         this.$store.dispatch('session/setToken', { token: response.data.token});
                         this.$router.push({name: 'home'});
                         console.log("redirect to /")

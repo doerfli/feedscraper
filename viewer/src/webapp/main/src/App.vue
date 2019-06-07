@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Navigation />
+    <Messages />
     <router-view/>
   </div>
 </template>
@@ -13,7 +14,11 @@
 </style>
 <script>
     import Navigation from "./components/Navigation";
+    import Messages from "./components/Messages";
     export default {
-        components: {Navigation}
+      components: {
+        Navigation,
+        Messages
+      }
     }
 </script>

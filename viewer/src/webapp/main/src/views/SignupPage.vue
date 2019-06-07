@@ -17,10 +17,12 @@
 
 <script>
     import Signup from "../components/login/Signup";
+    import HeroHeader from "../components/HeroHeader";
 
     export default {
         name: "SignupPage",
         components: {
+            HeroHeader,
             Signup
         }
     }
