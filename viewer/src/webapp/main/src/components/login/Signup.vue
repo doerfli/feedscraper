@@ -52,7 +52,7 @@
         },
         computed: {
             submitAllowed: function() {
-                return this.password.length >= 8 && ( this.password === this.passwordConfirmation );
+                return this.password.length >= 6 && ( this.password === this.passwordConfirmation );
             }
         },
         methods: {
