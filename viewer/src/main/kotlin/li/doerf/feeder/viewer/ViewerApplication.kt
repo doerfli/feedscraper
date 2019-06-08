@@ -1,5 +1,7 @@
 package li.doerf.feeder.viewer
 
+import io.jsonwebtoken.SignatureAlgorithm
+import io.jsonwebtoken.security.Keys
 import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.controllers.PrefixController
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -11,6 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import javax.crypto.SecretKey
 
 
 @SpringBootApplication
@@ -37,6 +40,12 @@ class ViewerApplication {
                 configurer.addPathPrefix(PREFIX) { c -> c.isAnnotationPresent(PrefixController::class.java) }
             }
         }
+    }
+
+    @Bean
+    fun secretKey(): SecretKey {
+        log.info("initializing secret key")
+        return Keys.secretKeyFor(SignatureAlgorithm.HS256)
     }
 
 }

@@ -1,5 +1,6 @@
 package li.doerf.feeder.viewer
 
+import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.security.JwtTokenFilterConfigurer
 import li.doerf.feeder.viewer.security.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,6 +24,11 @@ import org.springframework.security.crypto.password.PasswordEncoder
 class WebSecurityConfig @Autowired constructor(
         private val jwtTokenProvider: JwtTokenProvider
 ): WebSecurityConfigurerAdapter() {
+
+    companion object {
+        @Suppress("JAVA_CLASS_ON_COMPANION")
+        private val log = getLogger(javaClass)
+    }
 
     override fun configure(http: HttpSecurity) {
         // Disable CSRF (cross site request forgery)
