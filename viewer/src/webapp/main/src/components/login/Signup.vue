@@ -39,7 +39,6 @@
 </template>
 
 <script>
-    import AXIOS from "@/http-common";
 
     export default {
         name: "Signup",
@@ -57,25 +56,7 @@
         },
         methods: {
             signup: function() {
-                // TODO security - do this somewhere else ... maybe store
-                AXIOS.post(`/users/signup`, {
-                    username: this.username,
-                    password: this.password
-                }).then(async response => {
-                    console.log(response);
-                    if (response.status === 200) {
-                        console.log("signup successful");
-                        // TODO show message - via store
-                        this.$store.dispatch('messages/add', { text: "Signup successful", type: "notification"});
-                        this.$store.dispatch('session/setToken', { token: response.data.token});
-                        this.$router.push({name: 'home'});
-                        console.log("redirect to /")
-                    }
-                    // TODO handle signup failure
-                })
-                .catch(e => {
-                    console.log(e)
-                })
+                this.$store.dispatch("users/signup", {username: this.username, password: this.password})
             }
         }
     }

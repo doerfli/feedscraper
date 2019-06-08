@@ -4,6 +4,7 @@ import feeds from "./stores/feeds";
 import items from "./stores/items";
 import session from "./stores/session";
 import messages from "./stores/messages";
+import users from "./stores/users";
 
 Vue.use(Vuex);
 
@@ -13,8 +14,9 @@ export default new Vuex.Store({
     modules: {
         feeds,
         items,
+        messages,
         session,
-        messages
+        users
     },
     state: {},
     mutations: {},

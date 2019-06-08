@@ -11,7 +11,7 @@ const AXIOS = axios.create({
 });
 
 AXIOS.interceptors.request.use(config => {
-    console.log(`token: ${store.state.session.token}`);
+    // console.log(`token: ${store.state.session.token}`);
     if (store.state.session.token != null) {
         config.headers.common['Authorization'] = `Bearer ${store.state.session.token}`;
     }

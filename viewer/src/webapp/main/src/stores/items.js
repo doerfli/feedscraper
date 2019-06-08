@@ -14,7 +14,7 @@ const actions = {
         let pkey = payload.feedPkey;
         console.log(`retrieving items for pkey ${pkey}`);
         return AXIOS.get(`/items/${pkey}`).then(async response => {
-            console.log(response);
+            // console.log(response);
             commit('setItems', {pkey: pkey, items: response.data})
         })
         .catch(e => {
@@ -26,7 +26,7 @@ const actions = {
 // mutations
 const mutations = {
     setItems(state, payload) {
-        console.log(payload.items);
+        // console.log(payload.items);
         state.all[payload.pkey] = payload.items
     }
 };

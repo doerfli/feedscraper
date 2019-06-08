@@ -12,10 +12,10 @@ const getters = {};
 const actions = {
     async getAll({ commit }) {
         return AXIOS.get(`/feeds`).then(async response => {
-            console.log(response);
+            // console.log(response);
             commit('setAll', response.data);
             if (response.data.length > 0) {
-                console.log(response.data[0].pkey);
+                // console.log(response.data[0].pkey);
                 // enable first feed
                 this.dispatch('session/setActiveFeed', { pkey: response.data[0].pkey});
             }

@@ -50,7 +50,7 @@
           return this.$store.state.session.token != null;
         },
         isLoginPage: function () {
-          console.log(this.$route);
+          // console.log(this.$route);
           return this.$route.name === "login";
         }
       },

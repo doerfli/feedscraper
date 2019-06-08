@@ -44,7 +44,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to);
+  // console.log("navigation to: " + to);
   updateStoreFromLocalStorage().then(() => {
     if (to.name !== "login" && to.name !== "signup") {
       if (store.state.session.token == null) {
@@ -61,7 +61,7 @@ router.beforeEach((to, from, next) => {
 
 function updateStoreFromLocalStorage() {
   return localforage.getItem('token').then(function (value) {
-    console.log(value);
+    // console.log(value);
     if (value) {
       store.commit('session/setToken', {token: value});
     }
