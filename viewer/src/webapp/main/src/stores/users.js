@@ -15,6 +15,7 @@ const getters = {
 const actions = {
     // eslint-disable-next-line no-unused-vars
     login({ commit }, payload) {
+        this.dispatch('messages/clear');
         AXIOS.post(`/users/signin`, {
             username: payload.username,
             password: payload.password
@@ -26,14 +27,27 @@ const actions = {
                 console.log("redirecting to /");
                 router.push({name: 'home'});
             }
-            // TODO handle login failure
         })
-        .catch(e => {
-            console.log(e)
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response);
+                if (error.response.status === 422) {
+                    this.dispatch('messages/add', { text: "Invalid username or password", type: "error"});
+                } else {
+                    this.dispatch('messages/add', { text: "An unexpected error occured. Please try again", type: "error"});
+                }
+            } else if (error.request) {
+                this.dispatch('messages/add', { text: "Server could not be contacted. Please try again later", type: "error"});
+            } else {
+                this.dispatch('messages/add', { text: "An unexpected error occured. Please try again", type: "error"});
+            }
         })
     },
     // eslint-disable-next-line no-unused-vars
     signup({commit}, payload) {
+        this.dispatch('messages/clear');
         AXIOS.post(`/users/signup`, {
             username: payload.username,
             password: payload.password
@@ -46,10 +60,22 @@ const actions = {
                 router.push({name: 'home'});
                 // console.log("redirect to home")
             }
-            // TODO handle signup failure
         })
-        .catch(e => {
-            console.log(e)
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response);
+                if (error.response.status === 422) {
+                    this.dispatch('messages/add', { text: "Username is not available", type: "error"});
+                } else {
+                    this.dispatch('messages/add', { text: "An unexpected error occured. Please try again", type: "error"});
+                }
+            } else if (error.request) {
+                this.dispatch('messages/add', { text: "Server could not be contacted. Please try again later", type: "error"});
+            } else {
+                this.dispatch('messages/add', { text: "An unexpected error occured. Please try again", type: "error"});
+            }
         })
     }
 };
