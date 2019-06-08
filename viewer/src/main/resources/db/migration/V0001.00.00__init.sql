@@ -14,6 +14,10 @@ create table feed (
     primary key (pkey)
 );
 
+CREATE UNIQUE INDEX
+    idx_feed_url ON feed(url);
+
+
 create table item (
     pkey int8 not null,
     content varchar(4096),
@@ -26,6 +30,7 @@ create table item (
     feed_id int8,
     primary key (pkey)
 );
+
 alter table item
     add constraint fk_item_feed_id foreign key (feed_id) references feed;
 

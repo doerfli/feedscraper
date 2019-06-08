@@ -8,7 +8,7 @@ data class Feed (
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         val pkey: Long,
-        // TODO unique
+        @Column(unique=true)
         val url: String,
         var lastDownloaded: Instant? = null,
         var id: String? = null,
