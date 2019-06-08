@@ -31,9 +31,7 @@ class UserService @Autowired constructor(
 
     fun signin(username: String, password: String): UserResponseDto {
         try {
-            // TODO security - check password even if user does not exist (timing attack)
-            val auth = authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username, password))
-            // TODO auth.details ... return user object if possible
+            authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username, password))
             return UserResponseDto(token = jwtTokenProvider.createToken(username, userRepository.findByUsername(username).orElseThrow {throw IllegalArgumentException("invalid username $username")}.roles))
         } catch (e: AuthenticationException) {
             log.warn("could not login user", e)
@@ -45,10 +43,8 @@ class UserService @Autowired constructor(
     fun signup(username: String, password: String): UserResponseDto {
         if (userRepository.findByUsername(username).isEmpty) {
             val user = User(0, username, passwordEncoder.encode(password), mutableListOf(Role.ROLE_CLIENT))
-            // TODO security - this is strange
             userRepository.save(user)
-            log.info("stored user to database: $user")
-            // TODO auth.detals ... return user object
+            log.info("created user $user")
             return UserResponseDto(token = jwtTokenProvider.createToken(username, listOf(Role.ROLE_CLIENT)))
         } else {
             log.warn("username already in use")
