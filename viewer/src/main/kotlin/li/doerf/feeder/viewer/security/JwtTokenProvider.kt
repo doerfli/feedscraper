@@ -29,7 +29,7 @@ class JwtTokenProvider @Autowired constructor(
 //    @Value("\${security.jwt.token.secret-key:secret-keysecret-keysecret-keysecret-key}")
 //    private var secretKey: String? = null
 
-    @Value("\${security.jwt.token.expire-length}")
+    @Value("\${security.jwt.token.expire-length:3600000}")
     private val validityInMilliseconds: Long = 3600000 // 1h
 
 
