@@ -52,9 +52,8 @@ class JwtTokenProvider @Autowired constructor(
     }
 
     fun getAuthentication(token: String): Authentication {
-        // TODO security - like this?
         val userDetails = userDetailsService.loadUserByUsername(getUsername(token))
-        return UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities())
+        return UsernamePasswordAuthenticationToken(userDetails, "", userDetails.authorities)
     }
 
     fun getUsername(token: String): String {
@@ -65,7 +64,7 @@ class JwtTokenProvider @Autowired constructor(
         val bearerToken = req.getHeader("Authorization")
         return if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             bearerToken.substring(7)
-        } else null // TODO security - really?
+        } else null
     }
 
     fun validateToken(token: String): Boolean {
