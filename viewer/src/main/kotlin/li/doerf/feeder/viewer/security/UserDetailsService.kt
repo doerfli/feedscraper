@@ -18,12 +18,12 @@ class UserDetailsService @Autowired constructor(
 
         return User
                 .withUsername(username)
-                .password(user.password) // TOOD security - ???
+                .password(user.password)
                 .authorities(user.roles)
-                .accountExpired(false) // TOOD security - ??? need to map this from database
-                .accountLocked(false) // TOOD security - ??? need to map this from database
-                .credentialsExpired(false) // TOOD security - ??? need to map this from database
-                .disabled(false) // TOOD security - ??? need to map this from database
+                .accountExpired(false)
+                .accountLocked(false)
+                .credentialsExpired(false)
+                .disabled(false)
                 .build()
     }
 
