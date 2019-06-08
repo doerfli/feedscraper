@@ -36,6 +36,7 @@ class UserService @Autowired constructor(
             // TODO auth.details ... return user object if possible
             return UserResponseDto(token = jwtTokenProvider.createToken(username, userRepository.findByUsername(username).orElseThrow {throw IllegalArgumentException("invalid username $username")}.roles))
         } catch (e: AuthenticationException) {
+            log.warn("could not login user", e)
             throw HttpException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY)
         }
 
@@ -50,7 +51,7 @@ class UserService @Autowired constructor(
             // TODO auth.detals ... return user object
             return UserResponseDto(token = jwtTokenProvider.createToken(username, listOf(Role.ROLE_CLIENT)))
         } else {
-            // TODO security - handle this better ... enumeration attack
+            log.warn("username already in use")
             throw HttpException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY)
         }
     }
