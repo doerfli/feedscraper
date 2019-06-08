@@ -3,13 +3,10 @@ package li.doerf.feeder.viewer.controllers
 import li.doerf.feeder.common.entities.Role
 import li.doerf.feeder.common.entities.User
 import li.doerf.feeder.common.repositories.UserRepository
-import li.doerf.feeder.viewer.HttpException
-import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.test.annotation.DirtiesContext
@@ -62,19 +59,18 @@ class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
 
         // when
-        assertThatThrownBy {
-            mvc.perform(MockMvcRequestBuilders.post("/api/users/signup")
-                    .content("""
-                    {
-                        "username":"test@test123.com",
-                        "password": "12345678"
-                    }
-                """)
-                    .contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.post("/api/users/signup")
+                .content("""
+                {
+                    "username":"test@test123.com",
+                    "password": "12345678"
+                }
+            """)
+                .contentType(MediaType.APPLICATION_JSON))
 
-                    // then
-                    .andDo(MockMvcResultHandlers.print())
-        }.hasCauseInstanceOf(HttpException::class.java)
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity)
     }
 
     @Test
@@ -104,21 +100,18 @@ class UserControllerTest {
         userRepository.save(user)
 
         // when
-        assertThatThrownBy {
-            mvc.perform(MockMvcRequestBuilders.post("/api/users/signin")
-                    .content("""
-                        {
-                            "username":"test1@test123.com",
-                            "password": "12345678"
-                        }
-                    """)
-                    .contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.post("/api/users/signin")
+                .content("""
+                    {
+                        "username":"test1@test123.com",
+                        "password": "12345678"
+                    }
+                """)
+                .contentType(MediaType.APPLICATION_JSON))
 
-                    // then
-                    .andDo(MockMvcResultHandlers.print())
-                    .andExpect(MockMvcResultMatchers.status().isOk)
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.token").isNotEmpty)
-        }.hasCause(HttpException("Invalid username/password supplied", HttpStatus.INTERNAL_SERVER_ERROR))
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity)
     }
 
     @Test
@@ -127,20 +120,17 @@ class UserControllerTest {
         userRepository.save(user)
 
         // when
-        assertThatThrownBy {
-            mvc.perform(MockMvcRequestBuilders.post("/api/users/signin")
-                    .content("""
-                        {
-                            "username":"test@test123.com",
-                            "password": "12345677"
-                        }
-                    """)
-                    .contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.post("/api/users/signin")
+                .content("""
+                    {
+                        "username":"test@test123.com",
+                        "password": "12345677"
+                    }
+                """)
+                .contentType(MediaType.APPLICATION_JSON))
 
-                    // then
-                    .andDo(MockMvcResultHandlers.print())
-                    .andExpect(MockMvcResultMatchers.status().isOk)
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.token").isNotEmpty)
-        }.hasCause(HttpException("Invalid username/password supplied", HttpStatus.INTERNAL_SERVER_ERROR))
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity)
     }
 }
