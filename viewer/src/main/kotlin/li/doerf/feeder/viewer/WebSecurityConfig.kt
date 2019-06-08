@@ -4,6 +4,7 @@ import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.security.JwtTokenFilterConfigurer
 import li.doerf.feeder.viewer.security.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -30,6 +31,9 @@ class WebSecurityConfig @Autowired constructor(
         private val log = getLogger(javaClass)
     }
 
+    @Value("\${security.bcrypt.encoder.strength:13}")
+    private val bcryptEncoderStrength: Int = 13
+
     override fun configure(http: HttpSecurity) {
         // Disable CSRF (cross site request forgery)
         http.csrf().disable()
@@ -53,7 +57,7 @@ class WebSecurityConfig @Autowired constructor(
 
     @Bean
     fun passwordEncoder(): PasswordEncoder {
-        return BCryptPasswordEncoder(12)
+        return BCryptPasswordEncoder(bcryptEncoderStrength)
     }
 
     @Bean

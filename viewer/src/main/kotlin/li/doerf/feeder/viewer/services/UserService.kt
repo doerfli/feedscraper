@@ -41,8 +41,10 @@ class UserService @Autowired constructor(
     }
 
     fun signup(username: String, password: String): UserResponseDto {
+        // always encode password to avoid timing attacks
+        val encodedPassword = passwordEncoder.encode(password);
         if (userRepository.findByUsername(username).isEmpty) {
-            val user = User(0, username, passwordEncoder.encode(password), mutableListOf(Role.ROLE_CLIENT))
+            val user = User(0, username, encodedPassword, mutableListOf(Role.ROLE_CLIENT))
             userRepository.save(user)
             log.info("created user $user")
             return UserResponseDto(token = jwtTokenProvider.createToken(username, listOf(Role.ROLE_CLIENT)))
