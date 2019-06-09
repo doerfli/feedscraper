@@ -34,13 +34,8 @@ class UserController @Autowired constructor(
     @PostMapping("/signup")
     fun signup(@RequestBody userRequest: UserRequestDto): ResponseEntity<UserResponseDto> {
         log.debug("signup user ${userRequest.username}")
-        // TODO make two step request with confirmation via email
         val dto = userService.signup(userRequest.username, userRequest.password)
         return ResponseEntity.ok(dto)
     }
-
-    // TODO confirm link in email
-
-    // TODO password reset
 
 }

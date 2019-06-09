@@ -20,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
 @EnableWebSecurity
-// TODO security - whats this?
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class WebSecurityConfig @Autowired constructor(
         private val jwtTokenProvider: JwtTokenProvider
