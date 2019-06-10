@@ -65,6 +65,10 @@ compileTestKotlin {
     }
 }
 
+bootJar {
+    mainClassName = 'li.doerf.feeder.viewer.ViewerApplication'
+}
+
 sourceSets.create("webapp") {
     resources.srcDir("src/webapp/resources")
     resources.srcDir("src/webapp/generated")
