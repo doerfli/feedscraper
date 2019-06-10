@@ -1,9 +1,13 @@
 package li.doerf.feeder.viewer.controllers
 
-import li.doerf.feeder.common.entities.*
+import li.doerf.feeder.common.entities.Feed
+import li.doerf.feeder.common.entities.FeedType
+import li.doerf.feeder.common.entities.Item
 import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.repositories.ItemRepository
-import li.doerf.feeder.common.repositories.ItemStateRepository
+import li.doerf.feeder.viewer.entities.ItemState
+import li.doerf.feeder.viewer.entities.User
+import li.doerf.feeder.viewer.repositories.ItemStateRepository
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.BeforeEach

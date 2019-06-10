@@ -1,5 +1,7 @@
-package li.doerf.feeder.common.entities
+package li.doerf.feeder.viewer.entities
 
+import li.doerf.feeder.common.entities.Feed
+import li.doerf.feeder.common.entities.Item
 import javax.persistence.*
 
 @Entity

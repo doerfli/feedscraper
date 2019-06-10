@@ -1,7 +1,7 @@
 package li.doerf.feeder.viewer.util
 
-import li.doerf.feeder.common.entities.User
-import li.doerf.feeder.common.repositories.UserRepository
+import li.doerf.feeder.viewer.entities.User
+import li.doerf.feeder.viewer.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service

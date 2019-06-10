@@ -1,12 +1,12 @@
 package li.doerf.feeder.viewer.controllers
 
-import li.doerf.feeder.common.entities.ItemState
 import li.doerf.feeder.common.repositories.ItemRepository
-import li.doerf.feeder.common.repositories.ItemStateRepository
 import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.HttpException
 import li.doerf.feeder.viewer.dto.ItemDto
 import li.doerf.feeder.viewer.dto.toDto
+import li.doerf.feeder.viewer.entities.ItemState
+import li.doerf.feeder.viewer.repositories.ItemStateRepository
 import li.doerf.feeder.viewer.util.UserUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus

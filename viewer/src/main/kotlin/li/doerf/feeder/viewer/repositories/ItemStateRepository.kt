@@ -1,9 +1,9 @@
-package li.doerf.feeder.common.repositories
+package li.doerf.feeder.viewer.repositories
 
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.entities.Item
-import li.doerf.feeder.common.entities.ItemState
-import li.doerf.feeder.common.entities.User
+import li.doerf.feeder.viewer.entities.ItemState
+import li.doerf.feeder.viewer.entities.User
 import org.springframework.data.repository.CrudRepository
 import java.util.*
 

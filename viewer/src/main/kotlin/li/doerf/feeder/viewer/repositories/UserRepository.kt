@@ -1,6 +1,6 @@
-package li.doerf.feeder.common.repositories
+package li.doerf.feeder.viewer.repositories
 
-import li.doerf.feeder.common.entities.User
+import li.doerf.feeder.viewer.entities.User
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import java.util.*
