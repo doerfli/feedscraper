@@ -27,6 +27,7 @@ fun Item.toDto(): ItemDto {
             summary,
             content,
             published,
-            updated
+            updated,
+            false
     )
 }

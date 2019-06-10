@@ -1,12 +1,12 @@
 package li.doerf.feeder.viewer.controllers
 
-import li.doerf.feeder.common.entities.Feed
-import li.doerf.feeder.common.entities.FeedType
-import li.doerf.feeder.common.entities.Item
+import li.doerf.feeder.common.entities.*
 import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.repositories.ItemRepository
+import li.doerf.feeder.common.repositories.ItemStateRepository
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -26,6 +26,7 @@ import java.time.Instant
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ItemsControllerTest {
 
+    private lateinit var testuser: User
     @Autowired
     private lateinit var mvc: MockMvc
 
@@ -33,6 +34,15 @@ class ItemsControllerTest {
     private lateinit var feedRepository: FeedRepository
     @Autowired
     private lateinit var entriesRepository: ItemRepository
+    @Autowired
+    private lateinit var itemStateRepository: ItemStateRepository
+    @Autowired
+    private lateinit var testHelper: TestHelper
+
+    @BeforeEach
+    fun setup() {
+        testuser = testHelper.createUser("test@test123.com")
+    }
 
     @Test
     fun testIndexMethodIsSecured() {
@@ -55,7 +65,8 @@ class ItemsControllerTest {
         val sixtySAgo = Instant.now().minusSeconds(60)
         createEntry(feed1, "123456", "Entrytitle1", "link1", "summary1", "content1",
                 sixtySAgo,
-                tenSAgo)
+                tenSAgo,
+                true)
         createEntry(feed1, "123457", "Entrytitle2", "link2", "summary2", "content2",
                 thirtySAgo,
                 thirtySAgo)
@@ -69,16 +80,20 @@ class ItemsControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize<Any>(2)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].title", CoreMatchers.`is`("Entrytitle2")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].read", CoreMatchers.`is`(false)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].title", CoreMatchers.`is`("Entrytitle1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].read", CoreMatchers.`is`(true)))
 
     }
 
-    private fun createEntry(feed1: Feed, id: String, title: String, link: String, summary: String, content: String, published: Instant, updated: Instant): Item {
+    private fun createEntry(feed1: Feed, id: String, title: String, link: String, summary: String, content: String, published: Instant, updated: Instant, isRead: Boolean = false): Item {
         val entry1 = Item(0, feed1, id, title, link,
                 summary, content,
                 published,
                 updated)
         entriesRepository.save(entry1)
+        val readItem = ItemState(0, testuser, entry1, feed1, isRead)
+        itemStateRepository.save(readItem)
         return entry1
     }
 
