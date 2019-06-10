@@ -36,8 +36,8 @@ class ItemsController @Autowired constructor(
         return ResponseEntity(entries.map { it.toDto(itemReadMap.getOrDefault(it.id, false)) }, HttpStatus.OK)
     }
 
-    @PostMapping("/{feedId}/{itemId}/read")
-    fun markAsRead(@PathVariable feedId: Long, @PathVariable itemId: Long): ResponseEntity<ItemDto> {
+    @PostMapping("/{itemId}/read")
+    fun markAsRead(@PathVariable itemId: Long): ResponseEntity<ItemDto> {
         val item = itemRepository.findById(itemId).orElseThrow{ HttpException("Unknown itemId $itemId", HttpStatus.BAD_REQUEST)}
         log.debug("marking item as read $item")
         val stateOp = itemStateRepository.findByUserAndFeedAndItem(userUtils.getCurrentUser(), item.feed, item)
@@ -52,8 +52,8 @@ class ItemsController @Autowired constructor(
         return ResponseEntity.ok(item.toDto(true))
     }
 
-    @PostMapping("/{feedId}/{itemId}/unread")
-    fun markAsUnread(@PathVariable feedId: Long, @PathVariable itemId: Long): ResponseEntity<ItemDto> {
+    @PostMapping("/{itemId}/unread")
+    fun markAsUnread(@PathVariable itemId: Long): ResponseEntity<ItemDto> {
         val item = itemRepository.findById(itemId).orElseThrow{ HttpException("Unknown itemId $itemId", HttpStatus.BAD_REQUEST)}
         log.debug("marking item as unread $item")
         val stateOp = itemStateRepository.findByUserAndFeedAndItem(userUtils.getCurrentUser(), item.feed, item)

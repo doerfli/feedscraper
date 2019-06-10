@@ -166,7 +166,7 @@ class ItemsControllerTest {
 
 
         // when
-        mvc.perform(MockMvcRequestBuilders.post("/api/items/${feed1.pkey}/${item.pkey}/unread").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.post("/api/items/${item.pkey}/unread").contentType(MediaType.APPLICATION_JSON))
 
                 // then
                 .andDo(MockMvcResultHandlers.print())
@@ -190,7 +190,7 @@ class ItemsControllerTest {
 
 
         // when
-        mvc.perform(MockMvcRequestBuilders.post("/api/items/${feed1.pkey}/${item.pkey}/unread").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.post("/api/items/${item.pkey}/unread").contentType(MediaType.APPLICATION_JSON))
 
                 // then
                 .andDo(MockMvcResultHandlers.print())
