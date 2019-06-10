@@ -73,7 +73,7 @@ class ItemsControllerTest {
 
 
         // when
-        mvc.perform(MockMvcRequestBuilders.get("/api/items/${feed1.pkey}").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/api/items/byFeed/${feed1.pkey}").contentType(MediaType.APPLICATION_JSON))
 
                 // then
                 .andDo(MockMvcResultHandlers.print())
@@ -118,7 +118,7 @@ class ItemsControllerTest {
 
 
         // when
-        mvc.perform(MockMvcRequestBuilders.post("/api/items/${feed1.pkey}/${item.pkey}/read").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.post("/api/items/${item.pkey}/read").contentType(MediaType.APPLICATION_JSON))
 
                 // then
                 .andDo(MockMvcResultHandlers.print())
@@ -142,7 +142,7 @@ class ItemsControllerTest {
 
 
         // when
-        mvc.perform(MockMvcRequestBuilders.post("/api/items/${feed1.pkey}/${item.pkey}/read").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.post("/api/items/${item.pkey}/read").contentType(MediaType.APPLICATION_JSON))
 
                 // then
                 .andDo(MockMvcResultHandlers.print())

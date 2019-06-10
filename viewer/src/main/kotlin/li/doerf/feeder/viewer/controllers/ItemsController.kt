@@ -27,7 +27,7 @@ class ItemsController @Autowired constructor(
         private val log = getLogger(javaClass)
     }
 
-    @GetMapping("/{feedId}")
+    @GetMapping("/byFeed/{feedId}")
     fun getAllByFeed(@PathVariable feedId: Long): ResponseEntity<List<ItemDto>> {
         log.debug("retrieving al entries for feed pkey=$feedId")
         val entries = itemRepository.findTop30ByFeedPkeyOrderByPublishedDesc(feedId)
