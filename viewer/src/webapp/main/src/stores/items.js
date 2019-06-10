@@ -25,7 +25,13 @@ const actions = {
         let itemPkey = payload.itemPkey;
         console.log(`marking item ${itemPkey} as read`);
         AXIOS.post(`/items/${itemPkey}/read`);
-        commit('markAsRead', {pkey: itemPkey, read: true, feedPkey: payload.feedPkey, index: payload.index})
+        commit('markAsRead', {pkey: itemPkey, read: true, feedPkey: payload.feedPkey, index: payload.index});
+    },
+    async markAsUnread({commit}, payload) {
+        let itemPkey = payload.itemPkey;
+        console.log(`marking item ${itemPkey} as unread`);
+        AXIOS.post(`/items/${itemPkey}/unread`);
+        commit('markAsRead', {pkey: itemPkey, read: false, feedPkey: payload.feedPkey, index: payload.index});
     }
 };
 
@@ -36,7 +42,7 @@ const mutations = {
         state.all[payload.feedPkey] = payload.items
     },
     markAsRead(state, payload) {
-        state.all[payload.feedPkey][payload.index].read = payload.read
+        state.all[payload.feedPkey][payload.index].read = payload.read;
     }
 };
 

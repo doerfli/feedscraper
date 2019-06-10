@@ -3,7 +3,7 @@
     <div class="content">
       <ul>
         <Item
-            v-for="(item,index) in items" v-bind:key="item.pkey" v-bind:data="item" v-bind:index="index" />
+            v-for="(item,index) in items" v-bind:key="item.pkey" v-bind:item="item" v-bind:index="index" />
       </ul>
     </div>
   </div>

@@ -1,15 +1,15 @@
 <template>
     <li>
-        <div v-if="!this.data.read" class="unread">
-            <span v-on:click="showContent">{{data.title}}</span>
+        <div v-if="!isRead" class="unread">
+            <span v-on:click="showContent">{{item.title}}</span>
         </div>
         <div v-else class="read">
-            <span v-on:click="showContent">{{data.title}}</span>
+            <span v-on:click="showContent">{{item.title}}</span>
         </div>
         <div v-if="isContentVisible" class="content" >
-            <div v-html="data.summary">
+            <div v-html="item.summary">
             </div>
-            <a v-bind:href="data.link" target="_blank">Open full version</a>
+            <a v-bind:href="item.link" target="_blank">Open full version</a> | <a v-if="item.read" v-on:click="markAsUnread" target="_blank">Mark as unread</a>
         </div>
     </li>
 </template>
@@ -18,19 +18,28 @@
     export default {
         name: "Item",
         props: {
-            data: {},
+            item: {},
             index: Number
         },
         data: function () {
             return {
-                isContentVisible: false
+                isContentVisible: false,
+                isRead: this.item.read
             };
         },
         methods: {
             showContent: function () {
+                let wasVisibleBefore = this.isContentVisible;
                 this.isContentVisible = !this.isContentVisible;
-                if (!this.data.read) {
-                    this.$store.dispatch("items/markAsRead", { feedPkey: this.data.feedPkey, itemPkey: this.data.pkey, index: this.index});
+                if (!wasVisibleBefore && !this.item.read) {
+                    this.$store.dispatch("items/markAsRead", { feedPkey: this.item.feedPkey, itemPkey: this.item.pkey, index: this.index});
+                    this.isRead = true;
+                }
+            },
+            markAsUnread: function() {
+                if (this.item.read) {
+                    this.$store.dispatch("items/markAsUnread", { feedPkey: this.item.feedPkey, itemPkey: this.item.pkey, index: this.index});
+                    this.isRead = false;
                 }
             }
         }
