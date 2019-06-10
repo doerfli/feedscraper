@@ -63,11 +63,11 @@ class ItemsControllerTest {
         val tenSAgo = Instant.now().minusSeconds(10)
         val thirtySAgo = Instant.now().minusSeconds(30)
         val sixtySAgo = Instant.now().minusSeconds(60)
-        createEntry(feed1, "123456", "Entrytitle1", "link1", "summary1", "content1",
+        createItem(feed1, "123456", "Entrytitle1", "link1", "summary1", "content1",
                 sixtySAgo,
                 tenSAgo,
                 true)
-        createEntry(feed1, "123457", "Entrytitle2", "link2", "summary2", "content2",
+        createItem(feed1, "123457", "Entrytitle2", "link2", "summary2", "content2",
                 thirtySAgo,
                 thirtySAgo)
 
@@ -86,7 +86,7 @@ class ItemsControllerTest {
 
     }
 
-    private fun createEntry(feed1: Feed, id: String, title: String, link: String, summary: String, content: String, published: Instant, updated: Instant, isRead: Boolean = false): Item {
+    private fun createItem(feed1: Feed, id: String, title: String, link: String, summary: String, content: String, published: Instant, updated: Instant, isRead: Boolean = false): Item {
         val entry1 = Item(0, feed1, id, title, link,
                 summary, content,
                 published,
@@ -102,6 +102,101 @@ class ItemsControllerTest {
                 "Heise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedType.Atom)
         feedRepository.save(feed1)
         return feed1
+    }
+
+    @WithMockUser(username="test@test123.com")
+    @Test
+    fun testMarkAsRead() {
+        // given
+        val feed1 = createFeed()
+
+        val tenSAgo = Instant.now().minusSeconds(10)
+        val sixtySAgo = Instant.now().minusSeconds(60)
+        val item = createItem(feed1, "123456", "Entrytitle1", "link1", "summary1", "content1",
+                sixtySAgo,
+                tenSAgo)
+
+
+        // when
+        mvc.perform(MockMvcRequestBuilders.post("/api/items/${feed1.pkey}/${item.pkey}/read").contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title", CoreMatchers.`is`("Entrytitle1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.read", CoreMatchers.`is`(true)))
+    }
+
+    @WithMockUser(username="test@test123.com")
+    @Test
+    fun testMarkReadItemAsRead() {
+        // given
+        val feed1 = createFeed()
+
+        val tenSAgo = Instant.now().minusSeconds(10)
+        val sixtySAgo = Instant.now().minusSeconds(60)
+        val item = createItem(feed1, "123456", "Entrytitle1", "link1", "summary1", "content1",
+                sixtySAgo,
+                tenSAgo,
+                true)
+
+
+        // when
+        mvc.perform(MockMvcRequestBuilders.post("/api/items/${feed1.pkey}/${item.pkey}/read").contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title", CoreMatchers.`is`("Entrytitle1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.read", CoreMatchers.`is`(true)))
+    }
+
+    @WithMockUser(username="test@test123.com")
+    @Test
+    fun testMarkAsUnread() {
+        // given
+        val feed1 = createFeed()
+
+        val tenSAgo = Instant.now().minusSeconds(10)
+        val sixtySAgo = Instant.now().minusSeconds(60)
+        val item = createItem(feed1, "123456", "Entrytitle1", "link1", "summary1", "content1",
+                sixtySAgo,
+                tenSAgo,
+                true)
+
+
+        // when
+        mvc.perform(MockMvcRequestBuilders.post("/api/items/${feed1.pkey}/${item.pkey}/unread").contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title", CoreMatchers.`is`("Entrytitle1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.read", CoreMatchers.`is`(false)))
+    }
+
+    @WithMockUser(username="test@test123.com")
+    @Test
+    fun testMarkUnreadItemAsUnread() {
+        // given
+        val feed1 = createFeed()
+
+        val tenSAgo = Instant.now().minusSeconds(10)
+        val sixtySAgo = Instant.now().minusSeconds(60)
+        val item = createItem(feed1, "123456", "Entrytitle1", "link1", "summary1", "content1",
+                sixtySAgo,
+                tenSAgo,
+                false)
+
+
+        // when
+        mvc.perform(MockMvcRequestBuilders.post("/api/items/${feed1.pkey}/${item.pkey}/unread").contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title", CoreMatchers.`is`("Entrytitle1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.read", CoreMatchers.`is`(false)))
     }
 
 }

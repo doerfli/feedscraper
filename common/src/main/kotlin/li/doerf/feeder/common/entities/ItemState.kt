@@ -16,5 +16,5 @@ data class ItemState(
         @ManyToOne
         @JoinColumn(name = "feed_id")
         val feed: Feed,
-        val isRead: Boolean
+        var isRead: Boolean
 )
