@@ -13,7 +13,7 @@ const actions = {
     async getByFeed({ commit }, payload) {
         let feedPkey = payload.feedPkey;
         console.log(`retrieving items for pkey ${feedPkey}`);
-        return AXIOS.get(`/items/${feedPkey}`).then(async response => {
+        return AXIOS.get(`/items/byFeed/${feedPkey}`).then(async response => {
             // console.log(response);
             commit('setItems', {feedPkey: feedPkey, items: response.data})
         })
