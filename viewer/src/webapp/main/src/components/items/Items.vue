@@ -3,16 +3,16 @@
     <div class="content">
       <ul>
         <Item
-            v-for="item in items" v-bind:key="item.pkey" v-bind:data="item" />
+            v-for="(item,index) in items" v-bind:key="item.pkey" v-bind:data="item" v-bind:index="index" />
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-    import Item from "./Item";
+  import Item from "./Item";
 
-    export default {
+  export default {
         name: "Items",
         components: {
             Item
