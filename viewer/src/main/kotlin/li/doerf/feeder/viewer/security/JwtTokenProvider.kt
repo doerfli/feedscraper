@@ -3,8 +3,8 @@ package li.doerf.feeder.viewer.security
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import li.doerf.feeder.common.entities.Role
 import li.doerf.feeder.viewer.HttpException
+import li.doerf.feeder.viewer.entities.Role
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
@@ -13,25 +13,27 @@ import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 import java.time.Instant
 import java.util.*
-import javax.crypto.SecretKey
+import javax.annotation.PostConstruct
+import javax.crypto.spec.SecretKeySpec
 import javax.servlet.http.HttpServletRequest
 
 @Component
 class JwtTokenProvider @Autowired constructor(
-        private val userDetailsService: UserDetailsService,
-        private val secretKey: SecretKey
+        private val userDetailsService: UserDetailsService
 ){
 
-//    /**
-//     * THIS IS NOT A SECURE PRACTICE! For simplicity, we are storing a static key here. Ideally, in a
-//     * microservices environment, this key would be kept on a config-server.
-//     */
-//    @Value("\${security.jwt.token.secret-key:secret-keysecret-keysecret-keysecret-key}")
-//    private var secretKey: String? = null
+    private lateinit var jwtKey: SecretKeySpec
+    @Value("\${security.jwt.token.secret-key}")
+    private lateinit var secretKey: String
 
     @Value("\${security.jwt.token.expire-length:3600000}")
     private val validityInMilliseconds: Long = 3600000 // 1h
 
+    @PostConstruct
+    fun init() {
+        val bytes = secretKey.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
+        jwtKey = SecretKeySpec(bytes, SignatureAlgorithm.HS256.jcaName)
+    }
 
     fun createToken(username: String, roles: List<Role>): String {
 
@@ -41,13 +43,11 @@ class JwtTokenProvider @Autowired constructor(
         val now = Instant.now()
         val validity = now.plusMillis(validityInMilliseconds)
 
-
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(Date.from(now))
                 .setExpiration(Date.from(validity))
-                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .signWith(jwtKey)
                 .compact()
     }
 
@@ -57,7 +57,7 @@ class JwtTokenProvider @Autowired constructor(
     }
 
     fun getUsername(token: String): String {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).body.subject
+        return Jwts.parser().setSigningKey(jwtKey).parseClaimsJws(token).body.subject
     }
 
     fun resolveToken(req: HttpServletRequest): String? {
@@ -69,7 +69,7 @@ class JwtTokenProvider @Autowired constructor(
 
     fun validateToken(token: String): Boolean {
         try {
-            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
+            Jwts.parser().setSigningKey(jwtKey).parseClaimsJws(token)
             return true
         } catch (e: JwtException) {
             throw HttpException("Expired or invalid JWT token", HttpStatus.FORBIDDEN)

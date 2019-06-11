@@ -1,6 +1,6 @@
 package li.doerf.feeder.viewer.security
 
-import li.doerf.feeder.common.repositories.UserRepository
+import li.doerf.feeder.viewer.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails

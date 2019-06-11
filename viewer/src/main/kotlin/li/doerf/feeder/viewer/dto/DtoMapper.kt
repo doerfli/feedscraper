@@ -17,7 +17,7 @@ fun Feed.toDto(): FeedDto {
             type!!)
 }
 
-fun Item.toDto(): ItemDto {
+fun Item.toDto(isRead: Boolean = false): ItemDto {
     return ItemDto(
             pkey,
             feed.pkey,
@@ -27,6 +27,7 @@ fun Item.toDto(): ItemDto {
             summary,
             content,
             published,
-            updated
+            updated,
+            isRead
     )
 }

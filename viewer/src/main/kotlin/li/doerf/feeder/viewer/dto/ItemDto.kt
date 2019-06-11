@@ -11,5 +11,6 @@ data class ItemDto (
         var summary: String,
         var content: String?,
         var published: Instant,
-        var updated: Instant
+        var updated: Instant,
+        var read: Boolean
         )

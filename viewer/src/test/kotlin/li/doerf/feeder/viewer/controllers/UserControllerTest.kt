@@ -1,8 +1,8 @@
 package li.doerf.feeder.viewer.controllers
 
-import li.doerf.feeder.common.entities.Role
-import li.doerf.feeder.common.entities.User
-import li.doerf.feeder.common.repositories.UserRepository
+import li.doerf.feeder.viewer.entities.Role
+import li.doerf.feeder.viewer.entities.User
+import li.doerf.feeder.viewer.repositories.UserRepository
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc

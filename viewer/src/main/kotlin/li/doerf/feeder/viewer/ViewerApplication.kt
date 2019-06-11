@@ -19,8 +19,8 @@ import javax.crypto.SecretKey
 @SpringBootApplication
 @Configuration
 //@ComponentScan(basePackages = ["li.doerf.feeder"])
-@EntityScan("li.doerf.feeder.common.entities")
-@EnableJpaRepositories("li.doerf.feeder.common.repositories")
+@EntityScan("li.doerf.feeder.common.entities", "li.doerf.feeder.viewer.entities")
+@EnableJpaRepositories("li.doerf.feeder.common.repositories", "li.doerf.feeder.viewer.repositories")
 class ViewerApplication {
 
     companion object {
