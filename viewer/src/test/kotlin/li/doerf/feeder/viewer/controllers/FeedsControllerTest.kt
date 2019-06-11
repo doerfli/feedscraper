@@ -14,6 +14,7 @@ import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -59,10 +60,50 @@ class FeedsControllerTest {
 
         // then
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isOk)
                 .andExpect(jsonPath("$", hasSize<Any>(2)))
                 .andExpect(jsonPath("$[0].title", `is`("aaaaaHeise News")))
                 .andExpect(jsonPath("$[1].title", `is`("Heise News")))
+    }
+
+    @WithMockUser(username="test@test123.com")
+    @Test
+    fun testAdd() {
+        // given
+        val url = "http://www.heise.de/feed/rss.xml";
+        // when
+        mvc.perform(post("/api/feeds").content(
+                """
+                    {
+                        "url":"$url"
+                    }
+                """).contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(print())
+                .andExpect(status().isOk)
+    }
+
+    @WithMockUser(username="test@test123.com")
+    @Test
+    fun testAddExists() {
+        // given
+        val url = "http://www.heise.de/feed/rss.xml";
+        val feed1 = Feed(0, url, Instant.now(), "https://www.heise.de/rss/heise-atom.xml",
+                "Heise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedType.Atom)
+        feedRepository.save(feed1)
+
+        // when
+        mvc.perform(post("/api/feeds").content(
+                """
+                    {
+                        "url":"$url"
+                    }
+                """).contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(print())
+                .andExpect(status().isBadRequest)
     }
 
 }

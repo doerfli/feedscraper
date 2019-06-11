@@ -1,4 +1,4 @@
-package li.doerf.feeder.viewer
+package li.doerf.feeder.viewer.config
 
 import li.doerf.feeder.common.util.getLogger
 import org.springframework.stereotype.Component

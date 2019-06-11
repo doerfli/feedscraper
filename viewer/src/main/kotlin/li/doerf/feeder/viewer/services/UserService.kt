@@ -1,12 +1,12 @@
 package li.doerf.feeder.viewer.services
 
 import li.doerf.feeder.common.util.getLogger
-import li.doerf.feeder.viewer.HttpException
+import li.doerf.feeder.viewer.config.security.JwtTokenProvider
 import li.doerf.feeder.viewer.dto.UserResponseDto
 import li.doerf.feeder.viewer.entities.Role
 import li.doerf.feeder.viewer.entities.User
+import li.doerf.feeder.viewer.exception.HttpException
 import li.doerf.feeder.viewer.repositories.UserRepository
-import li.doerf.feeder.viewer.security.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager

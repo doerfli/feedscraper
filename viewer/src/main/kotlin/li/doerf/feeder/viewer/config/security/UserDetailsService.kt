@@ -1,4 +1,4 @@
-package li.doerf.feeder.viewer.security
+package li.doerf.feeder.viewer.config.security
 
 import li.doerf.feeder.viewer.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired

@@ -1,4 +1,4 @@
-package li.doerf.feeder.viewer
+package li.doerf.feeder.viewer.exception
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException

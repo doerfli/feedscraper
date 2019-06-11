@@ -1,8 +1,8 @@
-package li.doerf.feeder.viewer
+package li.doerf.feeder.viewer.config
 
 import li.doerf.feeder.common.util.getLogger
-import li.doerf.feeder.viewer.security.JwtTokenFilterConfigurer
-import li.doerf.feeder.viewer.security.JwtTokenProvider
+import li.doerf.feeder.viewer.config.security.JwtTokenFilterConfigurer
+import li.doerf.feeder.viewer.config.security.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean

@@ -1,10 +1,10 @@
-package li.doerf.feeder.viewer.security
+package li.doerf.feeder.viewer.config.security
 
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import li.doerf.feeder.viewer.HttpException
 import li.doerf.feeder.viewer.entities.Role
+import li.doerf.feeder.viewer.exception.HttpException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus

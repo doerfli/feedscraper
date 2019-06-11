@@ -1,7 +1,7 @@
-package li.doerf.feeder.viewer.security
+package li.doerf.feeder.viewer.config.security
 
 import li.doerf.feeder.common.util.getLogger
-import li.doerf.feeder.viewer.HttpException
+import li.doerf.feeder.viewer.exception.HttpException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
