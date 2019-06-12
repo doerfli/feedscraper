@@ -74,7 +74,7 @@ class RssFeedParser : FeedParserBase() {
                 }
             }
             "pubDate" ->  {
-                val dateParser = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss X")
+                val dateParser = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z")
                 if (!isItemParsing) {
                     feed.updated = dateParser.parse(getParsedString()).toInstant()
                 } else {

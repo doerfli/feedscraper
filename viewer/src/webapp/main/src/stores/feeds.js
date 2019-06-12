@@ -23,6 +23,14 @@ const actions = {
         .catch(e => {
             console.log(e)
         })
+    },
+    async add({_}, payload) {
+        console.log(payload);
+        AXIOS.post(`/feeds`, {
+            url: payload.url
+        }).then(async response => {
+            console.log(response.status);
+        });
     }
 };
 

@@ -5,6 +5,7 @@
       <div class="container">
         <div class="columns">
           <div class="column is-one-fifth">
+            <FeedAdd />
             <FeedList />
           </div>
           <div class="column">
@@ -17,15 +18,18 @@
 </template>
 
 <script>
-    import HeroHeader from "../HeroHeader";
-    import FeedList from "./FeedList";
-    import Items from "../items/Items";
-    export default {
+  import HeroHeader from "../HeroHeader";
+  import FeedList from "./FeedList";
+  import Items from "../items/Items";
+  import FeedAdd from "./FeedAdd";
+
+  export default {
         name: "Feeds",
         components: {
             HeroHeader,
             FeedList,
-            Items
+            Items,
+            FeedAdd
         },
         created() {
             this.$store.dispatch('feeds/getAll');
