@@ -2,7 +2,10 @@
 
 ## Containers
 
-### Start 
+- scraper: downloads feeds and store in db
+- viewer: shows feeds and items
+
+## Start 
 
 ```
 docker-compose docker-compose up -d db
