@@ -8,11 +8,11 @@
 </template>
 
 <script>
-    import Feed from "./Feed";
-    import {Stomp} from "@stomp/stompjs/esm6/compatibility/stomp";
-    import * as SockJS from "sockjs-client";
+  import Feed from "./Feed";
+  import {Stomp} from "@stomp/stompjs/esm6/compatibility/stomp";
+  import * as SockJS from "sockjs-client";
 
-    var stompClient;
+  var stompClient;
 
     export default {
         name: "FeedList",
@@ -26,9 +26,11 @@
         },
         methods: {
           connect: function() {
-            var socket = new SockJS(`http://${process.env.VUE_APP_API_HOST}:8080/ws`, null, {transports: ['xhr-streaming'], headers: {'Authorization': `Bearer ${this.$store.state.session.token}`}});
+            var socket = new SockJS(`http://${process.env.VUE_APP_API_HOST}:8080/ws/`);
             stompClient = Stomp.over(socket);
-            stompClient.connect({}, function (frame) {
+            stompClient.connect({
+              "X-Auth-Token": this.$store.state.session.token
+            }, function (frame) {
               // setConnected(true);
               console.log("000");
               console.log('Connected: ' + frame);
