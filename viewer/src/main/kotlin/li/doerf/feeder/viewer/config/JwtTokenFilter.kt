@@ -1,4 +1,4 @@
-package li.doerf.feeder.viewer.config.security
+package li.doerf.feeder.viewer.config
 
 import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.exception.HttpException
