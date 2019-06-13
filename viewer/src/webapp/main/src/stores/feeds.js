@@ -24,7 +24,8 @@ const actions = {
             console.log(e)
         })
     },
-    async add({_}, payload) {
+    // eslint-disable-next-line no-unused-vars
+    async add({commit}, payload) {
         console.log(payload);
         AXIOS.post(`/feeds`, {
             url: payload.url
