@@ -45,6 +45,7 @@ class WebSecurityConfig @Autowired constructor(
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll() // allow preflight CORS requests
                 .antMatchers("/api/users/signin").permitAll()
                 .antMatchers("/api/users/signup").permitAll()
+                .antMatchers("/ws/**").permitAll()
                 .anyRequest().authenticated()
 
         http.exceptionHandling().accessDeniedPage("/login")
