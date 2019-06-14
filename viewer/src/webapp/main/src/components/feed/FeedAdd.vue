@@ -18,6 +18,8 @@
 </template>
 
 <script>
+    import {connectWs, wsClient} from "@/websocket-common";
+
     export default {
         name: "FeedAdd",
         data: function () {
@@ -30,11 +32,23 @@
             toggleAddForm: function () {
                 this.shown = !this.shown;
             },
-            addFeedUrl: function() {
+            addFeedUrl: function () {
                 console.log(this.url);
                 this.$store.dispatch("feeds/add", {url: this.url});
+                this.url = "";
                 this.toggleAddForm();
             }
+        },
+        mounted() {
+            let thisStore = this.$store;
+            connectWs(function (frame) {
+                console.log('Connected: ' + frame);
+                wsClient.subscribe('/topic/feeds', function (greeting) {
+                    console.log(JSON.parse(greeting.body));
+                    // reload feeds
+                    thisStore.dispatch("feeds/getAll");
+                });
+            });
         }
     }
 </script>

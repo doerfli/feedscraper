@@ -33,6 +33,7 @@ class FeedsController @Autowired constructor(
     fun add(@RequestBody feedAddDto: FeedAddRequestDto): HttpStatus {
         log.debug("request to add new feed url: $feedAddDto")
         feedService.add(feedAddDto.url)
+        feedService.waitForFeedScrapeAndNotifyClient(feedAddDto.url)
         return HttpStatus.OK
     }
 

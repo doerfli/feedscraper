@@ -20,7 +20,7 @@ class FeedMessagesController @Autowired constructor(
         private val log = getLogger(javaClass)
     }
 
-    @MessageMapping("/hello")
+    @MessageMapping("/feeds")
     @SendTo("/topic/feeds")
     fun feeds(hello: HelloMessage, principal: Principal): NewFeedsMessage {
         log.debug("user ${principal}")
