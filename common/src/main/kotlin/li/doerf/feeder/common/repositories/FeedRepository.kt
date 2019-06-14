@@ -10,5 +10,6 @@ import java.util.*
 interface FeedRepository : CrudRepository<Feed, Long> {
     fun findAllByTitleNotNull(sort: Sort): List<Feed>
     fun countFeedsByUrl(url: String): Int
+    fun countFeedsByUrlAndTitleNotNull(url: String): Int
     fun findFeedByUrl(uri: String): Optional<Feed>
 }
