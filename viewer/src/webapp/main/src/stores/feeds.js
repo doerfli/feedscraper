@@ -31,6 +31,10 @@ const actions = {
             url: payload.url
         }).then(async response => {
             console.log(response.status);
+            this.dispatch('messages/add', {
+                text: "New feed added - It will appear in the feed list after it was downloaded for the first time. This might take up to a minute.",
+                type: "notification"
+            });
         });
     }
 };
