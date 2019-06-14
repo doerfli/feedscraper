@@ -1,10 +1,10 @@
 <template>
-  <div class="content">
-    <ul>
-      <Feed
-          v-for="feed in feeds" v-bind:key="feed.pkey" v-bind:data="feed" />
-    </ul>
-  </div>
+    <div class="content">
+        <ul>
+            <Feed
+                v-for="feed in feeds" v-bind:key="feed.pkey" v-bind:data="feed"/>
+        </ul>
+    </div>
 </template>
 
 <script>
@@ -16,15 +16,20 @@
             Feed
         },
         computed: {
-            feeds () {
+            feeds() {
                 return this.$store.state.feeds.all
             }
         },
+        methods: {
+            connect: function () {
+
+            }
+        }
     }
 </script>
 
 <style scoped>
-  .content ul {
-    margin-top: 0px;
-  }
+    .content ul {
+        margin-top: 0px;
+    }
 </style>

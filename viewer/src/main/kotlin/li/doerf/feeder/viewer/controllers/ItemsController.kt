@@ -2,10 +2,10 @@ package li.doerf.feeder.viewer.controllers
 
 import li.doerf.feeder.common.repositories.ItemRepository
 import li.doerf.feeder.common.util.getLogger
-import li.doerf.feeder.viewer.HttpException
 import li.doerf.feeder.viewer.dto.ItemDto
 import li.doerf.feeder.viewer.dto.toDto
 import li.doerf.feeder.viewer.entities.ItemState
+import li.doerf.feeder.viewer.exception.HttpException
 import li.doerf.feeder.viewer.repositories.ItemStateRepository
 import li.doerf.feeder.viewer.util.UserUtils
 import org.springframework.beans.factory.annotation.Autowired
@@ -38,7 +38,7 @@ class ItemsController @Autowired constructor(
 
     @PostMapping("/{itemId}/read")
     fun markAsRead(@PathVariable itemId: Long): ResponseEntity<ItemDto> {
-        val item = itemRepository.findById(itemId).orElseThrow{ HttpException("Unknown itemId $itemId", HttpStatus.BAD_REQUEST)}
+        val item = itemRepository.findById(itemId).orElseThrow{ HttpException("Unknown itemId $itemId", HttpStatus.BAD_REQUEST) }
         log.debug("marking item as read $item")
         val stateOp = itemStateRepository.findByUserAndFeedAndItem(userUtils.getCurrentUser(), item.feed, item)
         if (stateOp.isEmpty) {
@@ -54,7 +54,7 @@ class ItemsController @Autowired constructor(
 
     @PostMapping("/{itemId}/unread")
     fun markAsUnread(@PathVariable itemId: Long): ResponseEntity<ItemDto> {
-        val item = itemRepository.findById(itemId).orElseThrow{ HttpException("Unknown itemId $itemId", HttpStatus.BAD_REQUEST)}
+        val item = itemRepository.findById(itemId).orElseThrow{ HttpException("Unknown itemId $itemId", HttpStatus.BAD_REQUEST) }
         log.debug("marking item as unread $item")
         val stateOp = itemStateRepository.findByUserAndFeedAndItem(userUtils.getCurrentUser(), item.feed, item)
         if (stateOp.isPresent) {

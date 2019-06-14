@@ -33,7 +33,7 @@ class ViewerApplication {
     fun webMvcConfigurer(): WebMvcConfigurer {
         return object : WebMvcConfigurer {
             override fun addCorsMappings(registry: CorsRegistry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:8070")
+                registry.addMapping("/**").allowedOrigins("http://localhost:8070").allowCredentials(true)
             }
 
             override fun configurePathMatch(configurer: PathMatchConfigurer) {

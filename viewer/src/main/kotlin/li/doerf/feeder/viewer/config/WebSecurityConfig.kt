@@ -1,8 +1,6 @@
-package li.doerf.feeder.viewer
+package li.doerf.feeder.viewer.config
 
 import li.doerf.feeder.common.util.getLogger
-import li.doerf.feeder.viewer.security.JwtTokenFilterConfigurer
-import li.doerf.feeder.viewer.security.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -45,6 +43,7 @@ class WebSecurityConfig @Autowired constructor(
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll() // allow preflight CORS requests
                 .antMatchers("/api/users/signin").permitAll()
                 .antMatchers("/api/users/signup").permitAll()
+                .antMatchers("/ws/**").permitAll() // websockets are authenticated via connect interceptor in WebSocketConfig
                 .anyRequest().authenticated()
 
         http.exceptionHandling().accessDeniedPage("/login")
