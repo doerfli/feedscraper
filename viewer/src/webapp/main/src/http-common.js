@@ -1,7 +1,6 @@
 import axios from 'axios';
 import store from "./store";
-
-// console.log(process.env);
+import router from '@/router';
 
 const AXIOS = axios.create({
     baseURL: `http://${process.env.VUE_APP_API_HOST}:8080/api`,
@@ -18,7 +17,21 @@ AXIOS.interceptors.request.use(config => {
     return config;
 });
 
-// TODO implement global error handler and redirect to /login on 403
+AXIOS.interceptors.response.use(function (response) {
+    console.log("1111");
+    console.log(response);
+    return Promise.resolve(response);
+}, function (error) {
+    // console.log(error);
+    if (error.response.status === 403) {
+        console.log("token rejected ... logout");
+        store.dispatch("messages/add", { text: "The session has expired. Please sign in again.", type: "warning" });
+        store.dispatch("session/logout");
+        router.push({name: 'login'});
+    } else {
+        return Promise.reject(error);
+    }
+});
 
 export default AXIOS
 
