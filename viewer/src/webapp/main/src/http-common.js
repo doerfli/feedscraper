@@ -10,7 +10,6 @@ const AXIOS = axios.create({
 });
 
 AXIOS.interceptors.request.use(config => {
-    // console.log(`token: ${store.state.session.token}`);
     if (store.state.session.token != null) {
         config.headers.common['Authorization'] = `Bearer ${store.state.session.token}`;
     }
@@ -18,11 +17,8 @@ AXIOS.interceptors.request.use(config => {
 });
 
 AXIOS.interceptors.response.use(function (response) {
-    console.log("1111");
-    console.log(response);
-    return Promise.resolve(response);
+    return response;
 }, function (error) {
-    // console.log(error);
     if (error.response.status === 403) {
         console.log("token rejected ... logout");
         store.dispatch("messages/add", { text: "The session has expired. Please sign in again.", type: "warning" });
