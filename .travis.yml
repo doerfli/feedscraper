@@ -16,7 +16,7 @@ matrix:
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       script:
-        - docker build -t doerfli/feedscraper_scraper:$RELEEASE -f Dockerfile-scraper .
+        - docker build -t doerfli/feedscraper_scraper:$RELEASE -f Dockerfile-scraper .
         - docker push doerfli/feedscraper_scraper:$RELEASE
 
 
