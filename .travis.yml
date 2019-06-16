@@ -1,3 +1,6 @@
+env:
+  global:
+    - RELEASE=`echo $TRAVIS_BRANCH | sed -E "s/\//-/g" | sed -e 's/\(.*\)/\L\1/'`
 matrix:
   include:
     - language: java
@@ -12,7 +15,6 @@ matrix:
         - docker
       env:
         - BUILD_NAME=docker_scraper
-        - RELEASE=`echo $TRAVIS_BRANCH | sed -E "s/\//-/g" | sed -e 's/\(.*\)/\L\1/'`
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       script:
@@ -25,7 +27,6 @@ matrix:
         - docker
       env:
         - BUILD_NAME=docker_viewer
-        - RELEASE=`echo $TRAVIS_BRANCH | sed -E "s/\//-/g" | sed -e 's/\(.*\)/\L\1/'`
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       script:
