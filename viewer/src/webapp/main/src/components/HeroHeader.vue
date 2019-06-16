@@ -1,16 +1,10 @@
 <template>
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          {{title}}
-        </h1>
-        <!--
-        <h2 class="subtitle">
-          Hero subtitle
-        </h2>
-        -->
-      </div>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">{{title}}</h1>
+      <h2 class="subtitle" v-if="subtitle">
+        {{subtitle}}
+      </h2>
     </div>
   </section>
 </template>
@@ -18,7 +12,7 @@
 <script>
     export default {
         name: "HeroHeader",
-        props: ["title"]
+        props: ["title", "subtitle"]
     }
 </script>
 
