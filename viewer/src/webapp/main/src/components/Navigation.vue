@@ -1,10 +1,10 @@
 <template>
-  <div class="container is-fluid has-background-primary nomargin linebottom">
-    <div class="container is-fullhd">
+  <div class="has-background-primary">
+    <div class="container is-fluid">
       <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" href="https://bulma.io">
-            <img src="../assets/logo.png">
+          <a class="navbar-item logo" href="/">
+            <i class="fas fa-stream fa-2x"></i>
           </a>
 
           <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -53,12 +53,7 @@
 </script>
 
 <style scoped lang="scss">
-  .container.nomargin {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .linebottom {
-    border-bottom: 2px $fs_main_dark solid;
+  .logo {
+    margin-right: 20px;
   }
 </style>
