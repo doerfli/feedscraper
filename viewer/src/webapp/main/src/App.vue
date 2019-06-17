@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="fullheight">
     <Navigation />
     <Messages />
     <router-view/>
@@ -13,12 +13,18 @@
   #app {
 
   }
+
+  html,
+  body,
+  .fullheight {
+    height: 100%;
+  }
 </style>
 <script>
-    import Navigation from "./components/Navigation";
-    import Messages from "./components/Messages";
+  import Navigation from "./components/Navigation";
+  import Messages from "./components/Messages";
 
-    export default {
+  export default {
       components: {
         Navigation,
         Messages

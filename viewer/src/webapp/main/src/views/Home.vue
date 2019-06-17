@@ -1,14 +1,14 @@
 <template>
-  <div class="home">
+  <div class="home fullheight">
     <Feeds />
   </div>
 </template>
 
 <script>
 
-import Feeds from "../components/feed/Feeds";
+  import Feeds from "../components/feed/Feeds";
 
-export default {
+  export default {
   name: 'home',
   components: {
     Feeds

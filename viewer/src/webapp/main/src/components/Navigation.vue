@@ -55,4 +55,8 @@
   .logo {
     margin-right: 20px;
   }
+
+  .gapbottom {
+    margin-bottom: $mygap;
+  }
 </style>
