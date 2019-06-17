@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="fullheight">
+  <div id="app" class="rootfullheight">
     <Navigation />
-    <Messages />
+    <!-- TODO Messages /-->
     <router-view/>
   </div>
 </template>
@@ -15,19 +15,32 @@
   }
 
   html,
-  body,
+  body {
+    height: 100%;
+  }
+
+  .rootfullheight {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+
   .fullheight {
     height: 100%;
+  }
+
+  .remainingheight {
+    flex: 1 1 auto;
   }
 </style>
 <script>
   import Navigation from "./components/Navigation";
-  import Messages from "./components/Messages";
+  // import Messages from "./components/Messages";
 
   export default {
       components: {
         Navigation,
-        Messages
+        // Messages
       }
     }
 </script>
