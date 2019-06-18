@@ -4,8 +4,8 @@
       <div class="container is-fluid fullheight nomarginright">
         <div class="columns is-gapless fullheight">
           <div class="column is-one-fifth feedlist gaptop">
-            <FeedAdd />
             <FeedList />
+            <FeedAdd />
           </div>
           <div class="column fullheight gaptop items">
             <Items />
@@ -44,7 +44,7 @@
   }
 
   .columns.is-gapless > .column.gaptop {
-    padding-top: 20px !important;
+    padding-right: $mygap !important;
   }
 
   .items {

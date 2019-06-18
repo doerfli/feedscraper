@@ -1,6 +1,7 @@
 <template>
   <li v-on:click="selectFeed">
-    {{data.title}}
+    <span class="icon fa-li" ><i class="fas fa-rss"></i></span>
+    <a>{{data.title}}</a>
   </li>
 </template>
 
@@ -19,6 +20,15 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  li {
+    a,
+    a:visited,
+    a:link {
+      color: $text;
+    }
+    a:hover {
+      color: $primary;
+    }
+  }
 </style>

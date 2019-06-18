@@ -1,12 +1,18 @@
 <template>
-    <div>
-        <span class="icon">
-            <i class="fas fa-plus"></i>
-        </span>
-        <a v-on:click="toggleAddForm">Add new feed</a>
+    <div class="content">
+        <ul class="fa-ul">
+            <li>
+                <span class="icon fa-li">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <a v-on:click="toggleAddForm">Add new feed</a>
+            </li>
+        </ul>
+
+
         <div v-if="shown">
             <div class="field has-addons">
-                <p class="control">
+                <p class="control is-expanded">
                     <input class="input" type="text" placeholder="New feed URL" v-model="url">
                 </p>
                 <p class="control">
@@ -53,6 +59,19 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .icon {
+        color: $primary;
+    }
+    li {
+        list-style-type: none;
+        a,
+        a:visited,
+        a:link {
+            color: $text;
+        }
+        a:hover {
+            color: $primary;
+        }
+    }
 </style>
