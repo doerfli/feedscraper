@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="items">
     <div class="content">
-      <ul>
+      <ul class="fa-ul">
         <Item
             v-for="(item,index) in items" v-bind:key="item.pkey" v-bind:item="item" v-bind:index="index" />
       </ul>
@@ -26,6 +26,11 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  .items {
+    margin-left: $mygap;
+  }
+  .content ul {
+    list-style-type: none;
+  }
 </style>

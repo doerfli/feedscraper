@@ -1,9 +1,11 @@
 <template>
     <li>
         <div v-if="!isRead" class="unread">
+            <span class="icon fa-li" ><i class="fas fa-envelope"></i></span>
             <span v-on:click="showContent">{{item.title}}</span>
         </div>
         <div v-else class="read">
+            <span class="icon fa-li" ><i class="far fa-envelope"></i></span>
             <span v-on:click="showContent">{{item.title}}</span>
         </div>
         <div v-if="isContentVisible" class="content" >
@@ -46,8 +48,16 @@
     }
 </script>
 
-<style scoped>
-    .unread span {
-        font-weight: bold;
+<style scoped lang="scss">
+    li {
+        border-bottom: 1px solid $grey-lighter;
+
+
+        .unread span {
+            font-weight: 600;
+            i {
+                color: $primary;
+            }
+        }
     }
 </style>
