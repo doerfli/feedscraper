@@ -21,13 +21,13 @@ const actions = {
             console.log(e)
         })
     },
-    async markAsRead({commit}, payload) {
+    markAsRead({commit}, payload) {
         let itemPkey = payload.itemPkey;
         console.log(`marking item ${itemPkey} as read`);
         AXIOS.post(`/items/${itemPkey}/read`);
         commit('markAsRead', {pkey: itemPkey, read: true, feedPkey: payload.feedPkey, index: payload.index});
     },
-    async markAsUnread({commit}, payload) {
+    markAsUnread({commit}, payload) {
         let itemPkey = payload.itemPkey;
         console.log(`marking item ${itemPkey} as unread`);
         AXIOS.post(`/items/${itemPkey}/unread`);

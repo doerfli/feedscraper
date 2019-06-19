@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <ul>
+        <ul class="fa-ul">
             <Feed
                 v-for="feed in feeds" v-bind:key="feed.pkey" v-bind:data="feed"/>
         </ul>
@@ -28,8 +28,8 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .content ul {
-        margin-top: 0px;
+        list-style-type: none;
     }
 </style>

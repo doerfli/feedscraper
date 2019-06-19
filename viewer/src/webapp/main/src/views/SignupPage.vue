@@ -1,10 +1,10 @@
 <template>
     <div>
-        <HeroHeader title="Signup" />
+        <HeroHeader title="Signup" subtitle="to view content from many sources in one place"/>
         <section>
             <div class="container">
                 <div class="columns">
-                    <div class="column is-one-fifth">
+                    <div class="column is-half">
                         <Signup />
                     </div>
                     <div class="column">

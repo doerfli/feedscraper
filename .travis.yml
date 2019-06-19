@@ -1,3 +1,6 @@
+env:
+  global:
+    - RELEASE=`echo $TRAVIS_BRANCH | sed -E "s/\//-/g" | sed -e 's/\(.*\)/\L\1/'`
 matrix:
   include:
     - language: java
@@ -10,21 +13,22 @@ matrix:
     - language: generic
       services:
         - docker
+      env:
+        - BUILD_NAME=docker_scraper
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       script:
-        - docker build -t doerfli/feedscraper_scraper:$TRAVIS_BRANCH -f Dockerfile-scraper .
-        - docker push doerfli/feedscraper_scraper:$TRAVIS_BRANCH
-      env:
-        - BUILD_NAME=docker_scraper
+        - docker build -t doerfli/feedscraper_scraper:$RELEASE -f Dockerfile-scraper .
+        - docker push doerfli/feedscraper_scraper:$RELEASE
+
 
     - language: generic
       services:
         - docker
+      env:
+        - BUILD_NAME=docker_viewer
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       script:
-        - docker build -t doerfli/feedscraper_viewer:$TRAVIS_BRANCH -f Dockerfile-viewer .
-        - docker push doerfli/feedscraper_viewer:$TRAVIS_BRANCH
-      env:
-        - BUILD_NAME=docker_viewer
+        - docker build -t doerfli/feedscraper_viewer:$RELEASE -f Dockerfile-viewer .
+        - docker push doerfli/feedscraper_viewer:$RELEASE
