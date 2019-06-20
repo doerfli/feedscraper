@@ -59,9 +59,13 @@ class ScraperPipeline @Autowired constructor(
         log.info("starting feed downloader #$id")
         for (uri in channel) {
             log.debug("FeedDto Downloader #$id received uri $uri")
-            val feedAsString = feedDownloaderStep.download(uri)
-            // TODO handle error in downloader
-            parserChannel.send(Pair(uri, feedAsString))
+            try {
+                val feedAsString = feedDownloaderStep.download(uri)
+                // TODO handle error in downloader
+                parserChannel.send(Pair(uri, feedAsString))
+            } catch (e: Exception) {
+                log.error("caught Exception while downloading uri $uri", e)
+            }
         }
     }
 
@@ -69,8 +73,12 @@ class ScraperPipeline @Autowired constructor(
         log.info("starting feed parser #$id")
         for ((uri, feedAsString) in channel) {
             log.debug("FeedDto Parser #$id received content for $uri")
-            val feed = feedParserStep.parse(uri, feedAsString)
-            persisterChannel.send(Pair(uri, feed))
+            try {
+                val feed = feedParserStep.parse(uri, feedAsString)
+                persisterChannel.send(Pair(uri, feed))
+            } catch (e: Exception) {
+                log.error("caught Exception while parsing uri $uri", e)
+            }
         }
     }
 
@@ -78,11 +86,14 @@ class ScraperPipeline @Autowired constructor(
         log.info("starting feed persister #$id")
         for ((uri, feed) in channel) {
             log.debug("FeedDto Perister #$id received feed for $uri")
-            feedPersisterStep.persist(uri, feed)
+            try {
+                feedPersisterStep.persist(uri, feed)
+            } catch (e: Exception) {
+                log.error("caught Exception while persisting uri $uri", e)
+            }
         }
     }
 
-    // TODO remove this once ui works
     private fun addDefaultEntries() {
         val urls = listOf("https://www.heise.de/rss/heise-top-atom.xml", "https://www.heise.de/rss/heise-atom.xml", "http://www.spiegel.de/schlagzeilen/tops/index.rss")
         urls.forEach {
