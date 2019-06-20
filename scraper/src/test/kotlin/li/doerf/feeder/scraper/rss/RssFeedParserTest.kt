@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.text.SimpleDateFormat
+import java.time.Instant
 
 class RssFeedParserTest {
 
@@ -50,6 +51,31 @@ class RssFeedParserTest {
         Assertions.assertThatThrownBy {
             parser.parse(inputStream)
         }.isInstanceOf(IllegalStateException::class.java)
+    }
+
+    @Test
+    fun testParseGizmodo() {
+        val inputStream = this.javaClass.getResourceAsStream("rss_gizmodo.xml")
+        val parser = RssFeedParser()
+        val feed = parser.parse(inputStream)
+        val dateParser = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z")
+
+//        assertThat(feed.id).isEqualTo("")
+        assertThat(feed.title).isEqualTo("Gizmodo")
+        assertThat(feed.linkAlternate).isEqualTo("https://gizmodo.com")
+        assertThat(feed.type).isEqualTo(FeedType.RSS)
+        assertThat(feed.updated).isEqualTo(Instant.MIN)
+
+
+        Assertions.assertThat(feed.items.size).isEqualTo(25)
+
+        val firstEntry = feed.items.first()
+        assertThat(firstEntry.id).isEqualTo("1835692877")
+        assertThat(firstEntry.title).isEqualTo("This Deal Has Our Stamp of Approval")
+        assertThat(firstEntry.link).isEqualTo("https://kinjadeals.theinventory.com/this-deal-has-our-stamp-of-approval-1835692877")
+        assertThat(firstEntry.summary).isEqualTo("<img src=\"https://i.kinja-img.com/gawker-media/image/upload/s--se3ymcQA--/c_fit,fl_progressive,q_80,w_636/gq2tc1trwcpzhonpznb7.jpg\" /><p><a rel=\"nofollow\" data-amazonasin=\"B07L25SDY7\" data-amazonsubtag=\"[t|link[p|1835692877[a|B07L25SDY7[au|5876237249238321302[b|gizmodo[lt|text\" onclick=\"window.ga(&#39;send&#39;, &#39;event&#39;, &#39;Commerce&#39;, &#39;gizmodo - This Deal Has Our Stamp of Approval&#39;, &#39;B07L25SDY7&#39;);window.ga(&#39;unique.send&#39;, &#39;event&#39;, &#39;Commerce&#39;, &#39;gizmodo - This Deal Has Our Stamp of Approval&#39;, &#39;B07L25SDY7&#39;);\" data-amazontag=\"gizmodoamzn-20\" href=\"https://www.amazon.com/gp/product/B07L25SDY7/ref=ox_sc_act_title_1?smid=A2B7OX7TNIXZ9S&amp;psc=1&amp;tag=gizmodoamzn-20&amp;ascsubtag=a72070c466c2731ad6a4fb71ebf1530327020a6f\">USPS US Flag 2018 Forever Stamps (Book of 40)</a> | \$22 | Amazon | Clip the 10% off coupon</p><p><a href=\"https://kinjadeals.theinventory.com/this-deal-has-our-stamp-of-approval-1835692877\">Read more...</a></p>")
+        assertThat(firstEntry.content).isEqualTo("")
+        assertThat(firstEntry.updated).isEqualTo(dateParser.parse("Thu, 20 Jun 2019 15:45:00 GMT").toInstant())
     }
 
 }
