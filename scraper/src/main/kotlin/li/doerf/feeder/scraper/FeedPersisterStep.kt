@@ -44,7 +44,11 @@ class FeedPersisterStep @Autowired constructor(
 
     private fun updateFeed(feedDto: FeedDto, feed: Feed) {
         // update dates
-        feed.updated = feedDto.updated
+        if (feedDto.updated > Instant.MIN) {
+            feed.updated = feedDto.updated
+        } else {
+            feed.updated = findMostRecentUpdateTime(feedDto)
+        }
 
         if(feed.title != null && feed.title != "") { // base values already set
             log.debug("feed did not change")
@@ -57,6 +61,11 @@ class FeedPersisterStep @Autowired constructor(
         feed.linkAlternate = feedDto.linkAlternate
         feed.linkSelf = feedDto.linkSelf
         log.debug("feed updated")
+    }
+
+    private fun findMostRecentUpdateTime(feedDto: FeedDto): Instant {
+        val recentItem = feedDto.items.maxBy { it.updated } ?: throw IllegalArgumentException("feed contained no items")
+        return recentItem.updated
     }
 
     private fun updateItems(downloadedItems: MutableList<ItemDto>, feed: Feed) {
