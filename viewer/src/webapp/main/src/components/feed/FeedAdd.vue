@@ -24,14 +24,15 @@
 </template>
 
 <script>
-    import {connectWs, wsClient} from "@/websocket-common";
+    import {connectWs, createClient} from "../../websocket-common";
 
     export default {
         name: "FeedAdd",
         data: function () {
             return {
                 shown: false,
-                url: ""
+                url: "",
+                wsClients: []
             }
         },
         methods: {
@@ -47,14 +48,24 @@
         },
         mounted() {
             let thisStore = this.$store;
-            connectWs(function (frame) {
+            let client = createClient();
+            this.wsClients.push(client);
+            connectWs(this.wsClients[0], function (frame) {
                 console.log('Connected: ' + frame);
-                wsClient.subscribe('/topic/feeds', function (greeting) {
+                client.subscribe('/topic/feeds', function (greeting) {
                     console.log(JSON.parse(greeting.body));
                     // reload feeds
                     thisStore.dispatch("feeds/getAll");
                 });
             });
+        },
+        beforeDestroy() {
+            if (this.wsClients.length > 0) {
+                for(let i in this.wsClients) {
+                    this.wsClients[i].disconnect();
+                    console.log("websocket client disconnected");
+                }
+            }
         }
     }
 </script>
