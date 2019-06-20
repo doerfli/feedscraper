@@ -12,7 +12,10 @@ import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.scraper.dto.FeedDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import java.time.Duration
+import java.time.Instant
 
 @Service
 class ScraperPipeline @Autowired constructor(
@@ -21,6 +24,9 @@ class ScraperPipeline @Autowired constructor(
         private val feedParserStep: FeedParserStep,
         private val feedPersisterStep: FeedPersisterStep
 ) {
+
+    @Value("\${scraper.pipeline.interval:60000}")
+    private val interval: Long = 60000
 
     companion object {
         @Suppress("JAVA_CLASS_ON_COMPANION")
@@ -48,10 +54,16 @@ class ScraperPipeline @Autowired constructor(
     fun CoroutineScope.produceFeedUrls() = produce {
         log.info("starting feed url producer")
         while (true) {
+            val startedAt = Instant.now()
             feedRepository.findAll().forEach {feed ->
                 send(feed.url)
             }
-            delay(60000) // TODO put in config
+            val duration = Duration.between(startedAt, Instant.now()).toMillis()
+            val remaining = interval - duration
+            if (remaining > 0) {
+                log.debug("waiting for $remaining ms")
+                delay(interval)
+            }
         }
     }
 
@@ -61,7 +73,6 @@ class ScraperPipeline @Autowired constructor(
             log.debug("FeedDto Downloader #$id received uri $uri")
             try {
                 val feedAsString = feedDownloaderStep.download(uri)
-                // TODO handle error in downloader
                 parserChannel.send(Pair(uri, feedAsString))
             } catch (e: Exception) {
                 log.error("caught Exception while downloading uri $uri", e)
