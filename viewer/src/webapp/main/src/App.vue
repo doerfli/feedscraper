@@ -1,7 +1,6 @@
 <template>
   <div id="app" class="rootfullheight">
-    <Navigation />
-    <!-- TODO Messages /-->
+    <Header />
     <router-view/>
   </div>
 </template>
@@ -34,13 +33,11 @@
   }
 </style>
 <script>
-  import Navigation from "./components/Navigation";
-  // import Messages from "./components/Messages";
+  import Header from "./components/Header";
 
   export default {
       components: {
-        Navigation,
-        // Messages
+        Header
       }
     }
 </script>

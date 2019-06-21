@@ -21,7 +21,7 @@ AXIOS.interceptors.response.use(function (response) {
 }, function (error) {
     if (error.response.status === 403) {
         console.log("token rejected ... logout");
-        store.dispatch("messages/add", { text: "The session has expired. Please sign in again.", type: "warning" });
+        store.dispatch("messages/add", { text: "Your session has expired. Please sign in again.", type: "warning" });
         store.dispatch("session/logout");
         router.push({name: 'login'});
     } else {
