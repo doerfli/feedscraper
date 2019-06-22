@@ -35,9 +35,14 @@
             </div>
             <div class="field-body">
                 <div class="field">
-                    <div class="control">
+                    <div v-if="submitAllowed" class="control">
                         <button class="button is-primary" v-on:click="login">Sign in</button>
                     </div>
+                    <fieldset v-else disabled>
+                        <div class="control">
+                            <button class="button is-primary">Sign in</button>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
         </div>
@@ -51,6 +56,14 @@
             return {
                 username: "",
                 password: ""
+            }
+        },
+        computed: {
+            submitAllowed: function () {
+                let emailRex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                let isAllowed = this.username.match(emailRex) != null;
+                isAllowed &= this.password.length >=6;
+                return isAllowed;
             }
         },
         methods: {
