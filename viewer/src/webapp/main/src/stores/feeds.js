@@ -1,4 +1,5 @@
 import AXIOS from "@/http-common";
+import {TIMEOUT} from "../messages-common";
 
 // initial state
 const state = {
@@ -33,7 +34,8 @@ const actions = {
             console.log(response.status);
             this.dispatch('messages/add', {
                 text: "New feed added - It will appear in the feed list after it was downloaded for the first time. This might take up to a minute.",
-                type: "notification"
+                type: "notification",
+                timeout: TIMEOUT
             });
         });
     }

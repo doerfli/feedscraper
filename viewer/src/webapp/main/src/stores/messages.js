@@ -13,9 +13,12 @@ const actions = {
     add({commit}, payload) {
         const x = state.nextId + 1;
         commit('addMessage', { id: x, text: payload.text, type: payload.type });
-        setTimeout(() => {
-            this.dispatch('messages/remove', { id: x});
-        }, 10000)
+        if (payload.timeout != null && payload.timeout > 0) {
+            console.log("setting timeout to " + payload.timeout);
+            setTimeout(() => {
+                this.dispatch('messages/remove', { id: x});
+            }, payload.timeout)
+        }
     },
     remove({commit}, payload) {
         commit('removeMessage', {id: payload.id})

@@ -1,5 +1,6 @@
 import AXIOS from "@/http-common";
 import router from "@/router";
+import {TIMEOUT} from "../messages-common";
 
 // initial state
 const state = {
@@ -55,7 +56,7 @@ const actions = {
             console.log(response);
             if (response.status === 200) {
                 console.log("signup successful");
-                this.dispatch('messages/add', { text: "Signup successful", type: "notification"});
+                this.dispatch('messages/add', { text: "Signup successful", type: "notification", timeout: TIMEOUT});
                 this.dispatch('session/setToken', { token: response.data.token});
                 router.push({name: 'home'});
                 // console.log("redirect to home")

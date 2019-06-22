@@ -1,6 +1,6 @@
 <template>
     <div>
-        <HeroHeader title="Signup" subtitle="to view content from many sources in one place"/>
+        <HeroHeader title="Sign up for an account" subtitle="to view content from many sources in one place"/>
         <section>
             <div class="container">
                 <div class="columns">

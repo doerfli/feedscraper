@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from "./store";
 import router from '@/router';
+import {TIMEOUT} from "./messages-common";
 
 const AXIOS = axios.create({
     baseURL: `http://${process.env.VUE_APP_API_HOST}:8080/api`,
@@ -21,7 +22,7 @@ AXIOS.interceptors.response.use(function (response) {
 }, function (error) {
     if (error.response.status === 403) {
         console.log("token rejected ... logout");
-        store.dispatch("messages/add", { text: "Your session has expired. Please sign in again.", type: "warning" });
+        store.dispatch("messages/add", { text: "Your session has expired. Please sign in again.", type: "warning", timeout: TIMEOUT });
         store.dispatch("session/logout");
         router.push({name: 'login'});
     } else {
