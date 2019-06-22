@@ -6,12 +6,20 @@
             </div>
             <div class="field-body">
                 <div class="field">
-                    <p class="control has-icons-left has-icons-right">
-                        <input class="input" type="email" placeholder="Email" v-model="username"/>
+                    <div class="control has-icons-left has-icons-right">
+                        <input
+                            v-model="username"
+                            v-bind:class="{input: true,  'is-danger': !validation.username_valid}"
+                            v-on:change="validateUsername"
+                            type="email"
+                            placeholder="name@example.com"
+                        />
                         <span class="icon is-small is-left">
                             <i class="fas fa-envelope"></i>
                         </span>
-                    </p>
+                    </div>
+                    <p v-if="!validation.username_valid" class="help is-danger">Please enter a valid email address</p>
+                    <p class="help is-info">You will receive an email with a confirmation code to validate your account</p>
                 </div>
             </div>
         </div>
@@ -65,14 +73,16 @@
 </template>
 
 <script>
-
     export default {
         name: "Signup",
         data() {
             return {
                 username: "",
                 password: "",
-                passwordConfirmation: ""
+                passwordConfirmation: "",
+                validation: {
+                    username_valid: true
+                }
             }
         },
         computed: {
@@ -83,6 +93,14 @@
         methods: {
             signup: function() {
                 this.$store.dispatch("users/signup", {username: this.username, password: this.password})
+            },
+            validateUsername: function() {
+                if (this.username === "") {
+                    this.validation.username_valid = false;
+                } else {
+                    let emailRex = /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    this.validation.username_valid = this.username.match(emailRex) != null;
+                }
             }
         }
     }
