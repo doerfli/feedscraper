@@ -14,6 +14,7 @@ apply plugin: 'kotlin-jpa'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.moowork.node'
+apply plugin: 'jacoco'
 
 group = "li.doerf.feeder"
 version = "0.9.0-SNAPSHOT"
@@ -117,4 +118,15 @@ clean.doFirst {
     delete "${rootDir}/src/webapp/generated/"
     delete "${rootDir}/src/webapp/main/node_modules/"
     delete "${rootDir}/src/webapp/main/yarn-latest/"
+}
+
+jacoco {
+    toolVersion = jacocoVersion
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
 }

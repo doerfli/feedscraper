@@ -9,6 +9,9 @@ matrix:
         - openjdk12
       script:
         - ./gradlew build
+        - ./gradlew jacocoTestReport
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
 
     - language: generic
       services:
