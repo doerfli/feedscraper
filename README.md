@@ -1,4 +1,4 @@
-# Scraper [![Build Status](https://travis-ci.com/doerfli/feedscraper.svg?branch=master)](https://travis-ci.com/doerfli/feedscraper)
+# Scraper [![Build Status](https://travis-ci.com/doerfli/feedscraper.svg?branch=master)](https://travis-ci.com/doerfli/feedscraper) [![CodeFactor](https://www.codefactor.io/repository/github/doerfli/feedscraper/badge)](https://www.codefactor.io/repository/github/doerfli/feedscraper)
 
 ## Containers
 
