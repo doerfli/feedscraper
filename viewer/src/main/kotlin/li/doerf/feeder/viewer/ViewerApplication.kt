@@ -1,5 +1,6 @@
 package li.doerf.feeder.viewer
 
+import com.github.kittinunf.fuel.Fuel
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 import li.doerf.feeder.common.util.getLogger
@@ -46,6 +47,11 @@ class ViewerApplication {
     fun secretKey(): SecretKey {
         log.info("initializing secret key")
         return Keys.secretKeyFor(SignatureAlgorithm.HS256)
+    }
+
+    @Bean
+    fun fuel(): Fuel {
+        return Fuel
     }
 
 }
