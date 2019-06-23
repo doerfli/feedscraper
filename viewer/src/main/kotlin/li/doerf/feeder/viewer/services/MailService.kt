@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import java.text.SimpleDateFormat
+import java.util.*
 
 @Service
 class MailService @Autowired constructor(
@@ -26,7 +27,7 @@ class MailService @Autowired constructor(
         ctx.setVariable("email", user.username)
         // TODO make link dynamic
         ctx.setVariable("link", "http://localhost:8070/users/confirmation/${user.token}")
-        ctx.setVariable("validUntil", dateFormat.format(user.tokenExpiration))
+        ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
 
         val content = templateEngine.process("signup.txt", ctx)
 
