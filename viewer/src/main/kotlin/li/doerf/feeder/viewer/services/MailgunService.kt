@@ -2,6 +2,7 @@ package li.doerf.feeder.viewer.services
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Method
+import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
 import li.doerf.feeder.common.util.getLogger
@@ -35,11 +36,18 @@ class MailgunService @Autowired constructor(
 
         val url = "$baseUrl/messages"
         log.trace("posting to url $url")
+        val response = sendRequest(url, body)
+        log.debug("mail sent - response statusCode ${response.statusCode}")
+                // TODO validate return code
+    }
+
+    // visible for testing
+    suspend fun sendRequest(url: String, body: List<Pair<String, String>>): Response {
         val result = fuel.upload(url, Method.POST, body)
                 .authentication()
                 .basic("api", apiKey)
                 .awaitStringResponseResult()
-        log.debug("mail sent - response statusCode ${result.second.statusCode}")
+        return result.second
     }
 
 }
