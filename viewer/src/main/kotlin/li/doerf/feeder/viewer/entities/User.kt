@@ -18,6 +18,6 @@ data class User(
         var token: String?,
         var tokenExpiration: Instant?,
         @Enumerated(EnumType.STRING)
-        val state: AccountState
+        var state: AccountState
         // TODO add createdAt, updatedAt properties
 )

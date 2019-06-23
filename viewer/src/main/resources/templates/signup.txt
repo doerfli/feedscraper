@@ -1,0 +1,11 @@
+Welcome to Feedscraper,
+
+you have signed up for a new account using the email address [(${email})].
+To finish the signup process, please click the link below to confirm that you
+are the owner of this email account and finish the signup process.
+
+[(${link})]
+
+This link is valid until [(${validUntil})].
+
+If you did not sign up for an account with feedscraper, you can igore this email.

@@ -37,6 +37,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core:${flywayVersion}")
     implementation("com.github.kittinunf.fuel:fuel:${fuelVersion}")
     implementation("com.github.kittinunf.fuel:fuel-coroutines:${fuelVersion}")
+    implementation("org.thymeleaf:thymeleaf-spring5:${thymeleafVersion}")
 
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")

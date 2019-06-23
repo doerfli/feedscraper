@@ -38,7 +38,9 @@ class MailgunService @Autowired constructor(
         log.trace("posting to url $url")
         val response = sendRequest(url, body)
         log.debug("mail sent - response statusCode ${response.statusCode}")
-                // TODO validate return code
+        if (response.statusCode != 200) {
+            throw IllegalStateException("request to send email not successful")
+        }
     }
 
     // visible for testing

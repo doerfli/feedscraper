@@ -5,11 +5,9 @@ import li.doerf.feeder.viewer.dto.UserRequestDto
 import li.doerf.feeder.viewer.dto.UserResponseDto
 import li.doerf.feeder.viewer.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
@@ -36,6 +34,13 @@ class UserController @Autowired constructor(
         log.debug("signup user ${userRequest.username}")
         val dto = userService.signup(userRequest.username, userRequest.password)
         return ResponseEntity.ok(dto)
+    }
+
+    @GetMapping("/confirm/{token}")
+    fun confirm(@PathVariable token: String): HttpStatus {
+        log.debug("confirming user with token $token")
+        userService.confirm(token)
+        return HttpStatus.OK
     }
 
 }
