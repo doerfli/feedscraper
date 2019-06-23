@@ -1,5 +1,6 @@
 package li.doerf.feeder.viewer.controllers
 
+import li.doerf.feeder.viewer.entities.AccountState
 import li.doerf.feeder.viewer.entities.Role
 import li.doerf.feeder.viewer.entities.User
 import li.doerf.feeder.viewer.repositories.UserRepository
@@ -75,7 +76,7 @@ class UserControllerTest {
 
     @Test
     fun testSignin() {
-        val user = User(0, "test@test123.com", passwordEncoder.encode("12345678"), mutableListOf(Role.ROLE_CLIENT))
+        val user = User(0, "test@test123.com", passwordEncoder.encode("12345678"), mutableListOf(Role.ROLE_CLIENT),null, null, AccountState.Confirmed)
         userRepository.save(user)
 
         // when
@@ -96,7 +97,7 @@ class UserControllerTest {
 
     @Test
     fun testSigninUsernameDoesNotExist() {
-        val user = User(0, "test@test123.com", passwordEncoder.encode("12345678"), mutableListOf(Role.ROLE_CLIENT))
+        val user = User(0, "test@test123.com", passwordEncoder.encode("12345678"), mutableListOf(Role.ROLE_CLIENT), null, null, AccountState.Confirmed)
         userRepository.save(user)
 
         // when
@@ -116,7 +117,7 @@ class UserControllerTest {
 
     @Test
     fun testSigninInvalidPassword() {
-        val user = User(0, "test@test123.com", passwordEncoder.encode("12345678"), mutableListOf(Role.ROLE_CLIENT))
+        val user = User(0, "test@test123.com", passwordEncoder.encode("12345678"), mutableListOf(Role.ROLE_CLIENT), null, null, AccountState.Confirmed)
         userRepository.save(user)
 
         // when
