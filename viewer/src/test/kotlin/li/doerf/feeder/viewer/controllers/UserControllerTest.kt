@@ -58,7 +58,7 @@ class UserControllerTest {
     }
 
     @Test
-    fun testSignupAlreadyExists() {
+    fun testSignupExistsNotConfirmed() {
         // given
         // when
         mvc.perform(MockMvcRequestBuilders.post("/api/users/signup")
@@ -82,7 +82,72 @@ class UserControllerTest {
 
                 // then
                 .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
+    @Test
+    fun testSignupExistsConfirmed() {
+        // given
+        val username = "test@test123.com"
+        mvc.perform(MockMvcRequestBuilders.post("/api/users/signup")
+                .content("""
+                    {
+                        "username":"$username",
+                        "password": "12345678"
+                    }
+                """)
+                .contentType(MediaType.APPLICATION_JSON))
+
+        val user = userRepository.findByUsername(username).orElseThrow()
+        assertThat(user.token).isNotNull()
+
+        mvc.perform(MockMvcRequestBuilders.get("/api/users/confirm/${user.token}")
+                .contentType(MediaType.APPLICATION_JSON))
+
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk)
+
+        // when
+        mvc.perform(MockMvcRequestBuilders.post("/api/users/signup")
+                .content("""
+                {
+                    "username":"$username",
+                    "password": "12345678"
+                }
+            """)
+                .contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity)
+    }
+
+    @Test
+    fun testSignupAndConfirm() {
+        val username = "test@test123.com"
+        mvc.perform(MockMvcRequestBuilders.post("/api/users/signup")
+                .content("""
+                    {
+                        "username": "$username",
+                        "password": "12345678"
+                    }
+                """)
+                .contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.token").isNotEmpty)
+
+        val user = userRepository.findByUsername(username).orElseThrow()
+        assertThat(user.token).isNotNull()
+
+        mvc.perform(MockMvcRequestBuilders.get("/api/users/confirm/${user.token}")
+                .contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk)
     }
 
     @Test
@@ -164,33 +229,5 @@ class UserControllerTest {
                 // then
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity)
-    }
-
-    @Test
-    fun testSignupAndConfirm() {
-        val username = "test@test123.com"
-        mvc.perform(MockMvcRequestBuilders.post("/api/users/signup")
-                .content("""
-                    {
-                        "username": "$username",
-                        "password": "12345678"
-                    }
-                """)
-                .contentType(MediaType.APPLICATION_JSON))
-
-                // then
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.token").isNotEmpty)
-
-        val user = userRepository.findByUsername(username).orElseThrow()
-        assertThat(user.token).isNotNull()
-
-        mvc.perform(MockMvcRequestBuilders.get("/api/users/confirm/${user.token}")
-                .contentType(MediaType.APPLICATION_JSON))
-
-                // then
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk)
     }
 }
