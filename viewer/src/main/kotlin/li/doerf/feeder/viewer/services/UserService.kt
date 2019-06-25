@@ -42,6 +42,12 @@ class UserService @Autowired constructor(
             return UserResponseDto(token = jwtTokenProvider.createToken(username, userRepository.findByUsername(username).orElseThrow {throw IllegalArgumentException("invalid username $username")}.roles))
         } catch (e: AuthenticationException) {
             log.warn("could not login user", e)
+            val user = userRepository.findByUsername(username)
+            if (user.isPresent && user.get().state == AccountState.ConfirmationPending) {
+                GlobalScope.launch {
+                    mailService.sendSignupReminderMail(user.get())
+                }
+            }
             throw HttpException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY)
         }
     }

@@ -10,5 +10,6 @@ import java.util.*
 interface UserRepository : CrudRepository<User, Long> {
 
     fun findByUsername(username: String): Optional<User>
+    fun findByUsernameAndState(username: String, status: AccountState): Optional<User>
     fun findAllByTokenAndState(username: String, status: AccountState): List<User>
 }

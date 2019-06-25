@@ -38,4 +38,23 @@ class MailService @Autowired constructor(
                 content)
         log.debug("email sent")
     }
+
+    suspend fun sendSignupReminderMail(user: User) {
+        log.debug("sending signup reminder email to $user")
+        val ctx = Context()
+        val dateFormat = SimpleDateFormat("yyyy/MM/DD HH:mm")
+        ctx.setVariable("email", user.username)
+        // TODO make link dynamic
+        ctx.setVariable("link", "http://localhost:8070/users/confirmation/${user.token}")
+        ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
+
+        val content = templateEngine.process("signup_reminder.txt", ctx)
+
+        mailgunService.sendEmail(
+                "feedscraper@bytes.li",
+                user.username,
+                "Confirm sign up to feedscraper",
+                content)
+        log.debug("email sent")
+    }
 }

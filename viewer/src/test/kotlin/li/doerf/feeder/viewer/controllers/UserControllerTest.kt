@@ -20,6 +20,9 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import java.time.Instant
+import java.time.temporal.ChronoUnit
+import java.util.*
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -134,6 +137,26 @@ class UserControllerTest {
                     {
                         "username":"test@test123.com",
                         "password": "12345677"
+                    }
+                """)
+                .contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity)
+    }
+
+    @Test
+    fun testSigninAccountNotConfirmed() {
+        val user = User(0, "test@test123.com", passwordEncoder.encode("12345678"), mutableListOf(Role.ROLE_CLIENT),UUID.randomUUID().toString(), Instant.now().plus(50, ChronoUnit.MINUTES), AccountState.ConfirmationPending)
+        userRepository.save(user)
+
+        // when
+        mvc.perform(MockMvcRequestBuilders.post("/api/users/signin")
+                .content("""
+                    {
+                        "username":"test@test123.com",
+                        "password": "12345678"
                     }
                 """)
                 .contentType(MediaType.APPLICATION_JSON))
