@@ -36,7 +36,7 @@ class JwtTokenProvider @Autowired constructor(
         jwtKey = SecretKeySpec(bytes, SignatureAlgorithm.HS256.jcaName)
     }
 
-    fun createToken(username: String, roles: List<Role>): String {
+    fun createJwtToken(username: String, roles: List<Role>): String {
 
         val claims = Jwts.claims().setSubject(username)
         claims["auth"] = roles.map { it.authority }.toList()

@@ -10,6 +10,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
@@ -43,13 +44,16 @@ class UserServiceTest {
 
     @Test
     fun testConfirm() {
-        val token = UUID.randomUUID().toString()
+        val tok = UUID.randomUUID().toString()
         val expiration = Instant.now().plus(60, ChronoUnit.MINUTES)
         val user = User(0, "someone@test.com", "aaaaaaaa", mutableListOf(Role.ROLE_CLIENT),
-                token, expiration, AccountState.ConfirmationPending)
+                tok, expiration, AccountState.ConfirmationPending)
         userRepository.save(user)
 
-        userService.confirm(token)
+        Mockito.`when`(jwtTokenProvider.createJwtToken(Mockito.anyString(), Mockito.anyList())).thenReturn("jwttokenbladiblubbb")
+
+        val jwtToken = userService.confirm(tok)
+        assertThat(jwtToken).isEqualTo("jwttokenbladiblubbb")
 
         val userAfter = userRepository.findById(user.pkey).get()
         assertThat(userAfter.token).isNull()

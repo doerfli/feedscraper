@@ -36,7 +36,6 @@ class MailService @Autowired constructor(
                 user.username,
                 "Confirm sign up to feedscraper",
                 content)
-        log.debug("email sent")
     }
 
     suspend fun sendSignupReminderMail(user: User) {
@@ -49,6 +48,20 @@ class MailService @Autowired constructor(
         ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
 
         val content = templateEngine.process("signup_reminder.txt", ctx)
+
+        mailgunService.sendEmail(
+                "feedscraper@bytes.li",
+                user.username,
+                "Confirm sign up to feedscraper",
+                content)
+    }
+
+    suspend fun sendSignupAccountExistsMail(user: User) {
+        log.debug("sending signup with existing email to $user")
+        val ctx = Context()
+        ctx.setVariable("email", user.username)
+
+        val content = templateEngine.process("signup_account_exists.txt", ctx)
 
         mailgunService.sendEmail(
                 "feedscraper@bytes.li",

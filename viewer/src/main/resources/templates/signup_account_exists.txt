@@ -1,0 +1,10 @@
+Hello!
+
+We would like to inform you, that a new account sign up for Feedscraper was
+just requested using your email address [(${email})].
+
+If this was you who signed up again accidentally, then all is good. Otherwise
+someone else tried to sign up using your email address - still not a big deal.
+You can ignore this event and no further action needs to be taken from your
+side, we just wanted to inform you that it happened. :-)
+

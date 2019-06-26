@@ -54,7 +54,7 @@ class UserControllerTest {
         // then
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.token").isNotEmpty)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.token").doesNotExist())
     }
 
     @Test
@@ -119,7 +119,7 @@ class UserControllerTest {
 
                 // then
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity)
+                .andExpect(MockMvcResultMatchers.status().isOk)
     }
 
     @Test
@@ -137,7 +137,7 @@ class UserControllerTest {
                 // then
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.token").isNotEmpty)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.token").doesNotExist())
 
         val user = userRepository.findByUsername(username).orElseThrow()
         assertThat(user.token).isNotNull()
@@ -148,6 +148,7 @@ class UserControllerTest {
                 // then
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.token").isNotEmpty)
     }
 
     @Test

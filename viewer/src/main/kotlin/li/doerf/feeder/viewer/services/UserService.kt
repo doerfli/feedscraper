@@ -4,7 +4,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.config.JwtTokenProvider
-import li.doerf.feeder.viewer.dto.UserResponseDto
 import li.doerf.feeder.viewer.entities.AccountState
 import li.doerf.feeder.viewer.entities.Role
 import li.doerf.feeder.viewer.entities.User
@@ -19,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.time.Instant
 import java.time.temporal.ChronoUnit
-import java.util.*
 
 
 @Service
@@ -36,10 +34,10 @@ class UserService @Autowired constructor(
         private val log = getLogger(javaClass)
     }
 
-    fun signin(username: String, password: String): UserResponseDto {
+    fun signin(username: String, password: String): String {
         try {
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username, password))
-            return UserResponseDto(token = jwtTokenProvider.createToken(username, userRepository.findByUsername(username).orElseThrow {throw IllegalArgumentException("invalid username $username")}.roles))
+            return jwtTokenProvider.createJwtToken(username, userRepository.findByUsername(username).orElseThrow {throw IllegalArgumentException("invalid username $username")}.roles)
         } catch (e: AuthenticationException) {
             log.warn("could not login user", e)
             val user = userRepository.findByUsername(username)
@@ -52,42 +50,40 @@ class UserService @Autowired constructor(
         }
     }
 
-    fun signup(username: String, password: String): UserResponseDto {
+    fun signup(username: String, password: String) {
         // always encode password to avoid timing attacks
         val encodedPassword = passwordEncoder.encode(password)
         val userEntity = userRepository.findByUsername(username)
         if (userEntity.isEmpty) {
             createNewUser(username, encodedPassword)
-            return UserResponseDto(token = jwtTokenProvider.createToken(username, listOf(Role.ROLE_CLIENT)))
         } else {
-            val user = userEntity.get()
-            return handleExistingUser(user, username)
+            handleExistingUser(userEntity.get())
         }
     }
 
     private fun createNewUser(username: String, encodedPassword: String) {
         val user = User(0, username, encodedPassword, mutableListOf(Role.ROLE_CLIENT), null, null, AccountState.ConfirmationPending)
-        setTokenAndSendMail(user)
+        setConfirmationTokenAndSendMail(user)
         userRepository.save(user)
         log.info("created new user - $user")
     }
 
-    private fun handleExistingUser(user: User, username: String): UserResponseDto {
+    private fun handleExistingUser(user: User) {
         if (user.state == AccountState.ConfirmationPending) {
             // issue new token and resend confirmation email
-            setTokenAndSendMail(user)
+            setConfirmationTokenAndSendMail(user)
             userRepository.save(user)
             log.info("Updated user with new token - $user ")
-            return UserResponseDto(token = jwtTokenProvider.createToken(username, listOf(Role.ROLE_CLIENT)))
         } else {
-            log.warn("username already in use")
-            throw HttpException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY)
-            // TODO ignore this case and send warning email to user
+            log.warn("username already in use - $user")
+            GlobalScope.launch {
+                mailService.sendSignupAccountExistsMail(user)
+            }
         }
     }
 
-    private fun setTokenAndSendMail(user: User) {
-        val token = UUID.randomUUID().toString()
+    private fun setConfirmationTokenAndSendMail(user: User) {
+        var token = generateUniqueToken(10)
         val tokenExpiration = Instant.now().plus(60, ChronoUnit.MINUTES)
         user.token = token
         user.tokenExpiration = tokenExpiration
@@ -96,8 +92,20 @@ class UserService @Autowired constructor(
         }
     }
 
-    fun confirm(token: String) {
-        log.debug("confirming usernameusing token $token")
+    fun generateUniqueToken(length: Int) : String {
+        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        var token: String
+        do {
+            token = (1..length)
+                    .map { allowedChars.random() }
+                    .joinToString("")
+        } while(userRepository.findAllByTokenAndState(token, AccountState.ConfirmationPending).isNotEmpty())
+        return token
+
+    }
+
+    fun confirm(token: String): String {
+        log.debug("confirming username using Confirmation-Token $token")
         val users = userRepository.findAllByTokenAndState(token, AccountState.ConfirmationPending)
         if(users.isEmpty()) {
             throw HttpException("No user with token found", HttpStatus.BAD_REQUEST)
@@ -113,11 +121,13 @@ class UserService @Autowired constructor(
         }
 
         if (user.token != token) {
-            throw HttpException("Token does not match", HttpStatus.BAD_REQUEST)
+            throw HttpException("Confirmation-Token does not match", HttpStatus.BAD_REQUEST)
         }
 
         confirmUserToken(user)
         log.info("user account confirmed $user")
+
+        return jwtTokenProvider.createJwtToken(user.username, user.roles)
     }
 
     private fun confirmUserToken(user: User) {

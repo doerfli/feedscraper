@@ -22,25 +22,25 @@ class UserController @Autowired constructor(
         private val log = getLogger(javaClass)
     }
 
-    @PostMapping("/signin")
-    fun login(@RequestBody userRequest: UserRequestDto): ResponseEntity<UserResponseDto> {
-        log.debug("login user ${userRequest.username}")
-        val dto = userService.signin(userRequest.username, userRequest.password)
-        return ResponseEntity.ok(dto)
-    }
-
     @PostMapping("/signup")
-    fun signup(@RequestBody userRequest: UserRequestDto): ResponseEntity<UserResponseDto> {
+    fun signup(@RequestBody userRequest: UserRequestDto): HttpStatus {
         log.debug("signup user ${userRequest.username}")
-        val dto = userService.signup(userRequest.username, userRequest.password)
-        return ResponseEntity.ok(dto)
+        userService.signup(userRequest.username, userRequest.password)
+        return HttpStatus.OK
     }
 
     @GetMapping("/confirm/{token}")
-    fun confirm(@PathVariable token: String): HttpStatus {
+    fun confirm(@PathVariable token: String): ResponseEntity<UserResponseDto> {
         log.debug("confirming user with token $token")
-        userService.confirm(token)
-        return HttpStatus.OK
+        val jwtToken = userService.confirm(token)
+        return ResponseEntity.ok(UserResponseDto(jwtToken))
+    }
+
+    @PostMapping("/signin")
+    fun login(@RequestBody userRequest: UserRequestDto): ResponseEntity<UserResponseDto> {
+        log.debug("login user ${userRequest.username}")
+        val jwtToken = userService.signin(userRequest.username, userRequest.password)
+        return ResponseEntity.ok(UserResponseDto(jwtToken))
     }
 
 }
