@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Feeds from "./views/Home";
 import store from "./store";
 import * as localforage from "localforage";
 
@@ -13,7 +12,7 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Feeds
+      component: () => import(/* webpackChunkName: "about" */ './views/Home.vue')
     },
     {
       path: '/login',
@@ -30,6 +29,14 @@ const router = new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/SignupPage.vue')
+    },
+    {
+      path: '/confirmation/:token',
+      name: 'confirmation',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './views/ConfirmationPage.vue')
     },
   ],
 

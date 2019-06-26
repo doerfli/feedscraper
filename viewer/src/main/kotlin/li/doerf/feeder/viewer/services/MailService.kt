@@ -23,7 +23,7 @@ class MailService @Autowired constructor(
     suspend fun sendSignupMail(user: User) {
         log.debug("sending signup email to $user")
         val ctx = Context()
-        val dateFormat = SimpleDateFormat("yyyy/MM/DD HH:mm")
+        val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
         ctx.setVariable("email", user.username)
         // TODO make link dynamic
         ctx.setVariable("link", "http://localhost:8070/confirmation/${user.token}")
@@ -42,7 +42,7 @@ class MailService @Autowired constructor(
     suspend fun sendSignupReminderMail(user: User) {
         log.debug("sending signup reminder email to $user")
         val ctx = Context()
-        val dateFormat = SimpleDateFormat("yyyy/MM/DD HH:mm")
+        val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
         ctx.setVariable("email", user.username)
         // TODO make link dynamic
         ctx.setVariable("link", "http://localhost:8070/confirmation/${user.token}")
