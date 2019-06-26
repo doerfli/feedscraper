@@ -26,7 +26,7 @@ class MailService @Autowired constructor(
         val dateFormat = SimpleDateFormat("yyyy/MM/DD HH:mm")
         ctx.setVariable("email", user.username)
         // TODO make link dynamic
-        ctx.setVariable("link", "http://localhost:8070/users/confirmation/${user.token}")
+        ctx.setVariable("link", "http://localhost:8070/confirmation/${user.token}")
         ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
 
         val content = templateEngine.process("signup.txt", ctx)
@@ -45,7 +45,7 @@ class MailService @Autowired constructor(
         val dateFormat = SimpleDateFormat("yyyy/MM/DD HH:mm")
         ctx.setVariable("email", user.username)
         // TODO make link dynamic
-        ctx.setVariable("link", "http://localhost:8070/users/confirmation/${user.token}")
+        ctx.setVariable("link", "http://localhost:8070/confirmation/${user.token}")
         ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
 
         val content = templateEngine.process("signup_reminder.txt", ctx)
