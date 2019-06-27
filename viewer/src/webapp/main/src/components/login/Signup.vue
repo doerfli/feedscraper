@@ -19,7 +19,6 @@
                         </span>
                     </div>
                     <p v-if="!validation.usernamePattern" class="help is-danger">Please enter a valid email address</p>
-                    <p class="help is-info">You will receive an email with a confirmation code to validate your account</p>
                 </div>
             </div>
         </div>
@@ -111,7 +110,13 @@
         },
         methods: {
             signup: function() {
-                this.$store.dispatch("users/signup", {username: this.username, password: this.password})
+                this.$store.dispatch("users/signup", {username: this.username, password: this.password});
+                this.username = "";
+                this.password = "";
+                this.passwordConfirmation = "";
+                this.validation.usernameValid = false;
+                this.validation.passwordValid = false;
+                this.validation.passwordConfirmationValid = false;
             },
             validateUsername: function() {
                 let emailRex = /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

@@ -1,6 +1,6 @@
 import AXIOS from "@/http-common";
 import router from "@/router";
-import {TIMEOUT} from "../messages-common";
+import {TIMEOUT_LONG} from "../messages-common";
 
 // initial state
 const state = {
@@ -28,8 +28,7 @@ const actions = {
                 console.log("redirecting to /");
                 router.push({name: 'home'});
             }
-        })
-        .catch(error => {
+        }).catch(error => {
             if (error.response) {
                 // The request was made and the server responded with a status code
                 // that falls out of the range of 2xx
@@ -56,28 +55,20 @@ const actions = {
             console.log(response);
             if (response.status === 200) {
                 console.log("signup successful");
-                this.dispatch('messages/add', { text: "Signup successful", type: "notification", timeout: TIMEOUT});
-                this.dispatch('session/setToken', { token: response.data.token});
-                router.push({name: 'home'});
-                // console.log("redirect to home")
+                this.dispatch('messages/add', { text: "Sign up successful! You will receive an email with a link to confirm your account.", type: "notification", timeout: TIMEOUT_LONG});
             }
-        })
-        .catch(error => {
+        }).catch(error => {
             if (error.response) {
                 // The request was made and the server responded with a status code
                 // that falls out of the range of 2xx
                 console.log(error.response);
-                if (error.response.status === 422) {
-                    this.dispatch('messages/add', { text: "Username is not available", type: "error"});
-                } else {
-                    this.dispatch('messages/add', { text: "An unexpected error occured. Please try again", type: "error"});
-                }
+                this.dispatch('messages/add', { text: "An unexpected error occured. Please try again", type: "error"});
             } else if (error.request) {
                 this.dispatch('messages/add', { text: "Server could not be contacted. Please try again later", type: "error"});
             } else {
                 this.dispatch('messages/add', { text: "An unexpected error occured. Please try again", type: "error"});
             }
-        })
+        });
     }
 };
 

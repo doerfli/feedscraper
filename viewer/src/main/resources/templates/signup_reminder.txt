@@ -1,0 +1,11 @@
+Hello future Feedscrape user!
+
+You tried to login to Feedscraper, but your account is not confirmed yet.
+To finish the signup process, please click the link below to confirm that you
+are the owner of this email account.
+
+[(${link})]
+
+This link is valid until [(${validUntil})].
+
+If you did not sign up for an account with feedscraper, you can ignore this email.
