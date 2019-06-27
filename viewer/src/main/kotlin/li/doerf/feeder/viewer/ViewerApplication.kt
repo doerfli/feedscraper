@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 @EnableJpaRepositories("li.doerf.feeder.common.repositories", "li.doerf.feeder.viewer.repositories")
 class ViewerApplication {
 
-    @Value("\${feedscraper.baseUrl}")
+    @Value("\${feedscraper.baseUrl:https://feedscraper.bytes.li}")
     private lateinit var baseUrl: String
 
     companion object {
