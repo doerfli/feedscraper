@@ -52,7 +52,7 @@ class MailService @Autowired constructor(
         mailgunService.sendEmail(
                 "feedscraper@bytes.li",
                 user.username,
-                "Confirm sign up to feedscraper",
+                "Remember to confirm sign up to feedscraper",
                 content)
     }
 
@@ -66,7 +66,7 @@ class MailService @Autowired constructor(
         mailgunService.sendEmail(
                 "feedscraper@bytes.li",
                 user.username,
-                "Confirm sign up to feedscraper",
+                "You feedscraper account already exists",
                 content)
         log.debug("email sent")
     }
