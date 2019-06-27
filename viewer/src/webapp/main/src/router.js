@@ -45,7 +45,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // console.log("navigation to: " + to);
   updateStoreFromLocalStorage().then(() => {
-    if (to.name !== "login" && to.name !== "signup") {
+    if (to.name !== "login" && to.name !== "signup" && to.name !== "confirmation") {
       if (store.state.session.token == null) {
         console.log("token not set - redirecting to login");
         next({name: 'login'});

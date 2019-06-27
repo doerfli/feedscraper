@@ -7,7 +7,7 @@
 
 <script>
     import HeroHeader from "../components/HeroHeader";
-    import Confirmation from "../components/confirm/Confirmation";
+    import Confirmation from "../components/login/Confirmation";
 
     export default {
         name: "ConfirmationPage",
