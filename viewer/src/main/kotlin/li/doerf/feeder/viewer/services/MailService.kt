@@ -11,8 +11,9 @@ import java.util.*
 
 @Service
 class MailService @Autowired constructor(
-        val templateEngine: TemplateEngine,
-        val mailgunService: MailgunService
+        private val templateEngine: TemplateEngine,
+        private val mailgunService: MailgunService,
+        private val applBaseUrl: String
 ){
 
     companion object {
@@ -26,7 +27,7 @@ class MailService @Autowired constructor(
         val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
         ctx.setVariable("email", user.username)
         // TODO make link dynamic
-        ctx.setVariable("link", "http://localhost:8070/confirmation/${user.token}")
+        ctx.setVariable("link", "$applBaseUrl/confirmation/${user.token}")
         ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
 
         val content = templateEngine.process("signup.txt", ctx)
@@ -44,7 +45,7 @@ class MailService @Autowired constructor(
         val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
         ctx.setVariable("email", user.username)
         // TODO make link dynamic
-        ctx.setVariable("link", "http://localhost:8070/confirmation/${user.token}")
+        ctx.setVariable("link", "$applBaseUrl/confirmation/${user.token}")
         ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
 
         val content = templateEngine.process("signup_reminder.txt", ctx)
