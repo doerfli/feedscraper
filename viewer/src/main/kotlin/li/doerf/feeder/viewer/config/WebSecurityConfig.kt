@@ -43,6 +43,12 @@ class WebSecurityConfig @Autowired constructor(
         // Entry points
         http.authorizeRequests()//
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll() // allow preflight CORS requests
+                .antMatchers("/").permitAll()
+                .antMatchers("/index.html").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/img/**").permitAll()
+                .antMatchers("/fonts/**").permitAll()
                 .antMatchers("/api/users/signin").permitAll()
                 .antMatchers("/api/users/signup").permitAll()
                 .antMatchers("/api/users/confirm/**").permitAll()
