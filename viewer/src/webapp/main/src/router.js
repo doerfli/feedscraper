@@ -38,6 +38,14 @@ const router = new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/ConfirmationPage.vue')
     },
+    {
+      path: '/resetPassword/:token',
+      name: 'resetPassword',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './views/ResetPasswordPage.vue')
+    },
   ],
 
 });
@@ -45,7 +53,8 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // console.log("navigation to: " + to);
   updateStoreFromLocalStorage().then(() => {
-    if (to.name !== "login" && to.name !== "signup" && to.name !== "confirmation") {
+    let pagesWithoutSession = ["login", "signup", "confirmation", "resetPassword"];
+    if (!pagesWithoutSession.includes(to.name)) {
       if (store.state.session.token == null) {
         console.log("token not set - redirecting to login");
         next({name: 'login'});

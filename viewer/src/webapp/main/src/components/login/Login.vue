@@ -51,10 +51,12 @@
                 <div class="field">
                     <div v-if="submitAllowed" class="control">
                         <button class="button is-primary" v-on:click="login">Sign in</button>
+                        <ForgotPassword />
                     </div>
                     <fieldset v-else disabled>
                         <div class="control">
                             <button class="button is-primary">Sign in</button>
+                            <ForgotPassword v-bind:username="username" v-bind:username-valid="this.validation.usernameValid"/>
                         </div>
                     </fieldset>
                 </div>
@@ -64,8 +66,11 @@
 </template>
 
 <script>
+    import ForgotPassword from "./ForgotPassword";
+
     export default {
         name: "Login",
+        components: {ForgotPassword},
         data() {
             return {
                 username: "",
@@ -100,6 +105,6 @@
     };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>
