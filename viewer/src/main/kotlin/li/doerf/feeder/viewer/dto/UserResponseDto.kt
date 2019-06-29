@@ -1,5 +1,6 @@
 package li.doerf.feeder.viewer.dto
 
 data class UserResponseDto (
-        var token: String
+        val token: String,
+        val username: String
 )

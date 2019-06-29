@@ -149,6 +149,7 @@ class UserControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.token").isNotEmpty)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value(username))
     }
 
     @Test
@@ -170,6 +171,7 @@ class UserControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.token").isNotEmpty)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("test@test123.com"))
     }
 
     @Test

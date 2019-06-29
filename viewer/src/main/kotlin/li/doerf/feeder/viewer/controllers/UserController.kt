@@ -1,6 +1,7 @@
 package li.doerf.feeder.viewer.controllers
 
 import li.doerf.feeder.common.util.getLogger
+import li.doerf.feeder.viewer.config.JwtTokenProvider
 import li.doerf.feeder.viewer.dto.UserPasswordResetRequestDto
 import li.doerf.feeder.viewer.dto.UserRequestDto
 import li.doerf.feeder.viewer.dto.UserResetPasswordRequestDto
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.*
 @PrefixController
 @RequestMapping("/users")
 class UserController @Autowired constructor(
-        private val userService: UserService
+        private val userService: UserService,
+        private val jwtTokenProvider: JwtTokenProvider
 ){
 
     companion object {
@@ -35,14 +37,14 @@ class UserController @Autowired constructor(
     fun confirm(@PathVariable token: String): ResponseEntity<UserResponseDto> {
         log.debug("confirming user with token $token")
         val jwtToken = userService.confirm(token)
-        return ResponseEntity.ok(UserResponseDto(jwtToken))
+        return ResponseEntity.ok(UserResponseDto(jwtToken, jwtTokenProvider.getUsername(jwtToken)))
     }
 
     @PostMapping("/signin")
     fun login(@RequestBody userRequest: UserRequestDto): ResponseEntity<UserResponseDto> {
         log.debug("login user ${userRequest.username}")
         val jwtToken = userService.signin(userRequest.username, userRequest.password)
-        return ResponseEntity.ok(UserResponseDto(jwtToken))
+        return ResponseEntity.ok(UserResponseDto(jwtToken, jwtTokenProvider.getUsername(jwtToken)))
     }
 
     @PostMapping("/passwordReset")
