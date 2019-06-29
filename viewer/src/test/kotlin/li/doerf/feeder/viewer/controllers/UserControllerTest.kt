@@ -231,4 +231,45 @@ class UserControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity)
     }
+
+    @Test
+    fun testRequestPasswordReset() {
+        // given
+        val user = User(0, "test@test123.com", passwordEncoder.encode("12345678"), mutableListOf(Role.ROLE_CLIENT),null, null, AccountState.Confirmed)
+        userRepository.save(user)
+
+        // when
+        mvc.perform(MockMvcRequestBuilders.post("/api/users/passwordReset")
+                .content("""
+                    {
+                        "username":"test@test123.com"
+                    }
+                """)
+                .contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
+    @Test
+    fun testPasswordReset() {
+        val user = User(0, "test@test123.com", passwordEncoder.encode("12345678"), mutableListOf(Role.ROLE_CLIENT),
+                "AAAAAA", Instant.now().plus(60, ChronoUnit.MINUTES), AccountState.PasswordResetRequested)
+        userRepository.save(user)
+
+        // when
+        mvc.perform(MockMvcRequestBuilders.post("/api/users/passwordReset/AAAAAA")
+                .content("""
+                    {
+                        "password": "newpassword"
+                    }
+                """)
+                .contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
 }

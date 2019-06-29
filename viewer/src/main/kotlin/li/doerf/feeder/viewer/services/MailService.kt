@@ -3,6 +3,7 @@ package li.doerf.feeder.viewer.services
 import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.entities.User
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
@@ -12,9 +13,14 @@ import java.util.*
 @Service
 class MailService @Autowired constructor(
         private val templateEngine: TemplateEngine,
-        private val mailgunService: MailgunService,
-        private val applBaseUrl: String
+        private val mailgunService: MailgunService
 ){
+
+    @Value("\${feedscraper.baseUrl:https://feedscraper.bytes.li}")
+    private lateinit var applBaseUrl: String
+    @Value("\${feedscraper.mailsender:feedscraper@bytes.li}")
+    private lateinit var mailSender: String
+
 
     companion object {
         @Suppress("JAVA_CLASS_ON_COMPANION")
@@ -26,14 +32,13 @@ class MailService @Autowired constructor(
         val ctx = Context()
         val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
         ctx.setVariable("email", user.username)
-        // TODO make link dynamic
         ctx.setVariable("link", "$applBaseUrl/confirmation/${user.token}")
         ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
 
         val content = templateEngine.process("signup.txt", ctx)
 
         mailgunService.sendEmail(
-                "feedscraper@bytes.li",
+                mailSender,
                 user.username,
                 "Confirm sign up to feedscraper",
                 content)
@@ -44,14 +49,13 @@ class MailService @Autowired constructor(
         val ctx = Context()
         val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
         ctx.setVariable("email", user.username)
-        // TODO make link dynamic
         ctx.setVariable("link", "$applBaseUrl/confirmation/${user.token}")
         ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
 
         val content = templateEngine.process("signup_reminder.txt", ctx)
 
         mailgunService.sendEmail(
-                "feedscraper@bytes.li",
+                mailSender,
                 user.username,
                 "Remember to confirm sign up to feedscraper",
                 content)
@@ -65,10 +69,27 @@ class MailService @Autowired constructor(
         val content = templateEngine.process("signup_account_exists.txt", ctx)
 
         mailgunService.sendEmail(
-                "feedscraper@bytes.li",
+                mailSender,
                 user.username,
                 "You feedscraper account already exists",
                 content)
         log.debug("email sent")
+    }
+
+    suspend fun sendPasswordResetMail(user: User) {
+        log.debug("sending password reset mail to $user")
+        val ctx = Context()
+        val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
+        ctx.setVariable("email", user.username)
+        ctx.setVariable("link", "$applBaseUrl/resetPassword/${user.token}")
+        ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
+
+        val content = templateEngine.process("passwordReset.txt", ctx)
+
+        mailgunService.sendEmail(
+                mailSender,
+                user.username,
+                "Reset your password for feedscraper",
+                content)
     }
 }

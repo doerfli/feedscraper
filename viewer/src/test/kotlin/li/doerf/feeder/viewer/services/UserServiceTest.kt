@@ -1,5 +1,7 @@
 package li.doerf.feeder.viewer.services
 
+import kotlinx.coroutines.runBlocking
+import li.doerf.feeder.viewer.MockitoTestHelper
 import li.doerf.feeder.viewer.config.JwtTokenProvider
 import li.doerf.feeder.viewer.entities.AccountState
 import li.doerf.feeder.viewer.entities.Role
@@ -112,4 +114,112 @@ class UserServiceTest {
         assertThat(userAfter.tokenExpiration).isNotNull()
         assertThat(userAfter.state).isEqualTo(AccountState.ConfirmationPending)
     }
+
+    @Test
+    fun testReqestPasswordReset() {
+        val username = "someone@test.com"
+        val user = User(0, username, "aaaaaaaa", mutableListOf(Role.ROLE_CLIENT),
+                null, null, AccountState.Confirmed)
+        userRepository.save(user)
+
+        userService.requestPasswordReset(username)
+
+        val userAfter = userRepository.findById(user.pkey).get()
+        assertThat(userAfter.token).isNotNull()
+        assertThat(userAfter.tokenExpiration).isNotNull()
+        assertThat(userAfter.state).isEqualTo(AccountState.PasswordResetRequested)
+
+        runBlocking {
+            Mockito.verify(mailService, Mockito.times(1)).sendPasswordResetMail(MockitoTestHelper.any())
+        }
+    }
+
+    @Test
+    fun testReqestPasswordReset_UnknownUser() {
+        val username = "someone@test.com"
+        userService.requestPasswordReset(username)
+
+        runBlocking {
+            Mockito.verify(mailService, Mockito.never()).sendPasswordResetMail(MockitoTestHelper.any())
+        }
+    }
+
+    @Test
+    fun testResetPassword() {
+        val username = "someone@test.com"
+        val initialPasswordEnc = "aaaaaaaa"
+        val token = "QRFAFASDF"
+        val tokenExpiration = Instant.now().plus(60, ChronoUnit.MINUTES)
+        val user = User(0, username, initialPasswordEnc, mutableListOf(Role.ROLE_CLIENT),
+                token, tokenExpiration, AccountState.PasswordResetRequested)
+        userRepository.save(user)
+
+        Mockito.`when`(passwordEncoder.encode(Mockito.anyString())).thenReturn("bbbbbbb")
+
+        userService.resetPassword(token, "newpassword")
+
+        val userAfter = userRepository.findById(user.pkey).get()
+        assertThat(userAfter.token).isNull()
+        assertThat(userAfter.tokenExpiration).isNull()
+        assertThat(userAfter.state).isEqualTo(AccountState.Confirmed)
+        assertThat(userAfter.password).isNotNull()
+        assertThat(userAfter.password).isNotEqualTo(initialPasswordEnc)
+    }
+
+    @Test
+    fun testResetPassword_UnknownUser() {
+        assertThatThrownBy {
+            userService.resetPassword("asdfa", "newpassword")
+        }.isInstanceOf(HttpException::class.java)
+                .hasFieldOrPropertyWithValue("httpStatus", HttpStatus.BAD_REQUEST)
+    }
+
+    @Test
+    fun testResetPassword_Expired() {
+        val username = "someone@test.com"
+        val initialPasswordEnc = "aaaaaaaa"
+        val token = "QRFAFASDF"
+        val tokenExpiration = Instant.now().minus(60, ChronoUnit.MINUTES)
+        val user = User(0, username, initialPasswordEnc, mutableListOf(Role.ROLE_CLIENT),
+                token, tokenExpiration, AccountState.PasswordResetRequested)
+        userRepository.save(user)
+
+        Mockito.`when`(passwordEncoder.encode(Mockito.anyString())).thenReturn("bbbbbbb")
+
+        assertThatThrownBy {
+            userService.resetPassword(token, "newpassword")
+        }.isInstanceOf(HttpException::class.java)
+                .hasFieldOrPropertyWithValue("httpStatus", HttpStatus.PRECONDITION_FAILED)
+
+        val userAfter = userRepository.findById(user.pkey).get()
+        assertThat(userAfter.token).isNotNull()
+        assertThat(userAfter.tokenExpiration).isNotNull()
+        assertThat(userAfter.state).isEqualTo(AccountState.PasswordResetRequested)
+        assertThat(userAfter.password).isEqualTo(initialPasswordEnc)
+    }
+
+    @Test
+    fun testResetPassword_TokenInvalid() {
+        val username = "someone@test.com"
+        val initialPasswordEnc = "aaaaaaaa"
+        val token = "QRFAFASDF"
+        val tokenExpiration = Instant.now().minus(60, ChronoUnit.MINUTES)
+        val user = User(0, username, initialPasswordEnc, mutableListOf(Role.ROLE_CLIENT),
+                token, tokenExpiration, AccountState.PasswordResetRequested)
+        userRepository.save(user)
+
+        Mockito.`when`(passwordEncoder.encode(Mockito.anyString())).thenReturn("bbbbbbb")
+
+        assertThatThrownBy {
+            userService.resetPassword("zxvxcv", "newpassword")
+        }.isInstanceOf(HttpException::class.java)
+                .hasFieldOrPropertyWithValue("httpStatus", HttpStatus.BAD_REQUEST)
+
+        val userAfter = userRepository.findById(user.pkey).get()
+        assertThat(userAfter.token).isNotNull()
+        assertThat(userAfter.tokenExpiration).isNotNull()
+        assertThat(userAfter.state).isEqualTo(AccountState.PasswordResetRequested)
+        assertThat(userAfter.password).isEqualTo(initialPasswordEnc)
+    }
+
 }
