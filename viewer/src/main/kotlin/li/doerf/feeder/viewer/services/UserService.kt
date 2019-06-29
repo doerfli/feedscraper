@@ -151,6 +151,7 @@ class UserService @Autowired constructor(
         user.token = token
         user.tokenExpiration = tokenExpiration
         user.state = AccountState.PasswordResetRequested
+        userRepository.save(user)
         GlobalScope.launch {
             mailService.sendPasswordResetMail(user)
         }
