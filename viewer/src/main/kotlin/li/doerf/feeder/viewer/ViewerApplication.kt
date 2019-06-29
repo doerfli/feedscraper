@@ -3,7 +3,6 @@ package li.doerf.feeder.viewer
 import com.github.kittinunf.fuel.Fuel
 import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.controllers.PrefixController
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.runApplication
@@ -21,8 +20,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 @EnableJpaRepositories("li.doerf.feeder.common.repositories", "li.doerf.feeder.viewer.repositories")
 class ViewerApplication {
 
-    @Value("\${feedscraper.baseUrl:https://feedscraper.bytes.li}")
-    private lateinit var baseUrl: String
 
     companion object {
         @Suppress("JAVA_CLASS_ON_COMPANION")
@@ -46,12 +43,6 @@ class ViewerApplication {
     @Bean
     fun fuel(): Fuel {
         return Fuel
-    }
-
-
-    @Bean
-    fun applBaseUrl(): String {
-        return baseUrl
     }
 
 }

@@ -1,7 +1,9 @@
 package li.doerf.feeder.viewer.controllers
 
 import li.doerf.feeder.common.util.getLogger
+import li.doerf.feeder.viewer.dto.UserPasswordResetRequestDto
 import li.doerf.feeder.viewer.dto.UserRequestDto
+import li.doerf.feeder.viewer.dto.UserResetPasswordRequestDto
 import li.doerf.feeder.viewer.dto.UserResponseDto
 import li.doerf.feeder.viewer.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -42,5 +44,20 @@ class UserController @Autowired constructor(
         val jwtToken = userService.signin(userRequest.username, userRequest.password)
         return ResponseEntity.ok(UserResponseDto(jwtToken))
     }
+
+    @PostMapping("/passwordReset")
+    fun requestPasswordReset(@RequestBody userRequest: UserPasswordResetRequestDto): HttpStatus {
+        log.debug("request password reset for user ${userRequest.username}")
+        userService.requestPasswordReset(userRequest.username)
+        return HttpStatus.OK
+    }
+
+    @PostMapping("/passwordReset/{token}")
+    fun passwordReset(@PathVariable token: String, @RequestBody userRequest: UserResetPasswordRequestDto): HttpStatus {
+        log.debug("password reset with token $token")
+        userService.resetPassword(token, userRequest.password)
+        return HttpStatus.OK
+    }
+
 
 }

@@ -1,6 +1,6 @@
 import AXIOS from "@/http-common";
 import router from "@/router";
-import {TIMEOUT_LONG} from "../messages-common";
+import {TIMEOUT, TIMEOUT_LONG} from "../messages-common";
 
 // initial state
 const state = {
@@ -63,6 +63,39 @@ const actions = {
                 // that falls out of the range of 2xx
                 console.log(error.response);
                 this.dispatch('messages/add', { text: "An unexpected error occured. Please try again", type: "error"});
+            } else if (error.request) {
+                this.dispatch('messages/add', { text: "Server could not be contacted. Please try again later", type: "error"});
+            } else {
+                this.dispatch('messages/add', { text: "An unexpected error occured. Please try again", type: "error"});
+            }
+        });
+    },
+    // eslint-disable-next-line no-unused-vars
+    resetPassword({commit}, payload) {
+        AXIOS.post(`/users/passwordReset/${payload.token}`, {
+            password: payload.password
+        }).then(async response => {
+            console.log(response);
+            if (response.status === 200) {
+                console.log("password reset successful");
+                this.dispatch('messages/add', { text: "Your new password is set. You can use it to login now", type: "notification", timeout: TIMEOUT});
+                router.push({name: 'login'});
+            }
+        }).catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response);
+                if (error.response.status === 400) {
+                    console.log("password reset request failed");
+                    this.dispatch('messages/add', { text: "Password reset failed - request a new reset link", type: "error", timeout: TIMEOUT});
+                } else if (error.response.status === 412) {
+                    console.log("password reset request successful");
+                    this.dispatch('messages/add', { text: "Password reset link expired - request a new link", type: "error", timeout: TIMEOUT});
+                } else {
+                    this.dispatch('messages/add', { text: "An unexpected error occured. Please try again", type: "error"});
+                }
+
             } else if (error.request) {
                 this.dispatch('messages/add', { text: "Server could not be contacted. Please try again later", type: "error"});
             } else {

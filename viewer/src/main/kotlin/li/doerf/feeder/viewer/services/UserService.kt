@@ -137,9 +137,55 @@ class UserService @Autowired constructor(
         userRepository.save(user)
     }
 
-//    fun delete(username: String) {
-//        val user = userRepository.findByUsername(username).orElseThrow { throw IllegalArgumentException("Invalid username $username") }
-//        userRepository.delete(user)
-//    }
+    fun requestPasswordReset(username: String) {
+        log.debug("starting password reset request for $username")
+        val userOpt = userRepository.findByUsername(username)
+        if (userOpt.isEmpty) {
+            log.warn("user not found: $username")
+            return
+        }
+
+        val user = userOpt.get()
+        var token = generateUniqueToken(10)
+        val tokenExpiration = Instant.now().plus(60, ChronoUnit.MINUTES)
+        user.token = token
+        user.tokenExpiration = tokenExpiration
+        user.state = AccountState.PasswordResetRequested
+        userRepository.save(user)
+        GlobalScope.launch {
+            mailService.sendPasswordResetMail(user)
+        }
+    }
+
+    fun resetPassword(token: String, password: String) {
+        log.debug("password reset with token $token")
+        // always encode password to avoid timing attacks
+        val encodedPassword = passwordEncoder.encode(password)
+        val users = userRepository.findAllByTokenAndState(token, AccountState.PasswordResetRequested)
+        if(users.isEmpty()) {
+            throw HttpException("No user with token found", HttpStatus.BAD_REQUEST)
+        } else if (users.size > 1) {
+            throw IllegalStateException("more than one user found with token")
+        }
+
+        val user = users[0]
+
+        if (user.tokenExpiration!!.isBefore(Instant.now())) {
+            throw HttpException("token has expired", HttpStatus.PRECONDITION_FAILED)
+        }
+
+        if (user.token != token) {
+            throw HttpException("Confirmation-Token does not match", HttpStatus.BAD_REQUEST)
+        }
+
+        log.debug("reset token is valid")
+
+        user.password = encodedPassword
+        user.token = null
+        user.tokenExpiration = null
+        user.state = AccountState.Confirmed
+        userRepository.save(user)
+        log.debug("user updated with new password")
+    }
 
 }
