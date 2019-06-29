@@ -24,7 +24,7 @@ const actions = {
             console.log(response);
             if (response.status === 200) {
                 console.log("login successful");
-                this.dispatch('session/setToken', { token: response.data.token});
+                this.dispatch('session/setToken', { token: response.data.token, username: response.data.username});
                 console.log("redirecting to /");
                 router.push({name: 'home'});
             }

@@ -21,6 +21,12 @@
           </div>
 
           <div class="navbar-end">
+            <div v-if="isAuthenticated" class="navbar-item">
+              <span class="icon">
+                <i class="fas fa-user"></i>
+              </span>&nbsp;
+              {{username}}
+            </div>
             <a           v-if="!isLoginPage && isAuthenticated" class="navbar-item" v-on:click="logout">Logout</a>
             <router-link v-if="!isLoginPage && !isAuthenticated" to="/login" class="navbar-item">Sign in</router-link>
             <router-link v-if="isLoginPage" to="/signup" class="navbar-item">Signup</router-link>
@@ -41,6 +47,9 @@
         isLoginPage: function () {
           // console.log(this.$route);
           return this.$route.name === "login";
+        },
+        username: function() {
+          return this.$store.state.session.username;
         }
       },
       methods: {

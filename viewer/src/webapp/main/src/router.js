@@ -68,10 +68,11 @@ router.beforeEach((to, from, next) => {
 });
 
 function updateStoreFromLocalStorage() {
-  return localforage.getItem('token').then(function (value) {
-    // console.log(value);
-    if (value) {
-      store.commit('session/setToken', {token: value});
+  let getToken = localforage.getItem('token');
+  let getUsername = localforage.getItem('username');
+  return Promise.all([getToken, getUsername]).then((values) => {
+    if (values[0] && values[1]) {
+      store.commit('session/setToken', {token: values[0], username: values[1]});
     }
   });
 }

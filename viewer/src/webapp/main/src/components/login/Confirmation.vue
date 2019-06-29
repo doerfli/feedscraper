@@ -27,7 +27,7 @@
                 console.log(response);
                 if (response.status === 200) {
                     console.log("token confirmation successful");
-                    this.$store.dispatch('session/setToken', { token: response.data.token});
+                    this.$store.dispatch('session/setToken', { token: response.data.token, username: response.data.username});
                     this.$store.dispatch('messages/add', { text: "Sign up confirmed! Welcome to Feedscraper!", type: "notification", timeout: TIMEOUT});
                     console.log("redirecting to /");
                     router.push({name: 'home'});
