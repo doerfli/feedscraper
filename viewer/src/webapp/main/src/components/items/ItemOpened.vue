@@ -12,7 +12,7 @@
         <div v-html="item.summary">
         </div>
         <div class="actions">
-            <a v-bind:href="item.link" target="_blank"><span class="icon" ><i class="fas fa-atlas"></i></span> View full article</a>
+            <a v-if="summaryHasNoLink" v-bind:href="item.link" target="_blank"><span class="icon" ><i class="fas fa-atlas"></i></span> View full article</a>
         </div>
     </div>
 </template>
@@ -42,6 +42,9 @@
             },
             updatedTime: function() {
                 return formatDateTimeLong(this.item.updated);
+            },
+            summaryHasNoLink: function() {
+                return !this.item.summary.includes(this.item.link)
             }
         }
     }
