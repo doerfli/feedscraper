@@ -32,7 +32,7 @@ class MailService @Autowired constructor(
         val ctx = Context()
         val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
         ctx.setVariable("email", user.username)
-        ctx.setVariable("link", "$applBaseUrl/confirmation/${user.token}")
+        ctx.setVariable("link", "$applBaseUrl/#/confirmation/${user.token}")
         ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
 
         val content = templateEngine.process("signup.txt", ctx)
@@ -49,7 +49,7 @@ class MailService @Autowired constructor(
         val ctx = Context()
         val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
         ctx.setVariable("email", user.username)
-        ctx.setVariable("link", "$applBaseUrl/confirmation/${user.token}")
+        ctx.setVariable("link", "$applBaseUrl/#/confirmation/${user.token}")
         ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
 
         val content = templateEngine.process("signup_reminder.txt", ctx)
@@ -81,7 +81,7 @@ class MailService @Autowired constructor(
         val ctx = Context()
         val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
         ctx.setVariable("email", user.username)
-        ctx.setVariable("link", "$applBaseUrl/resetPassword/${user.token}")
+        ctx.setVariable("link", "$applBaseUrl/#/resetPassword/${user.token}")
         ctx.setVariable("validUntil", dateFormat.format(Date.from(user.tokenExpiration)))
 
         val content = templateEngine.process("passwordReset.txt", ctx)

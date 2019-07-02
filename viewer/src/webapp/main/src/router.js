@@ -6,7 +6,6 @@ import * as localforage from "localforage";
 Vue.use(Router);
 
 const router = new Router({
-  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
@@ -53,16 +52,18 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // console.log("navigation to: " + to);
   updateStoreFromLocalStorage().then(() => {
-    let pagesWithoutSession = ["login", "signup", "confirmation", "resetPassword"];
-    if (!pagesWithoutSession.includes(to.name)) {
+    let pagesAccessibleWithoutToken = ["login", "signup", "confirmation", "resetPassword"];
+    if (pagesAccessibleWithoutToken.includes(to.name) || pagesAccessibleWithoutToken.includes(to.hash.substr(2))) {
+      console.log("page does not require token");
+      next();
+    } else {
+      console.log("page requires token");
       if (store.state.session.token == null) {
         console.log("token not set - redirecting to login");
         next({name: 'login'});
       } else {
         next();
       }
-    } else {
-      next();
     }
   });
 });
