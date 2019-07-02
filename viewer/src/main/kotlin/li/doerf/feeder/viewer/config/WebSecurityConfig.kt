@@ -60,8 +60,14 @@ class WebSecurityConfig @Autowired constructor(
         http.exceptionHandling().accessDeniedPage("/login")
         http.apply(JwtTokenFilterConfigurer(jwtTokenProvider))
 
+        http.headers().contentSecurityPolicy(csp()).reportOnly()
+
         // if you want to test the API from a browser
         // http.httpBasic();
+    }
+
+    private fun csp(): String? {
+        return "script-src 'self'; style-src 'self'; connect-src 'self'; font-src 'self'; report-uri https://bytes.report-uri.com/r/d/csp/reportOnly;"
     }
 
     @Bean
