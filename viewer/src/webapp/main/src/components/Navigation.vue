@@ -21,6 +21,7 @@
           </div>
 
           <div class="navbar-end">
+            <a class="navbar-item" href="mailto:feedscraper@bytes.li?subject=Feedback">Feedback</a>
             <div v-if="isAuthenticated" class="navbar-item">
               <span class="icon">
                 <i class="fas fa-user"></i>
@@ -29,7 +30,7 @@
             </div>
             <a           v-if="!isLoginPage && isAuthenticated" class="navbar-item" v-on:click="logout">Logout</a>
             <router-link v-if="!isLoginPage && !isAuthenticated" to="/login" class="navbar-item">Sign in</router-link>
-            <router-link v-if="isLoginPage" to="/signup" class="navbar-item">Signup</router-link>
+            <router-link v-if="isLoginPage" to="/signup" class="navbar-item">Sign up</router-link>
           </div>
         </div>
       </nav>

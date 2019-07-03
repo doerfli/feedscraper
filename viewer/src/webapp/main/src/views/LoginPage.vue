@@ -12,18 +12,25 @@
                 </div>
             </div>
         </section>
+        <section>
+            <div class="container">
+                <BetaInfo />
+            </div>
+        </section>
     </div>
 </template>
 
 <script>
     import Login from "../components/login/Login";
     import HeroHeader from "../components/HeroHeader";
+    import BetaInfo from "../components/login/BetaInfo";
 
     export default {
         name: "LoginPage",
         components: {
             HeroHeader,
-            Login
+            Login,
+            BetaInfo
         }
     }
 </script>
