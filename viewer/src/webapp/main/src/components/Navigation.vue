@@ -17,7 +17,7 @@
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
 
-            <router-link to="/" class="navbar-item">Feeds</router-link>
+            <router-link to="/" class="navbar-item">Feedscraper &nbsp;&nbsp; <span class="tag is-warning">&beta;&epsilon;&tau;&alpha;</span></router-link>
           </div>
 
           <div class="navbar-end">
