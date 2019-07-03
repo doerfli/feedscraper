@@ -12,11 +12,8 @@
                 </div>
             </div>
         </section>
-        <section>
-            <div class="container">
-                <BetaInfo />
-            </div>
-        </section>
+        <BetaInfo />
+        <FAQ />
     </div>
 </template>
 
@@ -24,17 +21,18 @@
     import Signup from "../components/login/Signup";
     import HeroHeader from "../components/HeroHeader";
     import BetaInfo from "../components/login/BetaInfo";
+    import FAQ from "../components/login/FAQ";
 
     export default {
         name: "SignupPage",
         components: {
             BetaInfo,
             HeroHeader,
-            Signup
+            Signup,
+            FAQ
         }
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
 </style>

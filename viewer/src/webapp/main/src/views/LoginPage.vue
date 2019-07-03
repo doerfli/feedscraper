@@ -12,11 +12,7 @@
                 </div>
             </div>
         </section>
-        <section>
-            <div class="container">
-                <BetaInfo />
-            </div>
-        </section>
+        <BetaInfo />
     </div>
 </template>
 
