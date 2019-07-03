@@ -10,8 +10,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import(/* webpackChunkName: "about" */ './views/Home.vue')
+      name: 'feeds',
+      component: () => import(/* webpackChunkName: "about" */ './views/FeedsPage.vue')
     },
     {
       path: '/login',

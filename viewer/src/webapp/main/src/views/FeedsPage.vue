@@ -9,7 +9,7 @@
   import Feeds from "../components/feed/Feeds";
 
   export default {
-  name: 'home',
+  name: 'FeedsPage',
   components: {
     Feeds
   }

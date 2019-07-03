@@ -26,7 +26,7 @@ const actions = {
                 console.log("login successful");
                 this.dispatch('session/setToken', { token: response.data.token, username: response.data.username});
                 console.log("redirecting to /");
-                router.push({name: 'home'});
+                router.push({name: 'feeds'});
             }
         }).catch(error => {
             if (error.response) {
