@@ -116,7 +116,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    fun testReqestPasswordReset() {
+    fun testRequestPasswordReset() {
         val username = "someone@test.com"
         val user = User(0, username, "aaaaaaaa", mutableListOf(Role.ROLE_CLIENT),
                 null, null, AccountState.Confirmed)
@@ -135,7 +135,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    fun testReqestPasswordReset_UnknownUser() {
+    fun testRequestPasswordReset_UnknownUser() {
         val username = "someone@test.com"
         userService.requestPasswordReset(username)
 
