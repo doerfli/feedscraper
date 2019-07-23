@@ -36,7 +36,7 @@ class UserServiceImplTest {
     @Autowired
     private lateinit var userService: UserServiceImpl
     @MockBean
-    private lateinit var mailService: MailService
+    private lateinit var mailService: MailServiceImpl
     @MockBean
     private lateinit var passwordEncoder: PasswordEncoder
     @MockBean
