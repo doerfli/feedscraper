@@ -19,13 +19,13 @@ import java.time.Instant
 
 @ExtendWith(SpringExtension::class, MockitoExtension::class)
 @DataJpaTest
-@Import(FeedService::class, SimpMessagingTemplate::class)
-class FeedServiceDataJpaTest {
+@Import(FeedServiceImpl::class, SimpMessagingTemplate::class)
+class FeedServiceImplDataJpaTest {
 
     @Autowired
     private lateinit var feedRepository: FeedRepository
     @Autowired
-    private lateinit var feedService: FeedService
+    private lateinit var feedService: FeedServiceImpl
     @MockBean
     private lateinit var wsTemplate: SimpMessagingTemplate
 

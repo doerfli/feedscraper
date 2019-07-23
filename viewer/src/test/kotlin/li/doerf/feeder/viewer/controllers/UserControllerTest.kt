@@ -4,7 +4,7 @@ import li.doerf.feeder.viewer.entities.AccountState
 import li.doerf.feeder.viewer.entities.Role
 import li.doerf.feeder.viewer.entities.User
 import li.doerf.feeder.viewer.repositories.UserRepository
-import li.doerf.feeder.viewer.services.MailService
+import li.doerf.feeder.viewer.services.MailServiceImpl
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -37,7 +37,7 @@ class UserControllerTest {
     @Autowired
     private lateinit var passwordEncoder: PasswordEncoder
     @MockBean
-    private lateinit var mailService: MailService
+    private lateinit var mailService: MailServiceImpl
 
     @Test
     fun testSignup() {

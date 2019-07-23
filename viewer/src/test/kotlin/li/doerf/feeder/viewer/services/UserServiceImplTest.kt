@@ -27,16 +27,16 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 
 @ExtendWith(SpringExtension::class, MockitoExtension::class)
-@Import(UserService::class)
+@Import(UserServiceImpl::class)
 @DataJpaTest
-class UserServiceTest {
+class UserServiceImplTest {
 
     @Autowired
     private lateinit var userRepository: UserRepository
     @Autowired
-    private lateinit var userService: UserService
+    private lateinit var userService: UserServiceImpl
     @MockBean
-    private lateinit var mailService: MailService
+    private lateinit var mailService: MailServiceImpl
     @MockBean
     private lateinit var passwordEncoder: PasswordEncoder
     @MockBean
@@ -116,7 +116,7 @@ class UserServiceTest {
     }
 
     @Test
-    fun testReqestPasswordReset() {
+    fun testRequestPasswordReset() {
         val username = "someone@test.com"
         val user = User(0, username, "aaaaaaaa", mutableListOf(Role.ROLE_CLIENT),
                 null, null, AccountState.Confirmed)
@@ -135,7 +135,7 @@ class UserServiceTest {
     }
 
     @Test
-    fun testReqestPasswordReset_UnknownUser() {
+    fun testRequestPasswordReset_UnknownUser() {
         val username = "someone@test.com"
         userService.requestPasswordReset(username)
 

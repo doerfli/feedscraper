@@ -14,12 +14,12 @@ import org.springframework.messaging.simp.SimpMessagingTemplate
 
 @SpringBootTest
 @ExtendWith(MockitoExtension::class)
-class FeedServiceSpringBootTest {
+class FeedServiceImplSpringBootTest {
 
     @Autowired
     private lateinit var feedRepository: FeedRepository
     @Autowired
-    private lateinit var feedService: FeedService
+    private lateinit var feedService: FeedServiceImpl
     @MockBean
     private lateinit var wsTemplate: SimpMessagingTemplate
 
