@@ -13,7 +13,7 @@ import java.util.*
 @Service
 class MailService @Autowired constructor(
         private val templateEngine: TemplateEngine,
-        private val mailgunService: MailgunService
+        private val mailgunService: MailgunServiceImpl
 ){
 
     @Value("\${feedscraper.baseUrl:https://feedscraper.bytes.li}")

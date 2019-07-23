@@ -15,11 +15,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.util.ReflectionTestUtils
 
 @ExtendWith(SpringExtension::class, MockitoExtension::class)
-@Import(MailgunService::class, Fuel::class)
-class MailgunServiceTest {
+@Import(MailgunServiceImpl::class, Fuel::class)
+class MailgunServiceImplTest {
 
     @Autowired
-    private lateinit var mailgunService: MailgunService
+    private lateinit var mailgunService: MailgunServiceImpl
 
 
     @BeforeEach

@@ -27,14 +27,14 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 
 @ExtendWith(SpringExtension::class, MockitoExtension::class)
-@Import(UserService::class)
+@Import(UserServiceImpl::class)
 @DataJpaTest
-class UserServiceTest {
+class UserServiceImplTest {
 
     @Autowired
     private lateinit var userRepository: UserRepository
     @Autowired
-    private lateinit var userService: UserService
+    private lateinit var userService: UserServiceImpl
     @MockBean
     private lateinit var mailService: MailService
     @MockBean
