@@ -8,12 +8,16 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.context.annotation.Import
 import org.springframework.test.annotation.DirtiesContext
+import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.io.BufferedReader
 
-@SpringBootTest
-@ExtendWith(MockitoExtension::class)
+//@SpringBootTest
+@ExtendWith(SpringExtension::class, MockitoExtension::class)
+@Import(FeedParserStep::class)
+@DataJpaTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class FeedParserStepTest {
 
@@ -93,5 +97,14 @@ class FeedParserStepTest {
 
         val feedAfter = feedRepository.findById(feed.pkey)
         assertThat(feedAfter.get().type).isEqualTo(FeedType.Atom)
+
+        val firstItem = feedDto.items.first()
+        assertThat(firstItem.title).isEqualTo("Wikileaks-Gründer Julian Assange zu 50 Wochen Gefängnis verurteilt")
+
+        val item56 = feedDto.items.get(56)
+        assertThat(item56.title).isEqualTo("Account-Hijacking auf Bestellung: Black-Hat-Hacker mit miesem Kundenservice")
+
+        val item57 = feedDto.items.get(57)
+        assertThat(item57.title).isEqualTo("\"Autopilot\": Verbraucherschützer und Verkehrssicherheits-Behörde stellen Tesla hart in Frage")
     }
 }

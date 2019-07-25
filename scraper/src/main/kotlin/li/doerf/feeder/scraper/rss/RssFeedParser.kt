@@ -1,11 +1,12 @@
 package li.doerf.feeder.scraper.rss
 
 import li.doerf.feeder.common.entities.FeedType
+import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.scraper.FeedParserBase
 import li.doerf.feeder.scraper.dto.FeedDto
 import li.doerf.feeder.scraper.dto.ItemDto
-import li.doerf.feeder.common.util.getLogger
 import org.xml.sax.Attributes
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.Instant
 
@@ -74,11 +75,10 @@ class RssFeedParser : FeedParserBase() {
                 }
             }
             "pubDate" ->  {
-                val dateParser = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z")
                 if (!isItemParsing) {
-                    feed.updated = dateParser.parse(getParsedString()).toInstant()
+                    feed.updated = parseDateAsInstant(getParsedString())
                 } else {
-                    published = dateParser.parse(getParsedString()).toInstant()
+                    published = parseDateAsInstant(getParsedString())
                 }
             }
             "description" -> {
@@ -90,6 +90,16 @@ class RssFeedParser : FeedParserBase() {
             "encoded" -> {
                 content = getParsedString()
             }
+        }
+    }
+
+    private fun parseDateAsInstant(dateString: String): Instant {
+        return try {
+            val dateParser = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z")
+            dateParser.parse(dateString).toInstant()
+        } catch (e: ParseException) {
+            val dateParserNoSec = SimpleDateFormat("EEE, dd MMM yyyy HH:mm z")
+            dateParserNoSec.parse(dateString).toInstant()
         }
     }
 }
