@@ -24,9 +24,13 @@ class ItemsController @Autowired constructor(
     }
 
     @GetMapping("/byFeed/{feedId}")
-    fun getAllByFeed(@PathVariable feedId: Long): ResponseEntity<List<ItemDto>> {
+    fun getAllByFeed(
+            @PathVariable feedId: Long,
+            @RequestParam(required = false) fromPkey: Long?,
+            @RequestParam(required = false, defaultValue = "30") size: Int
+    ): ResponseEntity<List<ItemDto>> {
         log.debug("retrieving al entries for feed pkey=$feedId")
-        val itemDtos = itemService.getItemsByFeed(feedId, userUtils.getCurrentUser())
+        val itemDtos = itemService.getItemsByFeed(feedId, userUtils.getCurrentUser(), fromPkey, size)
         return ResponseEntity(itemDtos, HttpStatus.OK)
     }
 
