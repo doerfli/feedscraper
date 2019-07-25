@@ -7,6 +7,15 @@ services:
       - ./pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+  mqtt:
+    image: eclipse-mosquitto:1.6
+    restart: always
+    volumes:
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mosquitto/data:/mosquitto/data
+    ports:
+      - "1883:1883"
+      - "9001:9001"
   scraper:
     image: doerfli/feedscraper_scraper
     build: 
