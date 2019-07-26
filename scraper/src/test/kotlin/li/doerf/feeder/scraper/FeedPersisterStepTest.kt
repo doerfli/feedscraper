@@ -58,9 +58,11 @@ class FeedPersisterStepTest {
         ))
 
         // when
-        feedPersisterStep.persist(uri, feedDto)
+        val sendNotification = feedPersisterStep.persist(uri, feedDto)
 
         // then
+        assertThat(sendNotification).isTrue()
+
         val rFeed = feedRepository.findFeedByUrl(uri).get()
         assertThat(rFeed.id).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
         assertThat(rFeed.title).isEqualTo("heise online Top-News")
@@ -122,9 +124,11 @@ class FeedPersisterStepTest {
         ))
 
         // when
-        feedPersisterStep.persist(uri, feedDto)
+        val sendNotification = feedPersisterStep.persist(uri, feedDto)
 
         // then
+        assertThat(sendNotification).isFalse()
+
         val rFeed = feedRepository.findFeedByUrl(uri).get()
         assertThat(rFeed.id).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
         assertThat(rFeed.updated).isEqualTo(instant1)
@@ -182,9 +186,11 @@ class FeedPersisterStepTest {
         ))
 
         // when
-        feedPersisterStep.persist(uri, feedDto)
+        val sendNotification = feedPersisterStep.persist(uri, feedDto)
 
         // then
+        assertThat(sendNotification).isFalse()
+
         val rFeed = feedRepository.findFeedByUrl(uri).get()
         assertThat(rFeed.id).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
         assertThat(rFeed.updated).isEqualTo(fiveMinAgo)
@@ -246,9 +252,11 @@ class FeedPersisterStepTest {
         ))
 
         // when
-        feedPersisterStep.persist(uri, feedDto)
+        val sendNotification = feedPersisterStep.persist(uri, feedDto)
 
         // then
+        assertThat(sendNotification).isFalse()
+
         val rFeed = feedRepository.findFeedByUrl(uri).get()
         assertThat(rFeed.id).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
         assertThat(rFeed.updated).isEqualTo(fiveMinAgo)

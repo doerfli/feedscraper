@@ -3,13 +3,11 @@ package li.doerf.feeder.viewer.controllers
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.entities.FeedType
 import li.doerf.feeder.common.repositories.FeedRepository
-import li.doerf.feeder.viewer.websocket.messages.NewFeedsMessage
 import org.assertj.core.api.Assertions.assertThat
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.Matchers.hasSize
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -103,9 +101,6 @@ class FeedsControllerTest {
 
         // and wait some time
         Thread.sleep(2500)
-
-        // then check that websocket was notified for new feed
-        Mockito.verify(wsTemplate).convertAndSend("/topic/feeds", NewFeedsMessage("new"))
     }
 
     @WithMockUser(username="test@test123.com")

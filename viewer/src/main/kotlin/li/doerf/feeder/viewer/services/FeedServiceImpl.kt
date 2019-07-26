@@ -1,8 +1,5 @@
 package li.doerf.feeder.viewer.services
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.util.getLogger
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Sort
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Service
-import java.time.Instant
 
 @Service
 class FeedServiceImpl @Autowired constructor(
@@ -39,21 +35,8 @@ class FeedServiceImpl @Autowired constructor(
         return feed
     }
 
-    override fun waitForFeedScrapeAndNotifyClient(url: String) {
-        GlobalScope.launch {
-            val waitUntil = Instant.now().plusSeconds(300)
-            log.debug("waiting for feed to be downloaded")
-            while(feedRepository.countFeedsByUrlAndTitleNotNull(url) == 0 && Instant.now().isBefore(waitUntil)) {
-                log.debug("feed not available, wait 1s")
-                delay(1000)
-            }
-            if (feedRepository.countFeedsByUrlAndTitleNotNull(url) > 0) {
-                log.debug("notify client that new feed is active")
-                wsTemplate.convertAndSend("/topic/feeds", NewFeedsMessage("new"))
-            } else {
-                log.warn("feed not downloaded within 5 minutes")
-            }
-        }
+    override fun notifyClientsAboutNewFeed(msg: String) {
+        wsTemplate.convertAndSend("/topic/feeds", NewFeedsMessage("new"))
     }
 
 }

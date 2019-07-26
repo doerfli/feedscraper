@@ -24,14 +24,15 @@ class FeedPersisterStep @Autowired constructor(
     }
 
     @Transactional
-    fun persist(uri: String, feedDto: FeedDto) {
+    fun persist(uri: String, feedDto: FeedDto): Boolean {
         log.debug("starting to persist feed for $uri")
         val feed = feedRepository.findFeedByUrl(uri).orElseThrow()
         feed.lastDownloaded = Instant.now()
+        var feedDownloadedFirstTime = false
 
         if (feed.updated != feedDto.updated) {
             log.debug("updating feed")
-            updateFeed(feedDto, feed)
+            feedDownloadedFirstTime = updateFeed(feedDto, feed)
             updateItems(feedDto.items, feed)
             log.info("feed and items updated")
         } else {
@@ -40,9 +41,11 @@ class FeedPersisterStep @Autowired constructor(
 
         feedRepository.save(feed)
         log.trace("feed saved $feed")
+
+        return feedDownloadedFirstTime;
     }
 
-    private fun updateFeed(feedDto: FeedDto, feed: Feed) {
+    private fun updateFeed(feedDto: FeedDto, feed: Feed): Boolean {
         // update dates
         if (feedDto.updated > Instant.MIN) {
             feed.updated = feedDto.updated
@@ -52,7 +55,7 @@ class FeedPersisterStep @Autowired constructor(
 
         if(feed.title != null && feed.title != "") { // base values already set
             log.debug("feed did not change")
-            return
+            return false
         }
 
         feed.id = feedDto.id
@@ -61,6 +64,7 @@ class FeedPersisterStep @Autowired constructor(
         feed.linkAlternate = feedDto.linkAlternate
         feed.linkSelf = feedDto.linkSelf
         log.debug("feed updated")
+        return true
     }
 
     private fun findMostRecentUpdateTime(feedDto: FeedDto): Instant {
