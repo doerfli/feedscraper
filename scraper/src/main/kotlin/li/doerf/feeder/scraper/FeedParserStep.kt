@@ -37,11 +37,14 @@ class FeedParserStep @Autowired constructor(
             determineFeedSourceType(feed, feedAsString)
         }
 
-        return when(feed.type) {
+        val feedDto = when(feed.type) {
             FeedType.Atom -> AtomFeedParser().parse(ByteArrayInputStream(feedAsString.toByteArray()))
             FeedType.RSS -> RssFeedParser().parse(ByteArrayInputStream(feedAsString.toByteArray()))
             else -> throw IllegalArgumentException("unknown type ${feed.type}")
         }
+
+        feedDto.items.sortBy { i -> i.published }
+        return feedDto
     }
 
     private fun determineFeedSourceType(feed: Feed, feedAsString: String) {

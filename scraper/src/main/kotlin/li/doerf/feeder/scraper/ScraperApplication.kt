@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import java.util.concurrent.Executors
 
+
 @SpringBootApplication
 //@ComponentScan(basePackages = ["li.doerf.feeder"])
 @EntityScan("li.doerf.feeder.common.entities")

@@ -1,6 +1,5 @@
 package li.doerf.feeder.viewer.services
 
-import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.viewer.websocket.messages.NewFeedsMessage
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -17,25 +16,13 @@ import org.springframework.messaging.simp.SimpMessagingTemplate
 class FeedServiceImplSpringBootTest {
 
     @Autowired
-    private lateinit var feedRepository: FeedRepository
-    @Autowired
     private lateinit var feedService: FeedServiceImpl
     @MockBean
     private lateinit var wsTemplate: SimpMessagingTemplate
 
     @Test
     fun testWaitForFeedScrapeAndNotifyClient() {
-        val url = "http://www.heise.de/feeds"
-        val feed = feedService.add(url)
-
-        feedService.waitForFeedScrapeAndNotifyClient(feed.url)
-
-        Thread.sleep(100)
-
-        feed.title = "sometitle"
-        feedRepository.save(feed)
-
-        Thread.sleep(2000)
+        feedService.notifyClientsAboutNewFeed("new_feed")
 
         Mockito.verify(wsTemplate).convertAndSend("/topic/feeds", NewFeedsMessage("new"))
     }

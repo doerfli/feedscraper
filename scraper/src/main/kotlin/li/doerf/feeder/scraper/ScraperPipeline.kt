@@ -22,7 +22,8 @@ class ScraperPipeline @Autowired constructor(
         private val feedRepository: FeedRepository,
         private val feedDownloaderStep: FeedDownloaderStep,
         private val feedParserStep: FeedParserStep,
-        private val feedPersisterStep: FeedPersisterStep
+        private val feedPersisterStep: FeedPersisterStep,
+        private val feedNotifierStep: FeedNotifierStep
 ) {
 
     @Value("\${scraper.pipeline.interval:60000}")
@@ -45,9 +46,11 @@ class ScraperPipeline @Autowired constructor(
 
             val parserChannel = Channel<Pair<String, String>>()
             val persisterChannel = Channel<Pair<String, FeedDto>>()
+            val notifierChannel = Channel<Boolean>()
             repeat(2) { launchFeedUrlDownloader(it, feedUrlProducer, parserChannel) }
             repeat(2) { launchFeedParser(it, parserChannel, persisterChannel) }
-            launchFeedPersister(0, persisterChannel)
+            launchFeedPersister(0, persisterChannel, notifierChannel)
+            launchFeedNotifier(0, notifierChannel)
         }
     }
 
@@ -93,14 +96,29 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
-    fun CoroutineScope.launchFeedPersister(id: Int, channel: ReceiveChannel<Pair<String, FeedDto>>) = launch {
+    fun CoroutineScope.launchFeedPersister(id: Int, channel: ReceiveChannel<Pair<String, FeedDto>>, notifierChannel: Channel<Boolean>) = launch {
         log.info("starting feed persister #$id")
         for ((uri, feed) in channel) {
             log.debug("FeedDto Perister #$id received feed for $uri")
             try {
-                feedPersisterStep.persist(uri, feed)
+                val feedNotification = feedPersisterStep.persist(uri, feed)
+                notifierChannel.send(feedNotification)
             } catch (e: Exception) {
                 log.error("caught Exception while persisting uri $uri", e)
+            }
+        }
+    }
+
+    fun CoroutineScope.launchFeedNotifier(id: Int, channel: ReceiveChannel<Boolean>) = launch {
+        log.info("starting feed notifier #$id")
+        for (sendNotification in channel) {
+            log.debug("Feed Notification #$id received msg")
+            try {
+                if (sendNotification) {
+                    feedNotifierStep.sendNotificationEvent()
+                }
+            } catch (e: Exception) {
+                log.error("caught Exception while sending notification", e)
             }
         }
     }

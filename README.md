@@ -13,19 +13,21 @@ Webapplication to display feeds
 
 ## Containers
 
+- db: PostgreSQL database
+- mqtt: mosquitto mqtt broker
 - scraper: downloads feeds and store in db
 - viewer: shows feeds and items
 
-### DB
+### 
 
-Start DB container
+Start containers for development
 
 ```
-docker-compose docker-compose up -d db
+docker-compose docker-compose up -d db mqtt
 ```
 
 Reset DB container
 
 ```
-docker-compose down && rm -r pgdata/ && docker-compose up -d db
+docker-compose down && rm -r pgdata/ && docker-compose up -d db mqtt
 ```
