@@ -3,7 +3,7 @@
     <div class="content">
       <ul class="fa-ul">
         <Item
-            v-for="(item,index) in items" v-bind:key="item.pkey" v-bind:item="item" v-bind:index="index" />
+            v-for="(item,index) in items" v-bind:key="item.pkey" v-bind:item="item" v-bind:index="index"/>
       </ul>
     </div>
   </div>
@@ -18,7 +18,7 @@
             Item
         },
         computed: {
-            items() {
+            items: function() {
                 let activeFeedPkey = this.$store.state.session.activeFeed;
                 return this.$store.state.items.all[activeFeedPkey];
             }
