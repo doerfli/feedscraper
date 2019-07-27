@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ItemRepository : CrudRepository<Item, Long> {
     fun findByFeedPkey(feedPkey: Long, pageable: Pageable): Page<Item>
-    fun findByFeedPkeyAndPkeyIsGreaterThan(feedPkey: Long, pkey: Long, pageable: Pageable): Page<Item>
+    fun findByFeedPkeyAndPkeyIsLessThan(feedPkey: Long, pkey: Long, pageable: Pageable): Page<Item>
     fun findAllByFeed(feed: Feed): List<Item>
 }

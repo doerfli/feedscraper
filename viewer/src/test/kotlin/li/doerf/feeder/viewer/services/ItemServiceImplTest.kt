@@ -41,7 +41,7 @@ class ItemServiceImplTest {
         // GIVEN
         val user = createUser()
         val feed = createFeed()
-        createItems(feed, 35)
+        val cItems = createItems(feed, 35)
 
         // WHEN
         val items = serviceImpl.getItemsByFeed(feed.pkey, user, null, 30)
@@ -50,7 +50,10 @@ class ItemServiceImplTest {
         assertThat(items.size).isEqualTo(30)
 
         val first = items.first()
-        assertThat(first.title).isEqualTo("title 1")
+        assertThat(first.title).isEqualTo("title 35")
+
+        val last = items.last()
+        assertThat(last.title).isEqualTo("title 6")
     }
 
     @Test
@@ -60,23 +63,44 @@ class ItemServiceImplTest {
         val feed = createFeed()
         val gItems = createItems(feed, 100)
 
-        // WHEN
-        var items = serviceImpl.getItemsByFeed(feed.pkey, user, gItems[29].pkey, 30)
+        // get first 30
+        var items = serviceImpl.getItemsByFeed(feed.pkey, user, null, 30)
+
+        // WHEN - getting 2nd batch of 30
+        items = serviceImpl.getItemsByFeed(feed.pkey, user, items[29].pkey, 30)
 
         // THEN
         assertThat(items.size).isEqualTo(30)
 
         var first = items.first()
-        assertThat(first.title).isEqualTo("title 31")
+        assertThat(first.title).isEqualTo("title 70")
 
-        // WHEN - second round
-        items = serviceImpl.getItemsByFeed(feed.pkey, user, gItems[39].pkey, 30)
+        var last = items.last()
+        assertThat(last.title).isEqualTo("title 41")
+
+        // WHEN - getting third batch of 30
+        items = serviceImpl.getItemsByFeed(feed.pkey, user, items[29].pkey, 30)
 
         // THEN
         assertThat(items.size).isEqualTo(30)
 
         first = items.first()
-        assertThat(first.title).isEqualTo("title 41")
+        assertThat(first.title).isEqualTo("title 40")
+
+        last = items.last()
+        assertThat(last.title).isEqualTo("title 11")
+
+        // WHEN - getting fourth batch of 30 - only 10 remaining
+        items = serviceImpl.getItemsByFeed(feed.pkey, user, items[29].pkey, 30)
+
+        // THEN
+        assertThat(items.size).isEqualTo(10)
+
+        // WHEN - getting fifth batch of 30 - none remaining
+        items = serviceImpl.getItemsByFeed(feed.pkey, user, items[9].pkey, 30)
+
+        // THEN
+        assertThat(items.size).isEqualTo(0)
     }
 
     private fun createUser(): User {
@@ -97,7 +121,7 @@ class ItemServiceImplTest {
         val now = Instant.now()
         val items = mutableListOf<Item>()
         for(i in 1 .. num) {
-            val time = now.minus(i.toLong(), ChronoUnit.MINUTES)
+            val time = now.minus(num.toLong(), ChronoUnit.MINUTES).plus(i.toLong(), ChronoUnit.MINUTES)
             val item = Item(0, feed, "id_$i", "title $i", "http://www.link.com/$i",
                     "summary $i", "content $i",
                     time, time)

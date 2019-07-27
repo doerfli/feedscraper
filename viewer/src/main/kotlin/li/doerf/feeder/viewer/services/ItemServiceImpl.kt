@@ -31,7 +31,7 @@ class ItemServiceImpl @Autowired constructor(
         val items = if (fromPkey == null ) {
             itemRepository.findByFeedPkey(feedId, PageRequest.of(0, size, Sort.Direction.DESC, "published"))
         } else {
-            itemRepository.findByFeedPkeyAndPkeyIsGreaterThan(feedId, fromPkey, PageRequest.of(0, size, Sort.Direction.DESC, "published"))
+            itemRepository.findByFeedPkeyAndPkeyIsLessThan(feedId, fromPkey, PageRequest.of(0, size, Sort.Direction.DESC, "published"))
         }
         val itemReadMap = itemStateRepository.findAllByUserAndFeed_Pkey(user, feedId).map { it.item.id to it.isRead }.toMap()
         return items.get().map { it.toDto(itemReadMap.getOrDefault(it.id, false)) }.collect(Collectors.toList())
