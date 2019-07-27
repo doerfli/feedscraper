@@ -15,7 +15,7 @@ class MqttNewFeedReceiveService @Autowired constructor(
         private val log = getLogger(javaClass)
     }
 
-    fun greeting(payload: String) {
+    fun receive(payload: String) {
         log.debug("received msg: $payload")
         feedService.notifyClientsAboutNewFeed(payload)
     }
