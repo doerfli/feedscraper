@@ -18,8 +18,7 @@ const actions = {
         commit('clear', null);
         let feedPkey = payload.feedPkey;
         console.log(`retrieving items for pkey ${feedPkey}`);
-
-        // downloas two batched of items
+        // download two batches of items
         await this.dispatch('items/loadMoreItems', { feedPkey: feedPkey}).then(() => {
             return this.dispatch('items/loadMoreItems', {feedPkey: feedPkey});
         });
@@ -37,7 +36,7 @@ const actions = {
             let numItems = items.length;
             console.log(`got ${numItems} items`);
             commit('appendItems', {feedPkey: feedPkey, items: items});
-            return items.length;
+            return numItems;
         }).catch(e => {
             console.log(e)
         });
@@ -65,11 +64,12 @@ const mutations = {
         let lengthBefore = state.all.length;
         for (let t in payload.items) {
             let item = payload.items[t];
-            if (_.findIndex(state.all, function(e) { return e.pkey === item.pkey; }) === -1) {
-                state.all.push(item)
+            if (_.findIndex(state.all, function(e) { return e.pkey === item.pkey; }) >= 0) {
+                continue;
             }
+            state.all.push(item)
         }
-        if (state.all.length === lengthBefore) {
+        if (state.all.length === lengthBefore) { // no new items downloaded
             state.endReached = true;
         }
     },
