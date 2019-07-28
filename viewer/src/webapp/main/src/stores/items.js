@@ -5,7 +5,8 @@ let itemBatchSize = 30;
 
 // initial state
 const state = {
-    all: {}
+    all: [],
+    endReached: false
 };
 
 // getters
@@ -13,26 +14,33 @@ const getters = {};
 
 // actions
 const actions = {
-    async getByFeed({ commit }, payload) {
+    async initialize({ commit }, payload) {
+        commit('clear', null);
         let feedPkey = payload.feedPkey;
         console.log(`retrieving items for pkey ${feedPkey}`);
-        return AXIOS.get(buildGetItemPath(feedPkey)).then(async response => {
+
+        // downloas two batched of items
+        await this.dispatch('items/loadMoreItems', { feedPkey: feedPkey}).then(() => {
+            return this.dispatch('items/loadMoreItems', {feedPkey: feedPkey});
+        });
+    },
+    async loadMoreItems({commit}, payload) {
+        if (state.endReached === true) {
+            return;
+        }
+        let feedPkey = payload.feedPkey;
+        console.log(`retrieving items for pkey ${feedPkey}`);
+        return AXIOS.get(buildGetItemPath(feedPkey)).then(response => {
             // console.log(response);
             // store the items
             let items = response.data;
             let numItems = items.length;
             console.log(`got ${numItems} items`);
             commit('appendItems', {feedPkey: feedPkey, items: items});
-            return numItems;
-        }).then(async numItems => {
-            // check if more items need to be downloaded
-            if(numItems === itemBatchSize && state.all[feedPkey].length < 50) {
-                console.log("get more results");
-                await this.dispatch('items/getByFeed', { feedPkey: feedPkey});
-            }
+            return items.length;
         }).catch(e => {
             console.log(e)
-        })
+        });
     },
     markAsRead({commit}, payload) {
         let itemPkey = payload.itemPkey;
@@ -52,16 +60,26 @@ const actions = {
 const mutations = {
     appendItems(state, payload) {
         // console.log(payload.items);
-        if (payload.feedPkey in state.all) {
-            console.log(state.all[payload.feedPkey].concat(payload.items));
-            state.all[payload.feedPkey] = state.all[payload.feedPkey].concat(payload.items)
-        } else {
-            state.all[payload.feedPkey] = payload.items
+        // console.log(state.all[payload.feedPkey].concat(payload.items));
+        // state.all[payload.feedPkey] = state.all[payload.feedPkey].concat(payload.items)
+        let lengthBefore = state.all.length;
+        for (let t in payload.items) {
+            let item = payload.items[t];
+            if (_.findIndex(state.all, function(e) { return e.pkey === item.pkey; }) === -1) {
+                state.all.push(item)
+            }
         }
-
+        if (state.all.length === lengthBefore) {
+            state.endReached = true;
+        }
     },
     markAsRead(state, payload) {
-        state.all[payload.feedPkey][payload.index].read = payload.read;
+        state.all.read = payload.read;
+    },
+    // eslint-disable-next-line no-unused-vars
+    clear(state) {
+        state.all = [];
+        state.endReached = false;
     }
 };
 
@@ -77,8 +95,8 @@ export default {
 
 let buildGetItemPath = (feedPkey) => {
     let path = `/items/byFeed/${feedPkey}?size=${itemBatchSize}`;
-    if(feedPkey in state.all) {
-        let lastElement = _.last(state.all[feedPkey]);
+    if(state.all.length > 0) {
+        let lastElement = _.last(state.all);
         // console.log(lastElement);
         let lastPkey = lastElement.pkey;
         path = `${path}&from=${lastPkey}`;
