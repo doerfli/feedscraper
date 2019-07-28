@@ -1,5 +1,6 @@
 package li.doerf.feeder.viewer.services
 
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import li.doerf.feeder.viewer.MockitoTestHelper
 import li.doerf.feeder.viewer.config.JwtTokenProvider
@@ -129,7 +130,9 @@ class UserServiceImplTest {
         assertThat(userAfter.tokenExpiration).isNotNull()
         assertThat(userAfter.state).isEqualTo(AccountState.PasswordResetRequested)
 
+
         runBlocking {
+            delay(1000)
             Mockito.verify(mailService, Mockito.times(1)).sendPasswordResetMail(MockitoTestHelper.any())
         }
     }

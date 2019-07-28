@@ -14,8 +14,8 @@ const getters = {};
 // actions
 const actions = {
     async setActiveFeed({ commit }, payload) {
-        await this.dispatch('items/getByFeed', { feedPkey: payload.pkey});
         commit('setActiveFeed', { pkey: payload.pkey});
+        await this.dispatch('items/initialize', { feedPkey: payload.pkey});
     },
     setToken({commit}, payload) {
         commit('setToken', { token: payload.token, username: payload.username });
