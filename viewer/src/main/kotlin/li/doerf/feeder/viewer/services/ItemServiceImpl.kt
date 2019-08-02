@@ -64,4 +64,8 @@ class ItemServiceImpl @Autowired constructor(
         return item
     }
 
+    override fun getItemsCount(feedPkeys: List<Long>): Map<Long, Long> {
+        return itemRepository.countItemsGroupByFeeds(feedPkeys).map{ it.feedPkey to it.count}.toMap()
+    }
+
 }

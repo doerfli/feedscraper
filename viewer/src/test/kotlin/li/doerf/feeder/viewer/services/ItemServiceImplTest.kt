@@ -103,6 +103,24 @@ class ItemServiceImplTest {
         assertThat(items.size).isEqualTo(0)
     }
 
+    @Test
+    fun testGetItemsCount() {
+        // given
+        val user = createUser()
+        val feed = createFeed()
+        val gItems = createItems(feed, 83)
+
+        val feed2 = createFeed2()
+        val gItems2 = createItems(feed2, 42)
+
+        // when
+        val r = serviceImpl.getItemsCount(listOf(feed.pkey, feed2.pkey))
+        assertThat(r.size).isEqualTo(2)
+
+        assertThat(r[feed.pkey]).isEqualTo(83)
+        assertThat(r[feed2.pkey]).isEqualTo(42)
+    }
+
     private fun createUser(): User {
         val user = User(0, "someone@test.com", "aaaaaaaa", mutableListOf(Role.ROLE_CLIENT),
                 null, null, AccountState.Confirmed)
@@ -116,6 +134,14 @@ class ItemServiceImplTest {
         feedRepository.save(feed1)
         return feed1
     }
+
+    private fun createFeed2(): Feed {
+        val feed1 = Feed(0, "https://www.heise.de/rss/heise-news-atom.xml", Instant.now(), "https://www.heise.de/rss/heise-news-atom.xml",
+                "Heise No News", "Nachrichten No", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedType.Atom)
+        feedRepository.save(feed1)
+        return feed1
+    }
+
 
     private fun createItems(feed: Feed, num: Int): List<Item> {
         val now = Instant.now()
