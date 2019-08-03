@@ -64,8 +64,10 @@ class ItemServiceImpl @Autowired constructor(
         return item
     }
 
-    override fun getItemsCount(feedPkeys: List<Long>): Map<Long, Long> {
-        return itemRepository.countItemsGroupByFeeds(feedPkeys).map{ it.feedPkey to it.count}.toMap()
+    override fun getUnreadItemsCount(feedPkeys: List<Long>, user: User): Map<Long, Long> {
+        val totalItemsMap = itemRepository.countItemsGroupByFeeds(feedPkeys).map{ it.feedPkey to it.count}.toMap()
+        val readItemsMap = itemStateRepository.countReadItemsGroupByFeeds(user, feedPkeys).map{ it.feedPkey to it.count}.toMap()
+        return totalItemsMap.map { (feedPkey, count) -> feedPkey to (count - readItemsMap.getOrDefault(feedPkey, 0))}.toMap()
     }
 
 }

@@ -6,8 +6,10 @@ import li.doerf.feeder.common.entities.Item
 import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.repositories.ItemRepository
 import li.doerf.feeder.viewer.entities.AccountState
+import li.doerf.feeder.viewer.entities.ItemState
 import li.doerf.feeder.viewer.entities.Role
 import li.doerf.feeder.viewer.entities.User
+import li.doerf.feeder.viewer.repositories.ItemStateRepository
 import li.doerf.feeder.viewer.repositories.UserRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -35,6 +37,8 @@ class ItemServiceImplTest {
     private lateinit var userRepository: UserRepository
     @Autowired
     private lateinit var itemRepository: ItemRepository
+    @Autowired
+    private lateinit var itemStateRepository: ItemStateRepository
 
     @Test
     fun testGetItemsByFeed() {
@@ -104,7 +108,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    fun testGetItemsCount() {
+    fun testGetUnreadItemsCount() {
         // given
         val user = createUser()
         val feed = createFeed()
@@ -114,11 +118,53 @@ class ItemServiceImplTest {
         val gItems2 = createItems(feed2, 42)
 
         // when
-        val r = serviceImpl.getItemsCount(listOf(feed.pkey, feed2.pkey))
+        val r = serviceImpl.getUnreadItemsCount(listOf(feed.pkey, feed2.pkey), user)
         assertThat(r.size).isEqualTo(2)
 
         assertThat(r[feed.pkey]).isEqualTo(83)
         assertThat(r[feed2.pkey]).isEqualTo(42)
+    }
+
+    @Test
+    fun testGetUnreadItemsCount2() {
+        // given
+        val user = createUser()
+        val feed = createFeed()
+        val gItems = createItems(feed, 83)
+        markItemAsRead(user, feed, gItems[1])
+
+        val feed2 = createFeed2()
+        val gItems2 = createItems(feed2, 42)
+        markItemAsRead(user, feed2, gItems2[3], gItems2[5], gItems2[7])
+
+        // when
+        val r = serviceImpl.getUnreadItemsCount(listOf(feed.pkey, feed2.pkey), user)
+        assertThat(r.size).isEqualTo(2)
+
+        assertThat(r[feed.pkey]).isEqualTo(82)
+        assertThat(r[feed2.pkey]).isEqualTo(39)
+    }
+
+    @Test
+    fun testGetUnreadItemsCount3() {
+        // given
+        val user = createUser()
+        val feed = createFeed()
+        val gItems = createItems(feed, 3)
+        markItemAsRead(user, feed, gItems[0], gItems[1], gItems[2])
+
+        // when
+        val r = serviceImpl.getUnreadItemsCount(listOf(feed.pkey), user)
+        assertThat(r.size).isEqualTo(1)
+
+        assertThat(r[feed.pkey]).isEqualTo(0)
+    }
+
+    private fun markItemAsRead(user: User, feed: Feed, vararg items: Item) {
+        items.forEach {
+            val itemState = ItemState(0, user, it, feed, true)
+            itemStateRepository.save(itemState)
+        }
     }
 
     private fun createUser(): User {
