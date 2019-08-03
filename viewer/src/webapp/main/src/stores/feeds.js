@@ -1,5 +1,6 @@
 import AXIOS from "@/http-common";
 import {TIMEOUT} from "../messages-common";
+import _ from "lodash";
 
 // initial state
 const state = {
@@ -38,7 +39,13 @@ const actions = {
                 timeout: TIMEOUT
             });
         });
-    }
+    },
+    async decreaseUnread({commit}, payload) {
+        commit('changeUnread', { feedPkey: payload.feedPkey, amount: -1})
+    },
+    async increaseUnread({commit}, payload) {
+        commit('changeUnread', { feedPkey: payload.feedPkey, amount: 1})
+    },
 };
 
 // mutations
@@ -48,6 +55,10 @@ const mutations = {
     },
     add(state, feed) {
         state.all.push(feed);
+    },
+    changeUnread(state, payload) {
+        let feed = _.find(state.all, function(e) { return e.pkey === payload.feedPkey });
+        feed.unreadItems += payload.amount;
     }
 };
 

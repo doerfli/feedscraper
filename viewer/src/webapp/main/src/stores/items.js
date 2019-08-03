@@ -46,12 +46,14 @@ const actions = {
         console.log(`marking item ${itemPkey} as read`);
         AXIOS.post(`/items/${itemPkey}/read`);
         commit('markAsRead', {pkey: itemPkey, read: true, feedPkey: payload.feedPkey, index: payload.index});
+        this.dispatch('feeds/decreaseUnread', { feedPkey: payload.feedPkey})
     },
     markAsUnread({commit}, payload) {
         let itemPkey = payload.itemPkey;
         console.log(`marking item ${itemPkey} as unread`);
         AXIOS.post(`/items/${itemPkey}/unread`);
         commit('markAsRead', {pkey: itemPkey, read: false, feedPkey: payload.feedPkey, index: payload.index});
+        this.dispatch('feeds/increaseUnread', { feedPkey: payload.feedPkey})
     }
 };
 
@@ -74,7 +76,8 @@ const mutations = {
         }
     },
     markAsRead(state, payload) {
-        state.all.read = payload.read;
+        let item = _.find(state.all, function(e) { return e.pkey === payload.pkey });
+        item.read = payload.read;
     },
     // eslint-disable-next-line no-unused-vars
     clear(state) {

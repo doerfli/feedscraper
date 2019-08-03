@@ -3,7 +3,7 @@ package li.doerf.feeder.viewer.dto
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.entities.Item
 
-fun Feed.toDto(): FeedDto {
+fun Feed.toDto(unreadCount: Long): FeedDto {
     return FeedDto(
             pkey,
             url,
@@ -14,7 +14,8 @@ fun Feed.toDto(): FeedDto {
             updated,
             linkSelf,
             linkAlternate,
-            type!!)
+            type!!,
+            unreadCount)
 }
 
 fun Item.toDto(isRead: Boolean = false): ItemDto {

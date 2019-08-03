@@ -3,9 +3,12 @@ package li.doerf.feeder.viewer.controllers
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.entities.FeedType
 import li.doerf.feeder.common.repositories.FeedRepository
+import li.doerf.feeder.viewer.entities.User
+import li.doerf.feeder.viewer.test.TestHelper
 import org.assertj.core.api.Assertions.assertThat
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.Matchers.hasSize
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
@@ -32,14 +35,20 @@ import java.time.Instant
 @ExtendWith(MockitoExtension::class)
 class FeedsControllerTest {
 
+    private lateinit var testuser: User
     @Autowired
     private lateinit var mvc: MockMvc
-
     @Autowired
     private lateinit var feedRepository: FeedRepository
-
     @MockBean
     private lateinit var wsTemplate: SimpMessagingTemplate
+    @Autowired
+    private lateinit var testHelper: TestHelper
+
+    @BeforeEach
+    fun setup() {
+        testuser = testHelper.createUser("test@test123.com")
+    }
 
     @Test
     fun testIndexMethodIsSecured() {
@@ -64,6 +73,9 @@ class FeedsControllerTest {
                 "aaaaaHeise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedType.Atom)
         feedRepository.save(feed3)
 
+        val items3 = testHelper.createItems(feed1, 23)
+        testHelper.markItemAsRead(testuser, feed1, items3[1], items3[2], items3[3])
+
         // when
         mvc.perform(get("/api/feeds").contentType(MediaType.APPLICATION_JSON))
 
@@ -72,7 +84,9 @@ class FeedsControllerTest {
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("$", hasSize<Any>(2)))
                 .andExpect(jsonPath("$[0].title", `is`("aaaaaHeise News")))
+                .andExpect(jsonPath("$[0].unreadItems", `is`(0)))
                 .andExpect(jsonPath("$[1].title", `is`("Heise News")))
+                .andExpect(jsonPath("$[1].unreadItems", `is`(20)))
     }
 
     @WithMockUser(username="test@test123.com")

@@ -1,7 +1,8 @@
 <template>
   <li v-on:click="selectFeed">
     <span class="icon fa-li" ><i class="fas fa-rss"></i></span>
-    <a>{{data.title}}</a>
+    <a v-if="hasUnreadItems()">{{data.title}} ({{this.data.unreadItems}})</a>
+    <a v-else>{{data.title}}</a>
   </li>
 </template>
 
@@ -12,10 +13,13 @@
             data: {}
         },
         methods: {
-            selectFeed: function() {
-                console.log(this);
-                this.$store.dispatch('session/setActiveFeed', { pkey: this.data.pkey});
-            }
+          selectFeed: function() {
+              console.log(this);
+              this.$store.dispatch('session/setActiveFeed', { pkey: this.data.pkey});
+          },
+          hasUnreadItems: function() {
+            return this.data.unreadItems > 0;
+          }
         }
     }
 </script>
