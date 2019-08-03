@@ -76,7 +76,8 @@ const mutations = {
         }
     },
     markAsRead(state, payload) {
-        state.all.read = payload.read;
+        let item = _.find(state.all, function(e) { return e.pkey === payload.pkey });
+        item.read = payload.read;
     },
     // eslint-disable-next-line no-unused-vars
     clear(state) {
