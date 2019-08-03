@@ -15,5 +15,5 @@ interface ItemRepository : CrudRepository<Item, Long> {
     fun findByFeedPkeyAndPkeyIsLessThan(feedPkey: Long, pkey: Long, pageable: Pageable): Page<Item>
     fun findAllByFeed(feed: Feed): List<Item>
     @Query("SELECT count(i) as count, i.feed.pkey as feedPkey from Item i where i.feed.pkey in ?1 group by i.feed.pkey")
-    fun countItemsGroupByFeeds(feedPkeys: List<Long>): List<ItemCount>
+    fun countItemsGroupByFeeds(feedPkeys: Collection<Long>): List<ItemCount>
 }

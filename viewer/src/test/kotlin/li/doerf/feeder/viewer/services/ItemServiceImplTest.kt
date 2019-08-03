@@ -2,15 +2,12 @@ package li.doerf.feeder.viewer.services
 
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.entities.FeedType
-import li.doerf.feeder.common.entities.Item
 import li.doerf.feeder.common.repositories.FeedRepository
-import li.doerf.feeder.common.repositories.ItemRepository
 import li.doerf.feeder.viewer.entities.AccountState
-import li.doerf.feeder.viewer.entities.ItemState
 import li.doerf.feeder.viewer.entities.Role
 import li.doerf.feeder.viewer.entities.User
-import li.doerf.feeder.viewer.repositories.ItemStateRepository
 import li.doerf.feeder.viewer.repositories.UserRepository
+import li.doerf.feeder.viewer.test.TestHelper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,7 +18,6 @@ import org.springframework.context.annotation.Import
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.time.Instant
-import java.time.temporal.ChronoUnit
 
 @ExtendWith(SpringExtension::class, MockitoExtension::class)
 @Import(ItemServiceImpl::class)
@@ -36,16 +32,14 @@ class ItemServiceImplTest {
     @Autowired
     private lateinit var userRepository: UserRepository
     @Autowired
-    private lateinit var itemRepository: ItemRepository
-    @Autowired
-    private lateinit var itemStateRepository: ItemStateRepository
+    private lateinit var testHelper: TestHelper
 
     @Test
     fun testGetItemsByFeed() {
         // GIVEN
         val user = createUser()
         val feed = createFeed()
-        val cItems = createItems(feed, 35)
+        val cItems = testHelper.createItems(feed, 35)
 
         // WHEN
         val items = serviceImpl.getItemsByFeed(feed.pkey, user, null, 30)
@@ -65,7 +59,7 @@ class ItemServiceImplTest {
         // GIVEN
         val user = createUser()
         val feed = createFeed()
-        val gItems = createItems(feed, 100)
+        val gItems = testHelper.createItems(feed, 100)
 
         // get first 30
         var items = serviceImpl.getItemsByFeed(feed.pkey, user, null, 30)
@@ -112,10 +106,10 @@ class ItemServiceImplTest {
         // given
         val user = createUser()
         val feed = createFeed()
-        val gItems = createItems(feed, 83)
+        val gItems = testHelper.createItems(feed, 83)
 
         val feed2 = createFeed2()
-        val gItems2 = createItems(feed2, 42)
+        val gItems2 = testHelper.createItems(feed2, 42)
 
         // when
         val r = serviceImpl.getUnreadItemsCount(listOf(feed.pkey, feed2.pkey), user)
@@ -130,12 +124,12 @@ class ItemServiceImplTest {
         // given
         val user = createUser()
         val feed = createFeed()
-        val gItems = createItems(feed, 83)
-        markItemAsRead(user, feed, gItems[1])
+        val gItems = testHelper.createItems(feed, 83)
+        testHelper.markItemAsRead(user, feed, gItems[1])
 
         val feed2 = createFeed2()
-        val gItems2 = createItems(feed2, 42)
-        markItemAsRead(user, feed2, gItems2[3], gItems2[5], gItems2[7])
+        val gItems2 = testHelper.createItems(feed2, 42)
+        testHelper.markItemAsRead(user, feed2, gItems2[3], gItems2[5], gItems2[7])
 
         // when
         val r = serviceImpl.getUnreadItemsCount(listOf(feed.pkey, feed2.pkey), user)
@@ -150,21 +144,14 @@ class ItemServiceImplTest {
         // given
         val user = createUser()
         val feed = createFeed()
-        val gItems = createItems(feed, 3)
-        markItemAsRead(user, feed, gItems[0], gItems[1], gItems[2])
+        val gItems = testHelper.createItems(feed, 3)
+        testHelper.markItemAsRead(user, feed, gItems[0], gItems[1], gItems[2])
 
         // when
         val r = serviceImpl.getUnreadItemsCount(listOf(feed.pkey), user)
         assertThat(r.size).isEqualTo(1)
 
         assertThat(r[feed.pkey]).isEqualTo(0)
-    }
-
-    private fun markItemAsRead(user: User, feed: Feed, vararg items: Item) {
-        items.forEach {
-            val itemState = ItemState(0, user, it, feed, true)
-            itemStateRepository.save(itemState)
-        }
     }
 
     private fun createUser(): User {
@@ -186,21 +173,6 @@ class ItemServiceImplTest {
                 "Heise No News", "Nachrichten No", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedType.Atom)
         feedRepository.save(feed1)
         return feed1
-    }
-
-
-    private fun createItems(feed: Feed, num: Int): List<Item> {
-        val now = Instant.now()
-        val items = mutableListOf<Item>()
-        for(i in 1 .. num) {
-            val time = now.minus(num.toLong(), ChronoUnit.MINUTES).plus(i.toLong(), ChronoUnit.MINUTES)
-            val item = Item(0, feed, "id_$i", "title $i", "http://www.link.com/$i",
-                    "summary $i", "content $i",
-                    time, time)
-            itemRepository.save(item)
-            items.add(item)
-        }
-        return items
     }
 
 }

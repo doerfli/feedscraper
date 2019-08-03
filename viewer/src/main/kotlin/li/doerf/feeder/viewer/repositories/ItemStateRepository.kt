@@ -15,5 +15,5 @@ interface ItemStateRepository : CrudRepository<ItemState, Long> {
     @Query("SELECT COUNT(s) AS count, s.feed.pkey AS feedPkey FROM ItemState s " +
             "WHERE s.user = ?1 AND s.feed.pkey IN ?2 AND s.isRead = true " +
             "GROUP BY s.feed.pkey")
-    fun countReadItemsGroupByFeeds(user: User, feedPkeys: List<Long>): List<ItemCount>
+    fun countReadItemsGroupByFeeds(user: User, feedPkeys: Collection<Long>): List<ItemCount>
 }

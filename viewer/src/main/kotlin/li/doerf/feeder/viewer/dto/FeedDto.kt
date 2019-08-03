@@ -13,5 +13,6 @@ data class FeedDto (
         val updated: Instant?,
         val linkSelf: String?,
         val linkAlternate: String?,
-        val type: FeedType
+        val type: FeedType,
+        val unreadItems: Long
 )

@@ -8,6 +8,7 @@ import li.doerf.feeder.common.repositories.ItemRepository
 import li.doerf.feeder.viewer.entities.ItemState
 import li.doerf.feeder.viewer.entities.User
 import li.doerf.feeder.viewer.repositories.ItemStateRepository
+import li.doerf.feeder.viewer.test.TestHelper
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.BeforeEach
