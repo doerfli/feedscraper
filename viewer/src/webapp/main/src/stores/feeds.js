@@ -1,5 +1,6 @@
 import AXIOS from "@/http-common";
 import {TIMEOUT} from "../messages-common";
+import _ from "lodash";
 
 // initial state
 const state = {
@@ -56,7 +57,7 @@ const mutations = {
         state.all.push(feed);
     },
     changeUnread(state, payload) {
-        let feed = _.first(_.filter(state.all, function(e) { return e.pkey === payload.feedPkey }));
+        let feed = _.find(state.all, function(e) { return e.pkey === payload.feedPkey });
         feed.unreadItems += payload.amount;
     }
 };
