@@ -20,7 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.time.Instant
 
 @ExtendWith(SpringExtension::class, MockitoExtension::class)
-@Import(ItemServiceImpl::class)
+@Import(ItemServiceImpl::class, TestHelper::class)
 @DataJpaTest
 @DirtiesContext
 class ItemServiceImplTest {
