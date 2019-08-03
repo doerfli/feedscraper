@@ -1,7 +1,7 @@
 <template>
   <li v-on:click="selectFeed">
     <span class="icon fa-li" ><i class="fas fa-rss"></i></span>
-    <a>{{data.title}}</a>
+    <a>{{data.title}} ({{data.unreadItems}})</a>
   </li>
 </template>
 
