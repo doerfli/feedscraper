@@ -38,7 +38,13 @@ const actions = {
                 timeout: TIMEOUT
             });
         });
-    }
+    },
+    async decreaseUnread({commit}, payload) {
+        commit('changeUnread', { feedPkey: payload.feedPkey, amount: -1})
+    },
+    async increaseUnread({commit}, payload) {
+        commit('changeUnread', { feedPkey: payload.feedPkey, amount: 1})
+    },
 };
 
 // mutations
@@ -48,6 +54,10 @@ const mutations = {
     },
     add(state, feed) {
         state.all.push(feed);
+    },
+    changeUnread(state, payload) {
+        let feed = _.first(_.filter(state.all, function(e) { return e.pkey === payload.feedPkey }));
+        feed.unreadItems += payload.amount;
     }
 };
 
