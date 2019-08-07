@@ -41,7 +41,7 @@ dependencies {
     implementation("org.thymeleaf:thymeleaf-spring5:${thymeleafVersion}")
 
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("org.postgresql:postgresql:${postgresqlVersion}")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:${jjwtVersion}")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:${jjwtVersion}")
 

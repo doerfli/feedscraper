@@ -34,7 +34,7 @@ dependencies {
 
 
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("org.postgresql:postgresql:${postgresqlVersion}")
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
