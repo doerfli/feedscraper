@@ -10,6 +10,7 @@
                         <input
                             v-model="username"
                             v-on:change="validateUsername"
+                            v-on:keyup.13="login"
                             v-on:keyup="validateUsernameAfterTimeout"
                             v-bind:class="{input: true, 'is-success': this.validation.usernameValid}"
                             type="email"
@@ -32,6 +33,7 @@
                     <div class="control has-icons-left has-icons-right">
                         <input
                             v-on:change="validatePassword"
+                            v-on:keyup.13="login"
                             v-on:keyup="validatePasswordAfterTimeout"
                             v-bind:class="{input: true, 'is-success': this.validation.passwordValid}"
                             type="password"
@@ -96,6 +98,11 @@
         },
         methods: {
             login: function() {
+                this.validateUsername();
+                this.validatePassword();
+                if (!this.submitAllowed) {
+                    return;
+                }
                 this.$store.dispatch("users/login", {username: this.username, password: this.password})
             },
             validateUsernameAfterTimeout: function() {
@@ -119,7 +126,7 @@
                 }
                 this[timeoutVar] = setTimeout(() => {
                     fct()
-                }, 500);
+                }, 200);
             }
         }
     };

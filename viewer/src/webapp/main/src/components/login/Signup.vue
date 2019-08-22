@@ -11,6 +11,7 @@
                             v-model="username"
                             v-bind:class="{input: true, 'is-danger': !validation.usernamePattern, 'is-success': this.validation.usernameValid}"
                             v-on:change="validateUsername"
+                            v-on:keyup.13="signup"
                             v-on:keyup="validateUsernameAfterTimeout"
                             type="email"
                             placeholder="name@example.com"
@@ -33,6 +34,7 @@
                         <input
                             v-model="password"
                             v-on:change="validatePassword"
+                            v-on:keyup.13="signup"
                             v-on:keyup="validatePasswordAfterTimeout"
                             v-bind:class="{input: true, 'is-success': this.validation.passwordValid}"
                             type="password"
@@ -56,6 +58,7 @@
                         <input
                             v-model="passwordConfirmation"
                             v-on:change="validatePasswordConfirmation"
+                            v-on:keyup.13="signup"
                             v-on:keyup="validatePasswordConfirmationAfterTimeout"
                             v-bind:class="{input: true, 'is-success': this.validation.passwordConfirmationValid}"
                             type="password"
@@ -118,6 +121,12 @@
         },
         methods: {
             signup: function() {
+                this.validateUsername();
+                this.validatePassword();
+                this.validatePasswordConfirmation();
+                if (!this.submitAllowed) {
+                    return;
+                }
                 this.$store.dispatch("users/signup", {username: this.username, password: this.password});
                 this.username = "";
                 this.password = "";
@@ -154,7 +163,7 @@
                 }
                 this[timeoutVar] = setTimeout(() => {
                     fct()
-                }, 500);
+                }, 200);
             }
         }
     }
