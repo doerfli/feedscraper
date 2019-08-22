@@ -11,6 +11,7 @@
                             v-model="username"
                             v-bind:class="{input: true, 'is-danger': !validation.usernamePattern, 'is-success': this.validation.usernameValid}"
                             v-on:change="validateUsername"
+                            v-on:keyup.13="signup"
                             v-on:keyup="validateUsernameAfterTimeout"
                             type="email"
                             placeholder="name@example.com"
@@ -33,6 +34,7 @@
                         <input
                             v-model="password"
                             v-on:change="validatePassword"
+                            v-on:keyup.13="signup"
                             v-on:keyup="validatePasswordAfterTimeout"
                             v-bind:class="{input: true, 'is-success': this.validation.passwordValid}"
                             type="password"
@@ -56,6 +58,7 @@
                         <input
                             v-model="passwordConfirmation"
                             v-on:change="validatePasswordConfirmation"
+                            v-on:keyup.13="signup"
                             v-on:keyup="validatePasswordConfirmationAfterTimeout"
                             v-bind:class="{input: true, 'is-success': this.validation.passwordConfirmationValid}"
                             type="password"
@@ -73,16 +76,25 @@
             <div class="field-label">
             </div>
             <div class="field-body">
-                <div class="field">
-                    <div v-if="submitAllowed" class="control">
-                        <button class="button is-primary" v-on:click="signup">Sign me up</button>
-                    </div>
-                    <fieldset v-else disabled>
-                        <div class="control">
-                            <button class="button is-primary">Sign me up</button>
+                <span v-if="loggingIn">
+                    <span class="spinner">
+                        <span class="icon has-text-primary">
+                            <i class="fas fa-circle-notch fa-2x fa-spin"></i>
+                        </span>&nbsp;
+                    </span>
+                </span>
+                <span v-else>
+                    <div class="field">
+                        <div v-if="submitAllowed" class="control">
+                            <button class="button is-primary" v-on:click="signup">Sign me up</button>
                         </div>
-                    </fieldset>
-                </div>
+                        <fieldset v-else disabled>
+                            <div class="control">
+                                <button class="button is-primary">Sign me up</button>
+                            </div>
+                        </fieldset>
+                    </div>
+                </span>
             </div>
         </div>
     </div>
@@ -108,7 +120,8 @@
                     username: null,
                     password: null,
                     passwordConfirmation: null
-                }
+                },
+                loggingIn: false
             }
         },
         computed: {
@@ -118,13 +131,23 @@
         },
         methods: {
             signup: function() {
-                this.$store.dispatch("users/signup", {username: this.username, password: this.password});
-                this.username = "";
-                this.password = "";
-                this.passwordConfirmation = "";
-                this.validation.usernameValid = false;
-                this.validation.passwordValid = false;
-                this.validation.passwordConfirmationValid = false;
+                this.validateUsername();
+                this.validatePassword();
+                this.validatePasswordConfirmation();
+                if (!this.submitAllowed) {
+                    return;
+                }
+                this.loggingIn = true;
+                this.$store.dispatch("users/signup", {username: this.username, password: this.password}).then(result => {
+                    this.loggingIn = false;
+                    this.username = "";
+                    this.password = "";
+                    this.passwordConfirmation = "";
+                    this.validation.usernameValid = false;
+                    this.validation.passwordValid = false;
+                    this.validation.passwordConfirmationValid = false;
+                });
+
             },
             validateUsernameAfterTimeout: function() {
                 this.runAfterTimeout("timeouts.username", () => this.validateUsername())
@@ -154,12 +177,14 @@
                 }
                 this[timeoutVar] = setTimeout(() => {
                     fct()
-                }, 500);
+                }, 200);
             }
         }
     }
 </script>
 
 <style scoped>
-
+    .spinner {
+        padding-left: 32px;
+    }
 </style>
