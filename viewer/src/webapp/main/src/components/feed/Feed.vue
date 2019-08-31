@@ -1,8 +1,15 @@
 <template>
   <li v-on:click="selectFeed">
     <span class="icon fa-li" ><i class="fas fa-rss"></i></span>
-    <a v-if="hasUnreadItems()">{{data.title}} ({{this.data.unreadItems}})</a>
-    <a v-else>{{data.title}}</a>
+    <a>{{data.title}}</a>
+    <span v-if="hasUnreadItems()">
+      <a>({{this.data.unreadItems}})</a>
+    </span>
+    <span v-if="hasUpdatedItems()">
+      <span class="icon">
+          <i class="far fa-dot-circle fa-xs"></i>
+      </span>
+    </span>
   </li>
 </template>
 
@@ -15,12 +22,17 @@
         methods: {
           selectFeed: function() {
               console.log(this);
+              this.$store.dispatch('feeds/updatedItemsFalse', { pkey: this.data.pkey});
               this.$store.dispatch('session/setActiveFeed', { pkey: this.data.pkey});
           },
           hasUnreadItems: function() {
             return this.data.unreadItems > 0;
+          },
+          hasUpdatedItems: function() {
+            let h = this.data.hasUpdatedItems;
+            return h === "yes";
           }
-        }
+        },
     }
 </script>
 
@@ -33,6 +45,9 @@
     }
     a:hover {
       color: $primary;
+    }
+    > span {
+      margin-left: 0.2em;
     }
   }
 </style>
