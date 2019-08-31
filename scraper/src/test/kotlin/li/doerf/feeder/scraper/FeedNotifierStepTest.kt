@@ -19,7 +19,7 @@ class FeedNotifierStepTest {
     @Test
     fun testSendNotificationEvent() {
         val step = FeedNotifierStep(mqttGateway)
-        step.sendNotificationEvent()
+        step.sendNewFeedDownloadedNotification()
 
         Mockito.verify(mqttGateway).sendToMqtt(Mockito.anyString())
     }

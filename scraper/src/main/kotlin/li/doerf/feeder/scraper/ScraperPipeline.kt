@@ -46,7 +46,7 @@ class ScraperPipeline @Autowired constructor(
 
             val parserChannel = Channel<Pair<String, String>>()
             val persisterChannel = Channel<Pair<String, FeedDto>>()
-            val notifierChannel = Channel<Boolean>()
+            val notifierChannel = Channel<FeedPersisterResult>()
             repeat(2) { launchFeedUrlDownloader(it, feedUrlProducer, parserChannel) }
             repeat(2) { launchFeedParser(it, parserChannel, persisterChannel) }
             launchFeedPersister(0, persisterChannel, notifierChannel)
@@ -96,7 +96,7 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
-    fun CoroutineScope.launchFeedPersister(id: Int, channel: ReceiveChannel<Pair<String, FeedDto>>, notifierChannel: Channel<Boolean>) = launch {
+    fun CoroutineScope.launchFeedPersister(id: Int, channel: ReceiveChannel<Pair<String, FeedDto>>, notifierChannel: Channel<FeedPersisterResult>) = launch {
         log.info("starting feed persister #$id")
         for ((uri, feed) in channel) {
             log.debug("FeedDto Perister #$id received feed for $uri")
@@ -109,13 +109,15 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
-    fun CoroutineScope.launchFeedNotifier(id: Int, channel: ReceiveChannel<Boolean>) = launch {
+    fun CoroutineScope.launchFeedNotifier(id: Int, channel: ReceiveChannel<FeedPersisterResult>) = launch {
         log.info("starting feed notifier #$id")
-        for (sendNotification in channel) {
+        for (result in channel) {
             log.debug("Feed Notification #$id received msg")
             try {
-                if (sendNotification) {
-                    feedNotifierStep.sendNotificationEvent()
+                if (result.newFeedDownloaded) {
+                    feedNotifierStep.sendNewFeedDownloadedNotification()
+                } else if (result.itemsUpdated) {
+                    feedNotifierStep.sendUpdateNotificationEvent()
                 }
             } catch (e: Exception) {
                 log.error("caught Exception while sending notification", e)

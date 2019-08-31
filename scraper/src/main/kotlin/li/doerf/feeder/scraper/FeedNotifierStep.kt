@@ -14,9 +14,14 @@ class FeedNotifierStep @Autowired constructor(
         private val log = getLogger(javaClass)
     }
 
-    fun sendNotificationEvent() {
+    fun sendNewFeedDownloadedNotification() {
         mqttGateway.sendToMqtt("new_feed")
         log.debug("sent feed notification  mqtt")
+    }
+
+    fun sendUpdateNotificationEvent() {
+
+
     }
 
 }

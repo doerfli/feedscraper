@@ -24,16 +24,17 @@ class FeedPersisterStep @Autowired constructor(
     }
 
     @Transactional
-    fun persist(uri: String, feedDto: FeedDto): Boolean {
+    fun persist(uri: String, feedDto: FeedDto): FeedPersisterResult {
         log.debug("starting to persist feed for $uri")
         val feed = feedRepository.findFeedByUrl(uri).orElseThrow()
         feed.lastDownloaded = Instant.now()
-        var feedDownloadedFirstTime = false
+        var firstDownload = false
+        var itemsUpdated = false
 
         if (feed.updated != feedDto.updated) {
             log.debug("updating feed")
-            feedDownloadedFirstTime = updateFeed(feedDto, feed)
-            updateItems(feedDto.items, feed)
+            firstDownload = updateFeed(feedDto, feed)
+            itemsUpdated = updateItems(feedDto.items, feed)
             log.info("feed and items updated")
         } else {
             log.debug("feed did not change - nothing to update")
@@ -42,7 +43,7 @@ class FeedPersisterStep @Autowired constructor(
         feedRepository.save(feed)
         log.trace("feed saved $feed")
 
-        return feedDownloadedFirstTime;
+        return FeedPersisterResult(firstDownload, itemsUpdated)
     }
 
     private fun updateFeed(feedDto: FeedDto, feed: Feed): Boolean {
@@ -72,20 +73,25 @@ class FeedPersisterStep @Autowired constructor(
         return recentItem.updated
     }
 
-    private fun updateItems(downloadedItems: MutableList<ItemDto>, feed: Feed) {
+    private fun updateItems(downloadedItems: MutableList<ItemDto>, feed: Feed): Boolean {
         val entries = itemRepository.findAllByFeed(feed)
         val entriesMap = entries.map{ it.id to it}.toMap()
+        var feedUpdated = false
 
         downloadedItems.forEach{ dItem ->
             val item = entriesMap[dItem.id]
             if (item != null) {
                 if (dItem.updated != item.updated) {
                     updateEntry(item, dItem)
+                    feedUpdated = true
                 }
             } else {
                 createItem(feed, dItem)
+                feedUpdated = true
             }
         }
+
+        return feedUpdated
     }
 
     private fun createItem(feed: Feed, dItem: ItemDto) {
@@ -115,3 +121,8 @@ class FeedPersisterStep @Autowired constructor(
     }
 
 }
+
+public data class FeedPersisterResult(
+        var newFeedDownloaded: Boolean,
+        var itemsUpdated: Boolean
+)
