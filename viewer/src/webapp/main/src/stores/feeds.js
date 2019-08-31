@@ -46,12 +46,28 @@ const actions = {
     async increaseUnread({commit}, payload) {
         commit('changeUnread', { feedPkey: payload.feedPkey, amount: 1})
     },
+    async updatedItems({commit}, payload) {
+        let feedPkey = payload['pkey'];
+        console.log(feedPkey);
+        AXIOS.get(`/feeds/${feedPkey}`).then(async response => {
+            console.log(response.status);
+            console.log(response.data);
+            commit('updatedItems', response.data)
+        });
+    },
+    async updatedItemsFalse({commit}, payload) {
+        console.log("blaaaa");
+        commit('updatedItemsFalse', payload)
+    }
 };
 
 // mutations
 const mutations = {
     setAll(state, feeds) {
         state.all = feeds;
+        _.forEach(state.all, function(e) {
+            e.hasUpdatedItems = "no";
+        });
     },
     add(state, feed) {
         state.all.push(feed);
@@ -59,7 +75,19 @@ const mutations = {
     changeUnread(state, payload) {
         let feed = _.find(state.all, function(e) { return e.pkey === payload.feedPkey });
         feed.unreadItems += payload.amount;
-    }
+    },
+    updatedItems(state, payload) {
+        let feed = _.find(state.all, function(e) { return e.pkey === payload.pkey });
+        feed.unreadItems = payload.unreadItems;
+        feed.hasUpdatedItems = "yes";
+    },
+    updatedItemsFalse(state, payload) {
+        let feed = _.find(state.all, function(e) { return e.pkey === payload.pkey });
+        feed.hasUpdatedItems = "no";
+        // this hack is necessary as vue does not react to changes to booleans alone, so we increment and decrement the number as a workaround
+        feed.unreadItems = feed.unreadItems + 1;
+        feed.unreadItems = feed.unreadItems - 1;
+    },
 };
 
 export default {

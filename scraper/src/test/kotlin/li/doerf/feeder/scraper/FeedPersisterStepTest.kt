@@ -10,16 +10,18 @@ import li.doerf.feeder.scraper.dto.ItemDto
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.context.annotation.Import
 import org.springframework.test.annotation.DirtiesContext
+import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 
 
-@SpringBootTest
-@ExtendWith(MockitoExtension::class)
+@ExtendWith(SpringExtension::class)
+@DataJpaTest
+@Import(FeedPersisterStep::class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class FeedPersisterStepTest {
 
@@ -61,7 +63,8 @@ class FeedPersisterStepTest {
         val sendNotification = feedPersisterStep.persist(uri, feedDto)
 
         // then
-        assertThat(sendNotification).isTrue()
+        assertThat(sendNotification.newFeedDownloaded).isTrue()
+        assertThat(sendNotification.itemsUpdated).isTrue()
 
         val rFeed = feedRepository.findFeedByUrl(uri).get()
         assertThat(rFeed.id).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
@@ -127,7 +130,8 @@ class FeedPersisterStepTest {
         val sendNotification = feedPersisterStep.persist(uri, feedDto)
 
         // then
-        assertThat(sendNotification).isFalse()
+        assertThat(sendNotification.newFeedDownloaded).isFalse()
+        assertThat(sendNotification.itemsUpdated).isTrue()
 
         val rFeed = feedRepository.findFeedByUrl(uri).get()
         assertThat(rFeed.id).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
@@ -189,7 +193,8 @@ class FeedPersisterStepTest {
         val sendNotification = feedPersisterStep.persist(uri, feedDto)
 
         // then
-        assertThat(sendNotification).isFalse()
+        assertThat(sendNotification.newFeedDownloaded).isFalse()
+        assertThat(sendNotification.itemsUpdated).isFalse()
 
         val rFeed = feedRepository.findFeedByUrl(uri).get()
         assertThat(rFeed.id).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
@@ -255,7 +260,8 @@ class FeedPersisterStepTest {
         val sendNotification = feedPersisterStep.persist(uri, feedDto)
 
         // then
-        assertThat(sendNotification).isFalse()
+        assertThat(sendNotification.newFeedDownloaded).isFalse()
+        assertThat(sendNotification.itemsUpdated).isFalse()
 
         val rFeed = feedRepository.findFeedByUrl(uri).get()
         assertThat(rFeed.id).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
@@ -327,9 +333,12 @@ class FeedPersisterStepTest {
         ))
 
         // when
-        feedPersisterStep.persist(uri, feedDto)
+        val result = feedPersisterStep.persist(uri, feedDto)
 
         // then
+        assertThat(result.newFeedDownloaded).isFalse()
+        assertThat(result.itemsUpdated).isFalse()
+
         val rFeed = feedRepository.findFeedByUrl(uri).get()
         assertThat(rFeed.id).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
         assertThat(rFeed.updated).isEqualTo(instant1)
@@ -400,9 +409,12 @@ class FeedPersisterStepTest {
         ))
 
         // when
-        feedPersisterStep.persist(uri, feedDto)
+        val result = feedPersisterStep.persist(uri, feedDto)
 
         // then
+        assertThat(result.newFeedDownloaded).isFalse()
+        assertThat(result.itemsUpdated).isTrue()
+
         val rFeed = feedRepository.findFeedByUrl(uri).get()
         assertThat(rFeed.id).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
         assertThat(rFeed.updated).isEqualTo(instant1)
@@ -460,9 +472,12 @@ class FeedPersisterStepTest {
         ))
 
         // when
-        feedPersisterStep.persist(uri, feedDto)
+        val result = feedPersisterStep.persist(uri, feedDto)
 
         // then
+        assertThat(result.newFeedDownloaded).isTrue()
+        assertThat(result.itemsUpdated).isTrue()
+
         val rFeed = feedRepository.findFeedByUrl(uri).get()
         assertThat(rFeed.id).isEqualTo("https://www.heise.de/rss/heise-top-atom.xml")
         assertThat(rFeed.title).isEqualTo("heise online Top-News")

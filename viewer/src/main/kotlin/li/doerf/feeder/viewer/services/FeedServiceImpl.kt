@@ -4,6 +4,7 @@ import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.viewer.websocket.messages.NewFeedsMessage
+import li.doerf.feeder.viewer.websocket.messages.UpdatedItemsMessage
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Sort
 import org.springframework.messaging.simp.SimpMessagingTemplate
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service
 class FeedServiceImpl @Autowired constructor(
         private val feedRepository: FeedRepository,
         private val wsTemplate: SimpMessagingTemplate
-        ) : FeedService {
+) : FeedService {
 
     companion object {
         @Suppress("JAVA_CLASS_ON_COMPANION")
@@ -22,6 +23,10 @@ class FeedServiceImpl @Autowired constructor(
 
     override fun getAllActiveFeeds(): Collection<Feed> {
         return feedRepository.findAllByTitleNotNull(Sort.by(Sort.Order.asc("title").ignoreCase()))
+    }
+
+    override fun get(pkey: Long): Feed {
+        return feedRepository.findById(pkey).orElseThrow()
     }
 
     override fun add(url: String): Feed {
@@ -37,6 +42,10 @@ class FeedServiceImpl @Autowired constructor(
 
     override fun notifyClientsAboutNewFeed(msg: String) {
         wsTemplate.convertAndSend("/topic/feeds", NewFeedsMessage("new"))
+    }
+
+    override fun notifyClientsUpdatedItems(feedPkey: String) {
+        wsTemplate.convertAndSend("/topic/updated_items", UpdatedItemsMessage(feedPkey))
     }
 
 }

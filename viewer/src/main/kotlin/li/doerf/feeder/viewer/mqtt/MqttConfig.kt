@@ -15,7 +15,10 @@ import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannel
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter
 
 @Configuration
-class MqttConfig {
+class MqttConfig @Autowired constructor(
+        private val mqttNewFeedReceiveService: MqttNewFeedReceiveService,
+        private val mqttUpdatedItemsReceiveService: MqttUpdatedItemsReceiveService
+) {
 
 
     @Value("\${mqtt.serverUri:tcp://localhost:1883}")
@@ -24,9 +27,6 @@ class MqttConfig {
     private val username: String = "guest"
     @Value("\${mqtt.password:guest}")
     private val password: String = "guest"
-
-    @Autowired
-    private lateinit var mqttNewFeedReceiveService: MqttNewFeedReceiveService
 
     @Bean
     fun mqttClientFactory(): MqttPahoClientFactory {
@@ -39,15 +39,6 @@ class MqttConfig {
         return factory
     }
 
-    @Bean
-    fun mqttInFlow(): IntegrationFlow {
-        return IntegrationFlows.from(mqttInbound())
-                .transform<Any, String> { p -> "$p, received from MQTT" }
-                .handle(mqttNewFeedReceiveService)
-                .handle(logger())
-                .get()
-    }
-
     private fun logger(): LoggingHandler {
         val loggingHandler = LoggingHandler("INFO")
         loggingHandler.setLoggerName("MqttReceiver")
@@ -55,13 +46,41 @@ class MqttConfig {
     }
 
     @Bean
-    fun mqttInbound(): MessageProducerSupport {
-        val adapter = MqttPahoMessageDrivenChannelAdapter("viewer",
-                mqttClientFactory(), "feeds")
+    fun mqttInboundNewFeed(): MessageProducerSupport {
+        val adapter = MqttPahoMessageDrivenChannelAdapter("viewer_nf",
+                mqttClientFactory(), "new_feed")
         adapter.setCompletionTimeout(5000)
         adapter.setConverter(DefaultPahoMessageConverter())
         adapter.setQos(1)
         return adapter
+    }
+
+    @Bean
+    fun mqttInFlowNewFeed(): IntegrationFlow {
+        return IntegrationFlows.from(mqttInboundNewFeed())
+                .transform<Any, String> { p -> "$p" }
+                .handle(mqttNewFeedReceiveService)
+                .handle(logger())
+                .get()
+    }
+
+    @Bean
+    fun mqttInboundUpdatedItems(): MessageProducerSupport {
+        val adapter = MqttPahoMessageDrivenChannelAdapter("viewer_ui",
+                mqttClientFactory(), "updated_items")
+        adapter.setCompletionTimeout(5000)
+        adapter.setConverter(DefaultPahoMessageConverter())
+        adapter.setQos(1)
+        return adapter
+    }
+
+    @Bean
+    fun mqttInFlowUpdatedItems(): IntegrationFlow {
+        return IntegrationFlows.from(mqttInboundUpdatedItems())
+                .transform<Any, String> { p -> "$p" }
+                .handle(mqttUpdatedItemsReceiveService)
+                .handle(logger())
+                .get()
     }
 
 }

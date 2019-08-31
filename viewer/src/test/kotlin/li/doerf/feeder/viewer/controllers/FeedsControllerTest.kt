@@ -91,6 +91,29 @@ class FeedsControllerTest {
 
     @WithMockUser(username="test@test123.com")
     @Test
+    fun testShow() {
+        // given
+        val feed1 = Feed(0, "https://www.heise.de/rss/heise-atom.xml", Instant.now(), "https://www.heise.de/rss/heise-atom.xml",
+                "Heise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedType.Atom)
+        feedRepository.save(feed1)
+        val feed2 = Feed(0, "https://www.heise.de/rss/heise-atom2.xml")
+        feedRepository.save(feed2)
+
+        val items3 = testHelper.createItems(feed1, 23)
+        testHelper.markItemAsRead(testuser, feed1, items3[1], items3[2], items3[3])
+
+        // when
+        mvc.perform(get("/api/feeds/${feed1.pkey}").contentType(MediaType.APPLICATION_JSON))
+
+                // then
+                .andDo(print())
+                .andExpect(status().isOk)
+                .andExpect(jsonPath("$.title", `is`("Heise News")))
+                .andExpect(jsonPath("$.unreadItems", `is`(20)))
+    }
+
+    @WithMockUser(username="test@test123.com")
+    @Test
     fun testAdd() {
         // given
         val url = "http://www.heise.de/feed/rss.xml";
