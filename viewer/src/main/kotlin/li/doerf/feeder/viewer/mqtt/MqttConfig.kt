@@ -57,7 +57,7 @@ class MqttConfig {
     @Bean
     fun mqttInbound(): MessageProducerSupport {
         val adapter = MqttPahoMessageDrivenChannelAdapter("viewer",
-                mqttClientFactory(), "feeds")
+                mqttClientFactory(), "new_feed")
         adapter.setCompletionTimeout(5000)
         adapter.setConverter(DefaultPahoMessageConverter())
         adapter.setQos(1)

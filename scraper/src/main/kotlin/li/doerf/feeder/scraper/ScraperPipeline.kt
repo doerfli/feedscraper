@@ -114,11 +114,7 @@ class ScraperPipeline @Autowired constructor(
         for (result in channel) {
             log.debug("Feed Notification #$id received msg")
             try {
-                if (result.newFeedDownloaded) {
-                    feedNotifierStep.sendNewFeedDownloadedNotification()
-                } else if (result.itemsUpdated) {
-                    feedNotifierStep.sendUpdateNotificationEvent()
-                }
+                feedNotifierStep.sendMessage(result)
             } catch (e: Exception) {
                 log.error("caught Exception while sending notification", e)
             }

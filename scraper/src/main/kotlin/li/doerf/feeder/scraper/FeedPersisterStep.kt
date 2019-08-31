@@ -43,7 +43,7 @@ class FeedPersisterStep @Autowired constructor(
         feedRepository.save(feed)
         log.trace("feed saved $feed")
 
-        return FeedPersisterResult(firstDownload, itemsUpdated)
+        return FeedPersisterResult(firstDownload, itemsUpdated, feed.pkey)
     }
 
     private fun updateFeed(feedDto: FeedDto, feed: Feed): Boolean {
@@ -123,6 +123,7 @@ class FeedPersisterStep @Autowired constructor(
 }
 
 public data class FeedPersisterResult(
-        var newFeedDownloaded: Boolean,
-        var itemsUpdated: Boolean
+        val newFeedDownloaded: Boolean,
+        val itemsUpdated: Boolean,
+        val feedPkey: Long
 )
