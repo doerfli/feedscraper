@@ -47,7 +47,7 @@ class MqttConfig @Autowired constructor(
 
     @Bean
     fun mqttInboundNewFeed(): MessageProducerSupport {
-        val adapter = MqttPahoMessageDrivenChannelAdapter("viewer",
+        val adapter = MqttPahoMessageDrivenChannelAdapter("viewer_nf",
                 mqttClientFactory(), "new_feed")
         adapter.setCompletionTimeout(5000)
         adapter.setConverter(DefaultPahoMessageConverter())
@@ -66,7 +66,7 @@ class MqttConfig @Autowired constructor(
 
     @Bean
     fun mqttInboundUpdatedItems(): MessageProducerSupport {
-        val adapter = MqttPahoMessageDrivenChannelAdapter("viewer",
+        val adapter = MqttPahoMessageDrivenChannelAdapter("viewer_ui",
                 mqttClientFactory(), "updated_items")
         adapter.setCompletionTimeout(5000)
         adapter.setConverter(DefaultPahoMessageConverter())

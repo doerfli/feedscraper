@@ -35,7 +35,7 @@ class MqttConfig {
     @Bean
     @ServiceActivator(inputChannel = "new_feed")
     fun mqttChannelNewFeeds(): MessageHandler {
-        val messageHandler = MqttPahoMessageHandler("scraper", mqttClientFactory())
+        val messageHandler = MqttPahoMessageHandler("scraper_nf", mqttClientFactory())
         messageHandler.setAsync(true)
         messageHandler.setDefaultTopic("new_feed")
         return messageHandler
@@ -44,7 +44,7 @@ class MqttConfig {
     @Bean
     @ServiceActivator(inputChannel = "updated_items")
     fun mqttChannelUpdateItems(): MessageHandler {
-        val messageHandler = MqttPahoMessageHandler("scraper", mqttClientFactory())
+        val messageHandler = MqttPahoMessageHandler("scraper_ui", mqttClientFactory())
         messageHandler.setAsync(true)
         messageHandler.setDefaultTopic("updated_items")
         return messageHandler
