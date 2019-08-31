@@ -138,7 +138,7 @@
                     return;
                 }
                 this.loggingIn = true;
-                this.$store.dispatch("users/signup", {username: this.username, password: this.password}).then(result => {
+                this.$store.dispatch("users/signup", {username: this.username, password: this.password}).then(() => {
                     this.loggingIn = false;
                     this.username = "";
                     this.password = "";

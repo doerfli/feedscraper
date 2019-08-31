@@ -46,6 +46,16 @@ const actions = {
     async increaseUnread({commit}, payload) {
         commit('changeUnread', { feedPkey: payload.feedPkey, amount: 1})
     },
+    // eslint-disable-next-line no-unused-vars
+    async updatedItems({commit}, payload) {
+        let feedPkey = payload['pkey'];
+        console.log(feedPkey);
+        AXIOS.get(`/feeds/${feedPkey}`).then(async response => {
+            console.log(response.status);
+            console.log(response.data);
+            commit('updatedItems', response.data)
+        });
+    }
 };
 
 // mutations
@@ -59,7 +69,11 @@ const mutations = {
     changeUnread(state, payload) {
         let feed = _.find(state.all, function(e) { return e.pkey === payload.feedPkey });
         feed.unreadItems += payload.amount;
-    }
+    },
+    updatedItems(state, payload) {
+        let feed = _.find(state.all, function(e) { return e.pkey === payload.pkey });
+        feed.unreadItems = payload.unreadItems;
+    },
 };
 
 export default {
