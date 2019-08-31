@@ -1,6 +1,7 @@
 package li.doerf.feeder.viewer.services
 
 import li.doerf.feeder.viewer.websocket.messages.NewFeedsMessage
+import li.doerf.feeder.viewer.websocket.messages.UpdatedItemsMessage
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mockito
@@ -21,11 +22,16 @@ class FeedServiceImplSpringBootTest {
     private lateinit var wsTemplate: SimpMessagingTemplate
 
     @Test
-    fun testWaitForFeedScrapeAndNotifyClient() {
+    fun testNotifyClientsAboutNewFeed() {
         feedService.notifyClientsAboutNewFeed("new_feed")
 
         Mockito.verify(wsTemplate).convertAndSend("/topic/feeds", NewFeedsMessage("new"))
     }
 
+    @Test
+    fun testNotifyClientsUpdatedItems() {
+        feedService.notifyClientsUpdatedItems("42")
 
+        Mockito.verify(wsTemplate).convertAndSend("/topic/updated_items", UpdatedItemsMessage("42"))
+    }
 }

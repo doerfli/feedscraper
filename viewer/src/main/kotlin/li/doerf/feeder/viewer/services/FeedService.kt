@@ -6,4 +6,5 @@ interface FeedService {
     fun getAllActiveFeeds(): Collection<Feed>
     fun add(url: String): Feed
     fun notifyClientsAboutNewFeed(msg: String)
+    fun notifyClientsUpdatedItems(feedPkey: String)
 }
