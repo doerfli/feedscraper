@@ -25,6 +25,10 @@ class FeedServiceImpl @Autowired constructor(
         return feedRepository.findAllByTitleNotNull(Sort.by(Sort.Order.asc("title").ignoreCase()))
     }
 
+    override fun get(pkey: Long): Feed {
+        return feedRepository.findById(pkey).orElseThrow()
+    }
+
     override fun add(url: String): Feed {
         val feedOpt = feedRepository.findFeedByUrl(url)
         if (feedOpt.isPresent) {

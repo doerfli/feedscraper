@@ -58,7 +58,7 @@ class MqttConfig @Autowired constructor(
     @Bean
     fun mqttInFlowNewFeed(): IntegrationFlow {
         return IntegrationFlows.from(mqttInboundNewFeed())
-                .transform<Any, String> { p -> "$p, received from MQTT on new_feed topic" }
+                .transform<Any, String> { p -> "$p" }
                 .handle(mqttNewFeedReceiveService)
                 .handle(logger())
                 .get()
@@ -77,7 +77,7 @@ class MqttConfig @Autowired constructor(
     @Bean
     fun mqttInFlowUpdatedItems(): IntegrationFlow {
         return IntegrationFlows.from(mqttInboundUpdatedItems())
-                .transform<Any, String> { p -> "$p, received from MQTT on updated_items topic" }
+                .transform<Any, String> { p -> "$p" }
                 .handle(mqttUpdatedItemsReceiveService)
                 .handle(logger())
                 .get()

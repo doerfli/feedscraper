@@ -6,6 +6,7 @@ import li.doerf.feeder.common.repositories.FeedRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.beans.factory.annotation.Autowired
@@ -46,6 +47,25 @@ class FeedServiceImplDataJpaTest {
         val fa = feeds.toTypedArray()
         assertThat(fa[0].title).isEqualTo("aaaaaHeise News")
         assertThat(fa[1].title).isEqualTo("Heise News")
+    }
+
+    @Test
+    fun testGet() {
+        val feed1 = Feed(0, "https://www.heise.de/rss/heise-atom.xml", Instant.now(), "https://www.heise.de/rss/heise-atom.xml",
+                "Heise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedType.Atom)
+        feedRepository.save(feed1)
+
+        val feed = feedService.get(feed1.pkey)
+        assertThat(feed.title).isEqualTo("Heise News")
+    }
+
+    @Test
+    fun testGetNotExists() {
+        val feed1 = Feed(0, "https://www.heise.de/rss/heise-atom.xml", Instant.now(), "https://www.heise.de/rss/heise-atom.xml",
+                "Heise News", "Nachrichten", Instant.now(), "https://www.heise.de/rss/heise-atom.xml", "https://www.heise.de/", FeedType.Atom)
+        feedRepository.save(feed1)
+
+        assertThrows<NoSuchElementException> { feedService.get(-1) }
     }
 
     @Test

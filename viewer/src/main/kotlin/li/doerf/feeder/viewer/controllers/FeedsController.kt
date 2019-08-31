@@ -34,6 +34,14 @@ class FeedsController @Autowired constructor(
         return ResponseEntity.ok(feeds.map { it.toDto(unreadItemsMap.getOrDefault(it.pkey, 0)) })
     }
 
+    @GetMapping("/{pkey}")
+    fun show(@PathVariable pkey: Long): ResponseEntity<FeedDto> {
+        log.debug("retrieving feed $pkey")
+        val feed = feedService.get(pkey)
+        val unreadItemsMap = itemService.getUnreadItemsCount(listOf(feed.pkey), userUtils.getCurrentUser())
+        return ResponseEntity.ok(feed.toDto(unreadItemsMap.getOrDefault(feed.pkey, 0)))
+    }
+
     @PostMapping
     fun add(@RequestBody feedAddDto: FeedAddRequestDto): HttpStatus {
         log.debug("request to add new feed url: $feedAddDto")
