@@ -80,6 +80,7 @@ const mutations = {
     add(state, feed) {
         feed.hasUpdatedItems = "yes";
         state.all.push(feed);
+        state.all = _.sortBy(state.all, (e) => { return e.title.toLowerCase(); })
     },
     changeUnread(state, payload) {
         let feed = _.find(state.all, function(e) { return e.pkey === payload.feedPkey });
