@@ -54,6 +54,7 @@ class WebSecurityConfig @Autowired constructor(
                 .antMatchers("/api/users/confirm/**").permitAll()
                 .antMatchers("/api/users/passwordReset").permitAll()
                 .antMatchers("/api/users/passwordReset/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/ws/**").permitAll() // websockets are authenticated via connect interceptor in WebSocketConfig
                 .anyRequest().authenticated()
 
