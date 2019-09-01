@@ -40,8 +40,8 @@ class FeedServiceImpl @Autowired constructor(
         return feed
     }
 
-    override fun notifyClientsAboutNewFeed(msg: String) {
-        wsTemplate.convertAndSend("/topic/feeds", NewFeedsMessage("new"))
+    override fun notifyClientsAboutNewFeed(feedPkey: String) {
+        wsTemplate.convertAndSend("/topic/feeds", NewFeedsMessage(feedPkey))
     }
 
     override fun notifyClientsUpdatedItems(feedPkey: String) {

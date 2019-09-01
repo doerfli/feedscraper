@@ -16,14 +16,14 @@ class FeedNotifierStep @Autowired constructor(
 
     fun sendMessage(result: FeedPersisterResult) {
         if (result.newFeedDownloaded) {
-            sendNewFeedMessage()
+            sendNewFeedMessage(result.feedPkey)
         } else if (result.itemsUpdated) {
             sendItemsUpdatedMessage(result.feedPkey)
         }
     }
 
-    private fun sendNewFeedMessage() {
-        mqttGateway.sendToNewFeeds("new_feed")
+    private fun sendNewFeedMessage(feedPkey: Long) {
+        mqttGateway.sendToNewFeeds("$feedPkey")
         log.debug("sent new feed message to mqtt")
     }
 
