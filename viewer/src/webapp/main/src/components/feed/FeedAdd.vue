@@ -39,7 +39,7 @@
             },
             addFeedUrl: function () {
                 console.log(this.url);
-                this.$store.dispatch("feeds/add", {url: this.url});
+                this.$store.dispatch("feeds/pushFeedToServer", {url: this.url});
                 this.url = "";
                 this.toggleAddForm();
             }

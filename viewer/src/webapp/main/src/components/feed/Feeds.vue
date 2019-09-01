@@ -17,13 +17,13 @@
 </template>
 
 <script>
-    import FeedList from "./FeedList";
-    import Items from "../items/Items";
-    import FeedAdd from "./FeedAdd";
-    import _ from "lodash";
-    import {connectWs, createClient} from "../../websocket-common";
+  import FeedList from "./FeedList";
+  import Items from "../items/Items";
+  import FeedAdd from "./FeedAdd";
+  import _ from "lodash";
+  import {connectWs, createClient} from "../../websocket-common";
 
-    export default {
+  export default {
         name: "Feeds",
         components: {
             FeedList,
@@ -44,10 +44,11 @@
           this.wsClients.push(client);
           connectWs(this.wsClients[0], function (frame) {
             console.log('Connected: ' + frame);
-            client.subscribe('/topic/feeds', function (greeting) {
-              console.log(JSON.parse(greeting.body));
+            client.subscribe('/topic/feeds', function (indata) {
+              let data = JSON.parse(indata.body);
+              console.log(data);
               // reload feeds
-              thisStore.dispatch("feeds/getAll");
+              thisStore.dispatch("feeds/addNew", { pkey: _.toInteger(data['feedPkey'])});
             });
             client.subscribe('/topic/updated_items', function (indata) {
               let data = JSON.parse(indata.body);
