@@ -23,9 +23,9 @@ class FeedServiceImplSpringBootTest {
 
     @Test
     fun testNotifyClientsAboutNewFeed() {
-        feedService.notifyClientsAboutNewFeed("new_feed")
+        feedService.notifyClientsAboutNewFeed("13")
 
-        Mockito.verify(wsTemplate).convertAndSend("/topic/feeds", NewFeedsMessage("new"))
+        Mockito.verify(wsTemplate).convertAndSend("/topic/feeds", NewFeedsMessage("13"))
     }
 
     @Test

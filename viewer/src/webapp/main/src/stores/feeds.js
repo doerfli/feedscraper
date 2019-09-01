@@ -26,8 +26,7 @@ const actions = {
             console.log(e)
         })
     },
-    // eslint-disable-next-line no-unused-vars
-    async add({commit}, payload) {
+    async pushFeedToServer(undefined, payload) {
         console.log(payload);
         AXIOS.post(`/feeds`, {
             url: payload.url
@@ -50,9 +49,18 @@ const actions = {
         let feedPkey = payload['pkey'];
         console.log(feedPkey);
         AXIOS.get(`/feeds/${feedPkey}`).then(async response => {
-            console.log(response.status);
-            console.log(response.data);
+            // console.log(response.status);
+            // console.log(response.data);
             commit('updatedItems', response.data)
+        });
+    },
+    async addNew({commit}, payload) {
+        let feedPkey = payload['pkey'];
+        console.log(feedPkey);
+        AXIOS.get(`/feeds/${feedPkey}`).then(async response => {
+            // console.log(response.status);
+            console.log(response.data);
+            commit('add', response.data)
         });
     },
     async updatedItemsFalse({commit}, payload) {
@@ -70,7 +78,9 @@ const mutations = {
         });
     },
     add(state, feed) {
+        feed.hasUpdatedItems = "yes";
         state.all.push(feed);
+        state.all = _.sortBy(state.all, (e) => { return e.title.toLowerCase(); })
     },
     changeUnread(state, payload) {
         let feed = _.find(state.all, function(e) { return e.pkey === payload.feedPkey });

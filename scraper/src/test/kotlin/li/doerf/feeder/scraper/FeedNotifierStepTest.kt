@@ -20,10 +20,10 @@ class FeedNotifierStepTest {
     @Test
     fun testSendNewFeedsMessage() {
         val step = FeedNotifierStep(mqttGateway)
-        val result = FeedPersisterResult(newFeedDownloaded = true, itemsUpdated = false, feedPkey = 0)
+        val result = FeedPersisterResult(newFeedDownloaded = true, itemsUpdated = false, feedPkey = 41)
         step.sendMessage(result)
 
-        verify(mqttGateway).sendToNewFeeds(anyString())
+        verify(mqttGateway).sendToNewFeeds(contains("41"))
     }
 
     @Test

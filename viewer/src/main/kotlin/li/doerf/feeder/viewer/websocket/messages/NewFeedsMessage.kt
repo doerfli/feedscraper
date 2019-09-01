@@ -4,5 +4,5 @@ import li.doerf.feeder.common.util.NoArg
 
 @NoArg
 data class NewFeedsMessage(
-        val id: String
+        val feedPkey: String
 )
