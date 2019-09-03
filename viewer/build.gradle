@@ -116,7 +116,7 @@ task compileVue(type: YarnTask) {
 }
 
 compileVue.dependsOn yarnInstall
-processWebappResources.dependsOn compileVue
+jar.dependsOn compileVue
 
 clean.doFirst {
     delete "${rootDir}/src/webapp/generated/"
