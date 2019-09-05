@@ -1,5 +1,5 @@
 #= Build ============================================================
-FROM openjdk:12.0.2-jdk-oraclelinux7 as build
+FROM adoptopenjdk:12.0.2_10-jdk-openj9-0.15.1-bionic as build
 WORKDIR /workspace
 
 COPY build.gradle .
@@ -15,7 +15,7 @@ RUN ./gradlew -Dorg.gradle.daemon=false :scraper:assemble
 RUN mkdir -p scraper/build/libs/dependency && (cd scraper/build/libs/dependency; jar -xf ../*.jar)
 
 #= Run ==============================================================
-FROM openjdk:12.0.1-jdk-oraclelinux7
+FROM adoptopenjdk:12.0.2_10-jdk-openj9-0.15.1-bionic
 
 VOLUME /tmp
 VOLUME /log
@@ -24,4 +24,4 @@ COPY --from=build /workspace/scraper/build/libs/dependency/BOOT-INF/lib /app/lib
 COPY --from=build /workspace/scraper/build/libs/dependency/META-INF /app/META-INF
 COPY --from=build /workspace/scraper/build/libs/dependency/BOOT-INF/classes /app
 
-ENTRYPOINT java -cp app:app/lib/* li.doerf.feeder.scraper.ScraperApplicationKt
+ENTRYPOINT java -Xtune:virtualized -cp app:app/lib/* li.doerf.feeder.scraper.ScraperApplicationKt
