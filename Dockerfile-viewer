@@ -14,7 +14,7 @@ RUN ./gradlew -Dorg.gradle.daemon=false :viewer:assemble
 RUN mkdir -p viewer/build/libs/dependency && (cd viewer/build/libs/dependency; jar -xf ../*.jar)
 
 #= Run ==============================================================
-FROM openjdk:12.0.2_10-jdk-openj9-0.15.1-bionic
+FROM adoptopenjdk:12.0.2_10-jdk-openj9-0.15.1-bionic
 
 VOLUME /tmp
 VOLUME /log

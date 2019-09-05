@@ -1,5 +1,5 @@
 #= Build ============================================================
-FROM openjdk:12.0.2_10-jdk-openj9-0.15.1-bionic as build
+FROM adoptopenjdk:12.0.2_10-jdk-openj9-0.15.1-bionic as build
 WORKDIR /workspace
 
 COPY build.gradle .
@@ -15,7 +15,7 @@ RUN ./gradlew -Dorg.gradle.daemon=false :scraper:assemble
 RUN mkdir -p scraper/build/libs/dependency && (cd scraper/build/libs/dependency; jar -xf ../*.jar)
 
 #= Run ==============================================================
-FROM openjdk:12.0.2_10-jdk-openj9-0.15.1-bionic
+FROM adoptopenjdk:12.0.2_10-jdk-openj9-0.15.1-bionic
 
 VOLUME /tmp
 VOLUME /log
