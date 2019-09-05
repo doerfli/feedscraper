@@ -24,4 +24,4 @@ COPY --from=build /workspace/scraper/build/libs/dependency/BOOT-INF/lib /app/lib
 COPY --from=build /workspace/scraper/build/libs/dependency/META-INF /app/META-INF
 COPY --from=build /workspace/scraper/build/libs/dependency/BOOT-INF/classes /app
 
-ENTRYPOINT java -cp app:app/lib/* li.doerf.feeder.scraper.ScraperApplicationKt
+ENTRYPOINT java -Xtune:virtualized ß-cp app:app/lib/* li.doerf.feeder.scraper.ScraperApplicationKt

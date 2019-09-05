@@ -23,4 +23,4 @@ COPY --from=build /workspace/viewer/build/libs/dependency/BOOT-INF/lib /app/lib
 COPY --from=build /workspace/viewer/build/libs/dependency/META-INF /app/META-INF
 COPY --from=build /workspace/viewer/build/libs/dependency/BOOT-INF/classes /app
 
-ENTRYPOINT java -cp app:app/lib/* li.doerf.feeder.viewer.ViewerApplicationKt
+ENTRYPOINT java -Xtune:virtualized -cp app:app/lib/* li.doerf.feeder.viewer.ViewerApplicationKt
