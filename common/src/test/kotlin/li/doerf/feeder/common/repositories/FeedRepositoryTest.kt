@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class FeedRepositoryTest {
 
+    @Suppress("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private lateinit var feedRepository: FeedRepository
 
