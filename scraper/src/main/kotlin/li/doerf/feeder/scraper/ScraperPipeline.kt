@@ -54,19 +54,22 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
-    fun CoroutineScope.produceFeedUrls() = produce {
+    fun CoroutineScope.produceFeedUrls() = produce<String> {
         log.info("starting feed url producer")
         while (true) {
             val startedAt = Instant.now()
-            feedRepository.findAll().forEach {feed ->
+            feedRepository.findNotRetryExceeded().forEach { feed ->
                 send(feed.url)
             }
-            val duration = Duration.between(startedAt, Instant.now()).toMillis()
-            val remaining = interval - duration
-            if (remaining > 0) {
-                log.debug("waiting for $remaining ms")
-                delay(interval)
-            }
+            waitIfNecessary(startedAt)
+        }
+    }
+
+    private suspend fun waitIfNecessary(startedAt: Instant?) {
+        val remaining = interval - Duration.between(startedAt, Instant.now()).toMillis()
+        if (remaining > 0) {
+            log.debug("waiting for $remaining ms")
+            delay(interval)
         }
     }
 
@@ -87,12 +90,17 @@ class ScraperPipeline @Autowired constructor(
         log.info("starting feed parser #$id")
         for ((uri, feedAsString) in channel) {
             log.debug("FeedDto Parser #$id received content for $uri")
-            try {
-                val feed = feedParserStep.parse(uri, feedAsString)
-                persisterChannel.send(Pair(uri, feed))
-            } catch (e: Exception) {
-                log.error("caught Exception while parsing uri $uri", e)
-            }
+            parseFeed(uri, feedAsString, persisterChannel)
+        }
+    }
+
+    internal suspend fun parseFeed(uri: String, feedAsString: String, persisterChannel: Channel<Pair<String, FeedDto>>) {
+        try {
+            val feed = feedParserStep.parse(uri, feedAsString)
+            persisterChannel.send(Pair(uri, feed))
+        } catch (e: Exception) {
+            log.error("caught Exception while parsing uri $uri", e)
+            handleFeedException(uri)
         }
     }
 
@@ -100,12 +108,17 @@ class ScraperPipeline @Autowired constructor(
         log.info("starting feed persister #$id")
         for ((uri, feed) in channel) {
             log.debug("FeedDto Perister #$id received feed for $uri")
-            try {
-                val feedNotification = feedPersisterStep.persist(uri, feed)
-                notifierChannel.send(feedNotification)
-            } catch (e: Exception) {
-                log.error("caught Exception while persisting uri $uri", e)
-            }
+            persistFeed(uri, feed, notifierChannel)
+        }
+    }
+
+    internal suspend fun persistFeed(uri: String, feed: FeedDto, notifierChannel: Channel<FeedPersisterResult>) {
+        try {
+            val feedNotification = feedPersisterStep.persist(uri, feed)
+            notifierChannel.send(feedNotification)
+        } catch (e: Exception) {
+            log.error("caught Exception while persisting uri $uri", e)
+            handleFeedException(uri)
         }
     }
 
@@ -121,8 +134,19 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
+    private fun handleFeedException(uri: String) {
+        val feed = feedRepository.findFeedByUrl(uri)
+        if (feed.isEmpty) {
+            log.error("no feed with uri $uri found")
+            return;
+        }
+        feed.get().retry++
+        feedRepository.save(feed.get())
+        log.info("retry counter incremented to ${feed.get().retry} for feed with uri $uri")
+    }
+
     private fun addDefaultEntries() {
-        val urls = listOf("https://www.heise.de/rss/heise-top-atom.xml", "https://www.heise.de/rss/heise-atom.xml", "http://www.spiegel.de/schlagzeilen/tops/index.rss")
+        val urls = listOf("https://www.heise.de/rss/heise-atom.xml", "http://www.spiegel.de/schlagzeilen/tops/index.rss")
         urls.forEach {
             if (feedRepository.countFeedsByUrl(it) == 0) {
                 val feed = Feed(pkey = 0L, url = it)

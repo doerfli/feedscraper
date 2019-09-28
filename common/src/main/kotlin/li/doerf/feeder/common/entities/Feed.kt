@@ -19,5 +19,6 @@ data class Feed (
         var linkAlternate: String? = null,
         @Enumerated(EnumType.STRING)
         @Column(length = 64)
-        var type: FeedType? = null
+        var type: FeedType? = null,
+        var retry: Int = 0
 )

@@ -2,6 +2,7 @@ package li.doerf.feeder.common.repositories
 
 import li.doerf.feeder.common.entities.Feed
 import org.springframework.data.domain.Sort
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import java.util.*
@@ -12,4 +13,6 @@ interface FeedRepository : CrudRepository<Feed, Long> {
     fun countFeedsByUrl(url: String): Int
     fun countFeedsByUrlAndTitleNotNull(url: String): Int
     fun findFeedByUrl(uri: String): Optional<Feed>
+    @Query("SELECT f FROM Feed f WHERE f.retry <= 3")
+    fun findNotRetryExceeded(): List<Feed>
 }
