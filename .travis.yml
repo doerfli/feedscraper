@@ -6,7 +6,7 @@ matrix:
     - language: java
       install: true
       jdk:
-        - openjdk12
+        - openjdk13
       script:
         - ./gradlew build
         - ./gradlew jacocoTestReport
