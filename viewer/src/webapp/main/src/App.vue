@@ -6,9 +6,10 @@
 </template>
 
 <style lang="scss">
-  @import "~tailwindcss/base";
-  @import "~tailwindcss/components";
-  @import "~tailwindcss/utilities";
+  @import "~tailwindcss/dist/base";
+  @import "~tailwindcss/dist/components";
+  @import "~tailwindcss/dist/utilities";
+  @import './../node_modules/@fortawesome/fontawesome-free/css/all.css';
 
   #app {
 
