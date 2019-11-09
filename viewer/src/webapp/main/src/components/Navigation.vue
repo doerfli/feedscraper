@@ -16,16 +16,16 @@
         <!-- left menu -->
       </div>
       <div>
-        <a class="inline-block mr-4 text-white hover:text-teal-200" href="mailto:feedscraper@bytes.li?subject=Feedback">Feedback</a>
+        <a class="navbar-item" href="mailto:feedscraper@bytes.li?subject=Feedback">Feedback</a>
         <div v-if="isAuthenticated" >
               <span>
                 <i class="fas fa-user"></i>
               </span>&nbsp;
           {{username}}
         </div>
-        <a           class="inline-block mr-4 text-white hover:text-teal-200" v-if="!isLoginPage && isAuthenticated" v-on:click="logout">Logout</a>
-        <router-link class="inline-block mr-4 text-white hover:text-teal-200" v-if="!isLoginPage && !isAuthenticated" to="/login" >Sign in</router-link>
-        <router-link class="inline-block mr-4 text-white hover:text-teal-200" v-if="isLoginPage" to="/signup" >Sign up</router-link>
+        <a           class="navbar-item" v-if="!isLoginPage && isAuthenticated" v-on:click="logout">Logout</a>
+        <router-link class="navbar-item" v-if="!isLoginPage && !isAuthenticated" to="/login" >Sign in</router-link>
+        <router-link class="navbar-item" v-if="isLoginPage" to="/signup" >Sign up</router-link>
       </div>
     </div>
   </nav>
@@ -54,6 +54,13 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 
+  .navbar-item {
+    @apply inline-block mr-4 text-white;
+  }
+
+  .navbar-item:hover {
+    @apply text-teal-200;
+  }
 </style>
