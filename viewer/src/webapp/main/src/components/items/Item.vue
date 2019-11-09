@@ -52,7 +52,5 @@
 </script>
 
 <style scoped lang="scss">
-    li {
-        border-bottom: 1px solid $grey-lighter;
-    }
+
 </style>

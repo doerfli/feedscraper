@@ -10,7 +10,6 @@
   "dependencies": {
     "@stomp/stompjs": "^5.4.2",
     "axios": "^0.18.1",
-    "bulma": "^0.7.5",
     "core-js": "^2.6.5",
     "localforage": "^1.7.3",
     "lodash": "^4.17.15",

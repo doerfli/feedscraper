@@ -1,62 +1,60 @@
 <template>
     <div>
-        <div class="field is-horizontal">
-            <div class="field-label has-text-right">
-                <label class="label">Password</label>
+        <div >
+            <div >
+                <label >Password</label>
             </div>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control has-icons-left has-icons-right">
+            <div >
+                <div >
+                    <div >
                         <input
                             v-model="password"
                             v-on:change="validatePassword"
                             v-on:keyup="validatePasswordAfterTimeout"
-                            v-bind:class="{input: true, 'is-success': this.validation.passwordValid}"
                             type="password"
                             placeholder="Enter your password"
                         />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-lock"></i>
+                        <span >
+                            <i ></i>
                         </span>
                     </div>
-                    <p v-if="!validation.passwordLength" class="help is-danger">Password must have at least 6 characters</p>
+                    <p v-if="!validation.passwordLength" >Password must have at least 6 characters</p>
                 </div>
             </div>
         </div>
-        <div class="field is-horizontal">
-            <div class="field-label has-text-right">
-                <label class="label">Confirm</label>
+        <div >
+            <div >
+                <label >Confirm</label>
             </div>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control has-icons-left has-icons-right">
+            <div >
+                <div >
+                    <div >
                         <input
                             v-model="passwordConfirmation"
                             v-on:change="validatePasswordConfirmation"
                             v-on:keyup="validatePasswordConfirmationAfterTimeout"
-                            v-bind:class="{input: true, 'is-success': this.validation.passwordConfirmationValid}"
                             type="password"
                             placeholder="Repeat password to confirm"
                         />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-lock"></i>
+                        <span >
+                            <i ></i>
                         </span>
                     </div>
-                    <p v-if="!validation.passwordsMatch" class="help is-danger">Entered passwords do not match</p>
+                    <p v-if="!validation.passwordsMatch" >Entered passwords do not match</p>
                 </div>
             </div>
         </div>
-        <div class="field is-horizontal">
-            <div class="field-label">
+        <div >
+            <div >
             </div>
-            <div class="field-body">
-                <div class="field">
-                    <div v-if="submitAllowed" class="control">
-                        <button class="button is-primary" v-on:click="setPwd">Set password</button>
+            <div >
+                <div >
+                    <div v-if="submitAllowed" >
+                        <button v-on:click="setPwd">Set password</button>
                     </div>
                     <fieldset v-else disabled>
-                        <div class="control">
-                            <button class="button is-primary">Set password</button>
+                        <div >
+                            <button >Set password</button>
                         </div>
                     </fieldset>
                 </div>

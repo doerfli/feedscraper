@@ -1,9 +1,9 @@
 <template>
     <section>
-        <div class="container">
-            <div class="columns">
-                <div class="column is-one-third has-text-centered">
-                        <span class="icon has-text-primary">
+        <div>
+            <div>
+                <div >
+                        <span>
                             <i class="fas fa-cog fa-8x fa-spin"></i>
                         </span>
                 </div>
@@ -55,7 +55,5 @@
 </script>
 
 <style scoped>
-    .columns {
-        margin-top: 50px;
-    }
+
 </style>

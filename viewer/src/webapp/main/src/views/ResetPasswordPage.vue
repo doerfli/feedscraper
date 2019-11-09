@@ -2,12 +2,12 @@
     <div>
         <HeroHeader title="Reset your password"/>
         <section>
-            <div class="container">
-                <div class="columns">
-                    <div class="column is-half">
+            <div>
+                <div>
+                    <div>
                         <ResetPassword />
                     </div>
-                    <div class="column">
+                    <div>
                     </div>
                 </div>
             </div>

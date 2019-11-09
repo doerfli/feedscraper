@@ -1,18 +1,18 @@
 <template>
     <div class="content">
-        <div v-bind:class="['headline', headlineStateClass]" v-on:click="$emit('showContent')">
+        <div v-on:click="$emit('showContent')">
             <span class="icon fa-li" ><i v-bind:class="[headlineIconPrefixClass, 'fa-envelope']"></i></span>
-            <span class="is-size-4">{{item.title}}</span>
+            <span >{{item.title}}</span>
             <br/>
-            <span class="is-size-7 topactions">
+            <span >
                 Published: {{updatedTime}}
-                | <a v-if="item.read" v-on:click="$emit('markAsUnread')" target="_blank"><span class="icon" ><i class="fas fa-envelope"></i></span> Mark as unread</a>
+                | <a v-if="item.read" v-on:click="$emit('markAsUnread')" target="_blank"><span><i></i></span> Mark as unread</a>
             </span>
         </div>
         <div v-html="item.summary">
         </div>
-        <div class="actions">
-            <a v-if="summaryHasNoLink" v-bind:href="item.link" target="_blank"><span class="icon" ><i class="fas fa-atlas"></i></span> View full article</a>
+        <div>
+            <a v-if="summaryHasNoLink" v-bind:href="item.link" target="_blank"><span><i></i></span> View full article</a>
         </div>
     </div>
 </template>
@@ -51,28 +51,5 @@
 </script>
 
 <style scoped lang="scss">
-    .unread {
-        span {
-            font-weight: 600;
-            i {
-                color: $primary;
-            }
-        }
-    }
 
-    .headline {
-        margin-bottom: 8px;
-    }
-
-    .topactions,
-    .actions {
-        i {
-            color: $primary;
-        }
-    }
-
-    .actions {
-        margin-top: 8px;
-        margin-bottom: 8px;
-    }
 </style>

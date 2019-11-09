@@ -1,7 +1,7 @@
 <template>
-  <div class="items">
-    <div class="content">
-      <ul class="fa-ul">
+  <div>
+    <div>
+      <ul>
         <Item
             v-for="(item,index) in items" v-bind:key="item.pkey" v-bind:item="item" v-bind:index="index"/>
       </ul>
@@ -10,9 +10,9 @@
 </template>
 
 <script>
-    import Item from "./Item";
+  import Item from "./Item";
 
-    export default {
+  export default {
     name: "Items",
     components: {
       Item
@@ -45,10 +45,5 @@
 </script>
 
 <style scoped lang="scss">
-  .items {
-    margin-left: $mygap;
-  }
-  .content ul {
-    list-style-type: none;
-  }
+
 </style>

@@ -1,9 +1,9 @@
 <template>
     <div>
         <div v-bind:class="[readState]">
-            <span class="icon fa-li" ><i v-bind:class="[iconPrefixClass,'fa-envelope']"></i></span>
+            <span ><i v-bind:class="[iconPrefixClass,'fa-envelope']"></i></span>
             <span v-on:click="$emit('showContent')">{{item.title}}</span>&nbsp;
-            <span class="is-size-7 time">{{updatedTime()}}</span>
+            <span>{{updatedTime()}}</span>
         </div>
     </div>
 </template>
@@ -41,17 +41,5 @@
 </script>
 
 <style scoped lang="scss">
-    .unread {
-        span {
-            font-weight: 600;
-            i {
-                color: $primary;
-            }
 
-
-        }
-        span.time {
-            font-weight: 400;
-        }
-    }
 </style>

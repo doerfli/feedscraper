@@ -2,12 +2,12 @@
     <div>
         <HeroHeader title="Sign up for an account" subtitle="to view feeds from many sources in one place"/>
         <section>
-            <div class="container">
-                <div class="columns">
-                    <div class="column is-half">
+            <div>
+                <div>
+                    <div>
                         <Signup />
                     </div>
-                    <div class="column">
+                    <div>
                     </div>
                 </div>
             </div>

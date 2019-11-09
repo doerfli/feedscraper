@@ -2,12 +2,12 @@
     <div>
         <HeroHeader title="Sign in" subtitle="to view your feeds" />
         <section>
-            <div class="container">
-                <div class="columns">
-                    <div class="column is-half">
+            <div>
+                <div>
+                    <di>
                         <Login />
-                    </div>
-                    <div class="column">
+                    </di>
+                    <div>
                     </div>
                 </div>
             </div>

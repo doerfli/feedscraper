@@ -1,7 +1,7 @@
 <template>
-    <div class="container is-fluid">
-        <article :class="classType(message.type)" v-for="message in messages" v-bind:key="message.id" >
-            <div class="message-body">
+    <div>
+        <article v-for="message in messages" v-bind:key="message.id" >
+            <div>
                 {{message.text}}
             </div>
         </article>

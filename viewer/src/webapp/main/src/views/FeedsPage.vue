@@ -1,5 +1,5 @@
 <template>
-  <div class="home remainingheight">
+  <div>
     <Feeds />
   </div>
 </template>

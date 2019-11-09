@@ -6,7 +6,7 @@
       <a>({{this.data.unreadItems}})</a>
     </span>
     <span v-if="hasUpdatedItems()">
-      <span class="icon">
+      <span >
           <i class="far fa-dot-circle fa-xs"></i>
       </span>
     </span>
@@ -37,17 +37,5 @@
 </script>
 
 <style scoped lang="scss">
-  li {
-    a,
-    a:visited,
-    a:link {
-      color: $text;
-    }
-    a:hover {
-      color: $primary;
-    }
-    > span {
-      margin-left: 0.2em;
-    }
-  }
+
 </style>

@@ -1,57 +1,57 @@
 <template>
     <div>
-        <div class="field is-horizontal">
-            <div class="field-label has-text-right">
-                <label class="label">Username</label>
+        <div >
+            <div>
+                <label>Username</label>
             </div>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control has-icons-left has-icons-right">
+            <div >
+                <div >
+                    <div >
                         <input
                             v-model="username"
                             v-on:change="validateUsername"
                             v-on:keyup.13="login"
                             v-on:keyup="validateUsernameAfterTimeout"
-                            v-bind:class="{input: true, 'is-success': this.validation.usernameValid}"
+
                             type="email"
                             placeholder="Email"
                         />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
+                        <span >
+                            <i ></i>
                         </span>
                     </div>
-                    <p v-if="!validation.usernamePattern" class="help is-danger">Please enter an email address</p>
+                    <p v-if="!validation.usernamePattern" >Please enter an email address</p>
                 </div>
             </div>
         </div>
-        <div class="field is-horizontal">
-            <div class="field-label has-text-right">
-                <label class="label">Password</label>
+        <div >
+            <div >
+                <label >Password</label>
             </div>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control has-icons-left has-icons-right">
+            <div >
+                <div >
+                    <div >
                         <input
                             v-on:change="validatePassword"
                             v-on:keyup.13="login"
                             v-on:keyup="validatePasswordAfterTimeout"
-                            v-bind:class="{input: true, 'is-success': this.validation.passwordValid}"
+
                             type="password"
                             placeholder="Password"
                             v-model="password"
                         />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-lock"></i>
+                        <span >
+                            <i ></i>
                         </span>
                     </div>
-                    <p v-if="!validation.passwordLength" class="help is-danger">Password must have at least 6 characters</p>
+                    <p v-if="!validation.passwordLength" >Password must have at least 6 characters</p>
                 </div>
             </div>
         </div>
-        <div class="field is-horizontal">
-            <div class="field-label">
+        <div >
+            <div >
             </div>
-            <div class="field-body">
+            <div >
                 <span v-if="loggingIn">
                     <span class="spinner">
                         <span class="icon has-text-primary">
@@ -60,14 +60,14 @@
                     </span>
                 </span>
                 <span v-else>
-                    <div class="field">
-                        <div v-if="submitAllowed" class="control">
-                            <button class="button is-primary" v-on:click="login">Sign in</button>
+                    <div >
+                        <div v-if="submitAllowed" >
+                            <button v-on:click="login">Sign in</button>
                             <ForgotPassword />
                         </div>
                         <fieldset v-else disabled>
-                            <div class="control">
-                                <button class="button is-primary">Sign in</button>
+                            <div >
+                                <button >Sign in</button>
                                 <ForgotPassword v-bind:username="username" v-bind:username-valid="this.validation.usernameValid"/>
                             </div>
                         </fieldset>
@@ -150,7 +150,5 @@
 </script>
 
 <style scoped lang="scss">
-    .spinner {
-        padding-left: 32px;
-    }
+
 </style>

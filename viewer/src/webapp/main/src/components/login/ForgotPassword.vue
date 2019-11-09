@@ -1,8 +1,8 @@
 <template>
-    <span class="forgot is-size-7">
+    <span>
         <a v-on:click="sendResetLink" >Forgot password?</a>&nbsp;
-        <span v-if="showHelp" class="has-text-info">Enter your email address above and click again</span>
-        <span v-if="mailSent" class="has-text-success">Password reset link sent - check your email</span>
+        <span v-if="showHelp">Enter your email address above and click again</span>
+        <span v-if="mailSent">Password reset link sent - check your email</span>
     </span>
 </template>
 
@@ -58,11 +58,5 @@
 </script>
 
 <style scoped lang="scss">
-    .forgot {
-        margin-left: $gap;
-        a,
-        span {
-            vertical-align: bottom;
-        }
-    }
+
 </style>

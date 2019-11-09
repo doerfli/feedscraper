@@ -1,36 +1,36 @@
 <template>
-  <div class="has-background-primary">
-    <div class="container is-fluid">
-      <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item logo" href="/">
+  <div >
+    <div >
+      <nav  role="navigation" aria-label="main navigation">
+        <div >
+          <a  href="/">
             <i class="fas fa-stream fa-2x"></i>
           </a>
 
-          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <a role="button" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
           </a>
         </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
+        <div id="navbarBasicExample" >
+          <div >
 
-            <router-link to="/" class="navbar-item">Feedscraper &nbsp;&nbsp; <span class="tag is-warning">&beta;&epsilon;&tau;&alpha;</span></router-link>
+            <router-link to="/">Feedscraper &nbsp;&nbsp; <span >&beta;&epsilon;&tau;&alpha;</span></router-link>
           </div>
 
-          <div class="navbar-end">
-            <a class="navbar-item" href="mailto:feedscraper@bytes.li?subject=Feedback">Feedback</a>
-            <div v-if="isAuthenticated" class="navbar-item">
-              <span class="icon">
+          <div >
+            <a  href="mailto:feedscraper@bytes.li?subject=Feedback">Feedback</a>
+            <div v-if="isAuthenticated" >
+              <span>
                 <i class="fas fa-user"></i>
               </span>&nbsp;
               {{username}}
             </div>
-            <a           v-if="!isLoginPage && isAuthenticated" class="navbar-item" v-on:click="logout">Logout</a>
-            <router-link v-if="!isLoginPage && !isAuthenticated" to="/login" class="navbar-item">Sign in</router-link>
-            <router-link v-if="isLoginPage" to="/signup" class="navbar-item">Sign up</router-link>
+            <a           v-if="!isLoginPage && isAuthenticated" v-on:click="logout">Logout</a>
+            <router-link v-if="!isLoginPage && !isAuthenticated" to="/login" >Sign in</router-link>
+            <router-link v-if="isLoginPage" to="/signup" >Sign up</router-link>
           </div>
         </div>
       </nav>
@@ -62,11 +62,5 @@
 </script>
 
 <style scoped lang="scss">
-  .logo {
-    margin-right: 20px;
-  }
 
-  .gapbottom {
-    margin-bottom: $mygap;
-  }
 </style>
