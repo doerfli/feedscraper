@@ -60,14 +60,14 @@ dependencies {
 compileKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "12"
+        jvmTarget = 12
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "12"
+        jvmTarget = 12
     }
 }
 
