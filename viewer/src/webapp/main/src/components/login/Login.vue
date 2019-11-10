@@ -1,57 +1,44 @@
 <template>
-    <div>
-        <div >
-            <div>
-                <label>Username</label>
+    <div class="container mx-auto">
+        <div class="flex mb-6">
+            <div class="md:w-1/3 flex-col">
+                <label class="input-label">Username</label>
             </div>
-            <div >
-                <div >
-                    <div >
-                        <input
-                            v-model="username"
-                            v-on:change="validateUsername"
-                            v-on:keyup.13="login"
-                            v-on:keyup="validateUsernameAfterTimeout"
-
-                            type="email"
-                            placeholder="Email"
-                        />
-                        <span >
-                            <i ></i>
-                        </span>
-                    </div>
-                    <p v-if="!validation.usernamePattern" >Please enter an email address</p>
-                </div>
+            <div  class="md:w-2/3 flex-col">
+                <input
+                    class="input-text"
+                    v-model="username"
+                    v-on:change="validateUsername"
+                    v-on:keyup.13="login"
+                    v-on:keyup="validateUsernameAfterTimeout"
+                    type="email"
+                    placeholder="Email"
+                />
+                <p v-if="!validation.usernamePattern" class="error-text">Please enter an email address</p>
             </div>
         </div>
-        <div >
-            <div >
-                <label >Password</label>
+        <div class="flex mb-6">
+            <div class="md:w-1/3 flex-col">
+                <label class="input-label">Password</label>
             </div>
-            <div >
-                <div >
-                    <div >
-                        <input
-                            v-on:change="validatePassword"
-                            v-on:keyup.13="login"
-                            v-on:keyup="validatePasswordAfterTimeout"
+            <div class="md:w-2/3 flex-col">
+                <input
+                    class="input-text"
+                    v-on:change="validatePassword"
+                    v-on:keyup.13="login"
+                    v-on:keyup="validatePasswordAfterTimeout"
 
-                            type="password"
-                            placeholder="Password"
-                            v-model="password"
-                        />
-                        <span >
-                            <i ></i>
-                        </span>
-                    </div>
-                    <p v-if="!validation.passwordLength" >Password must have at least 6 characters</p>
-                </div>
+                    type="password"
+                    placeholder="Password"
+                    v-model="password"
+                />
+                <p v-if="!validation.passwordLength" class="error-text">Password must have at least 6 characters</p>
             </div>
         </div>
-        <div >
-            <div >
+        <div class="flex mb-6" >
+            <div class="md:w-1/3 flex-col">
             </div>
-            <div >
+            <div class="md:w-2/3 flex-col">
                 <span v-if="loggingIn">
                     <span class="spinner">
                         <span class="icon has-text-primary">
@@ -62,15 +49,13 @@
                 <span v-else>
                     <div >
                         <div v-if="submitAllowed" >
-                            <button v-on:click="login">Sign in</button>
+                            <button class="submit-button" v-on:click="login">Sign in</button>
                             <ForgotPassword />
                         </div>
-                        <fieldset v-else disabled>
-                            <div >
-                                <button >Sign in</button>
-                                <ForgotPassword v-bind:username="username" v-bind:username-valid="this.validation.usernameValid"/>
-                            </div>
-                        </fieldset>
+                        <div v-else disabled>
+                            <button class="submit-button-disabled">Sign in</button>
+                            <ForgotPassword v-bind:username="username" v-bind:username-valid="this.validation.usernameValid"/>
+                        </div>
                     </div>
                 </span>
             </div>
@@ -149,6 +134,34 @@
     };
 </script>
 
-<style scoped lang="scss">
-
+<style scoped>
+    .input-label {
+        @apply .block .text-gray-600 .font-bold .mb-1 pt-2 .pr-4;
+    }
+    @screen md {
+        .input-label {
+            @apply .text-right .mb-0;
+        }
+    }
+    .input-text {
+        @apply .appearance-none .bg-gray-200 .border-2 .border-gray-200 .rounded .w-full .py-2 .px-4 .text-gray-700 .leading-tight;
+    }
+    .input-text:focus {
+        @apply .outline-none .bg-white .border-teal-500;
+    }
+    .error-text {
+        @apply .text-red-600;
+    }
+    .submit-button {
+        @apply .bg-blue-500 .text-white .font-bold .py-2 .px-4 .rounded .mr-4;
+    }
+    .submit-button:hover {
+        @apply .bg-blue-700;
+    }
+    .submit-button:focus {
+        @apply .outline-none .shadow-outline;
+    }
+    .submit-button-disabled {
+        @apply .bg-blue-200 .text-white .font-bold .py-2 .px-4 .rounded .mr-4;
+    }
 </style>
