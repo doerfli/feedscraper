@@ -16,7 +16,6 @@ apply plugin: 'jacoco'
 
 group = "li.doerf.feeder"
 version = "0.9.0-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
     implementation project(":common")
@@ -50,14 +49,14 @@ dependencies {
 compileKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "12"
+        jvmTarget = 12
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "12"
+        jvmTarget = 12
     }
 }
 

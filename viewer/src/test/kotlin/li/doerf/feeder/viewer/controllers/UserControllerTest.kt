@@ -5,7 +5,9 @@ import li.doerf.feeder.viewer.entities.Role
 import li.doerf.feeder.viewer.entities.User
 import li.doerf.feeder.viewer.repositories.UserRepository
 import li.doerf.feeder.viewer.services.MailServiceImpl
+import li.doerf.feeder.viewer.test.TestHelper
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
@@ -15,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
@@ -26,7 +27,6 @@ import java.util.*
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ExtendWith(MockitoExtension::class)
 class UserControllerTest {
 
@@ -38,6 +38,13 @@ class UserControllerTest {
     private lateinit var passwordEncoder: PasswordEncoder
     @MockBean
     private lateinit var mailService: MailServiceImpl
+    @Autowired
+    private lateinit var testHelper: TestHelper
+
+    @BeforeEach
+    fun setup() {
+        testHelper.resetDatabase()
+    }
 
     @Test
     fun testSignup() {

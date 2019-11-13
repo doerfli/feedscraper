@@ -19,7 +19,6 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.security.test.context.support.WithMockUser
-import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -31,7 +30,6 @@ import java.time.Instant
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ExtendWith(MockitoExtension::class)
 class FeedsControllerTest {
 
@@ -47,6 +45,7 @@ class FeedsControllerTest {
 
     @BeforeEach
     fun setup() {
+        testHelper.resetDatabase()
         testuser = testHelper.createUser("test@test123.com")
     }
 
