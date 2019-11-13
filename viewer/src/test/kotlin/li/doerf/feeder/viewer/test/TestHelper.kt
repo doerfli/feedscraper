@@ -2,6 +2,7 @@ package li.doerf.feeder.viewer.test
 
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.entities.Item
+import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.repositories.ItemRepository
 import li.doerf.feeder.viewer.entities.AccountState
 import li.doerf.feeder.viewer.entities.ItemState
@@ -17,8 +18,16 @@ import java.time.temporal.ChronoUnit
 class TestHelper @Autowired constructor(
         val userRepository: UserRepository,
         val itemStateRepository: ItemStateRepository,
-        val itemRepository: ItemRepository
+        val itemRepository: ItemRepository,
+        val feedRepository: FeedRepository
 ){
+    fun resetDatabase() {
+        itemStateRepository.deleteAll()
+        itemRepository.deleteAll()
+        feedRepository.deleteAll()
+        userRepository.deleteAll()
+    }
+
     fun createUser( username: String): User {
         val user = User(0, username, "password", mutableListOf(),  null, null, AccountState.Confirmed)
         userRepository.save(user)

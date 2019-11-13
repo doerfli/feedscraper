@@ -18,7 +18,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
-import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
@@ -28,7 +27,6 @@ import java.time.Instant
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ItemsControllerTest {
 
     private lateinit var testuser: User
@@ -46,8 +44,10 @@ class ItemsControllerTest {
 
     @BeforeEach
     fun setup() {
+        testHelper.resetDatabase()
         testuser = testHelper.createUser("test@test123.com")
     }
+
 
     @Test
     fun testIndexMethodIsSecured() {
