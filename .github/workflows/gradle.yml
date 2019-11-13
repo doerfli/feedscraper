@@ -18,3 +18,17 @@ jobs:
         arguments: jacocoTestReport
     - run: |
         bash <(curl -s https://codecov.io/bash)
+  docker_scraper:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: docker login docker.pkg.github.com --username doerfli --password ${{ secrets.DOCKER_PASSWORD }}
+    - run: docker build -t docker.pkg.github.com/doerfli/feedscraper/scraper:${GITHUB_REF##*/} -f Dockerfile-scraper .
+    - run: docker push docker.pkg.github.com/doerfli/feedscraper/scraper:${GITHUB_REF##*/}
+  docker_viewer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: docker login docker.pkg.github.com --username doerfli --password ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker build -t docker.pkg.github.com/doerfli/feedscraper/viewer:${GITHUB_REF##*/} -f Dockerfile-viewer .
+      - run: docker push docker.pkg.github.com/doerfli/feedscraper/viewer:${GITHUB_REF##*/}
