@@ -1,12 +1,9 @@
 package li.doerf.feeder.scraper
 
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.produce
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.util.getLogger
@@ -16,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.time.Duration
 import java.time.Instant
+import javax.annotation.PreDestroy
 
 @Service
 class ScraperPipeline @Autowired constructor(
@@ -25,7 +23,7 @@ class ScraperPipeline @Autowired constructor(
         private val feedPersisterStep: FeedPersisterStep,
         private val feedNotifierStep: FeedNotifierStep
 ) {
-
+    private lateinit var scope: CoroutineScope
     @Value("\${scraper.pipeline.interval:60000}")
     private val interval: Long = 60000
 
@@ -42,15 +40,24 @@ class ScraperPipeline @Autowired constructor(
 
     private fun startPipeline() {
         runBlocking {
+            scope = CoroutineScope(Job())
             val feedUrlProducer = produceFeedUrls()
 
             val parserChannel = Channel<Pair<String, String>>()
             val persisterChannel = Channel<Pair<String, FeedDto>>()
             val notifierChannel = Channel<FeedPersisterResult>()
-            repeat(2) { launchFeedUrlDownloader(it, feedUrlProducer, parserChannel) }
-            repeat(2) { launchFeedParser(it, parserChannel, persisterChannel) }
-            launchFeedPersister(0, persisterChannel, notifierChannel)
-            launchFeedNotifier(0, notifierChannel)
+            repeat(2) { launchFeedUrlDownloader(scope, it, feedUrlProducer, parserChannel) }
+            repeat(2) { launchFeedParser(scope, it, parserChannel, persisterChannel) }
+            launchFeedPersister(scope, 0, persisterChannel, notifierChannel)
+            launchFeedNotifier(scope, 0, notifierChannel)
+        }
+    }
+
+    @PreDestroy
+    fun stopPipeline() {
+        log.info("shutting down pipeline")
+        if (scope.isActive) {
+            scope.cancel()
         }
     }
 
@@ -73,9 +80,10 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
-    suspend fun CoroutineScope.launchFeedUrlDownloader(id: Int, channel: ReceiveChannel<String>, parserChannel: Channel<Pair<String, String>>) = launch {
+    suspend fun launchFeedUrlDownloader(scope: CoroutineScope, id: Int, channel: ReceiveChannel<String>, parserChannel: Channel<Pair<String, String>>) = scope.launch {
         log.info("starting feed downloader #$id")
         for (uri in channel) {
+            yield()
             log.debug("FeedDto Downloader #$id received uri $uri")
             try {
                 val feedAsString = feedDownloaderStep.download(uri)
@@ -86,9 +94,10 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
-    fun CoroutineScope.launchFeedParser(id: Int, channel: ReceiveChannel<Pair<String,String>>, persisterChannel: Channel<Pair<String, FeedDto>>) = launch {
+    fun launchFeedParser(scope: CoroutineScope, id: Int, channel: ReceiveChannel<Pair<String,String>>, persisterChannel: Channel<Pair<String, FeedDto>>) = scope.launch {
         log.info("starting feed parser #$id")
         for ((uri, feedAsString) in channel) {
+            yield()
             log.debug("FeedDto Parser #$id received content for $uri")
             parseFeed(uri, feedAsString, persisterChannel)
         }
@@ -104,9 +113,10 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
-    fun CoroutineScope.launchFeedPersister(id: Int, channel: ReceiveChannel<Pair<String, FeedDto>>, notifierChannel: Channel<FeedPersisterResult>) = launch {
+    fun launchFeedPersister(scope: CoroutineScope, id: Int, channel: ReceiveChannel<Pair<String, FeedDto>>, notifierChannel: Channel<FeedPersisterResult>) = scope.launch {
         log.info("starting feed persister #$id")
         for ((uri, feed) in channel) {
+            yield()
             log.debug("FeedDto Perister #$id received feed for $uri")
             persistFeed(uri, feed, notifierChannel)
         }
@@ -122,9 +132,10 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
-    fun CoroutineScope.launchFeedNotifier(id: Int, channel: ReceiveChannel<FeedPersisterResult>) = launch {
+    fun launchFeedNotifier(scope: CoroutineScope, id: Int, channel: ReceiveChannel<FeedPersisterResult>) = scope.launch {
         log.info("starting feed notifier #$id")
         for (result in channel) {
+            yield()
             log.debug("Feed Notification #$id received msg")
             try {
                 feedNotifierStep.sendMessage(result)

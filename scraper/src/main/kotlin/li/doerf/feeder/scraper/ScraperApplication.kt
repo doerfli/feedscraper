@@ -29,4 +29,5 @@ fun main(args: Array<String>) {
     Executors.newSingleThreadExecutor().execute {
         context.getBean(ScraperPipeline::class.java).execute()
     }
+    context
 }
