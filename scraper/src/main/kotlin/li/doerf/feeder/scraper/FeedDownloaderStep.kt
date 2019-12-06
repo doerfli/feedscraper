@@ -14,16 +14,16 @@ class FeedDownloaderStep {
         private val log = getLogger(javaClass)
     }
 
-    suspend fun download(uri: String): Pair<String, String> {
+    suspend fun download(uri: String): DownloadResult {
         log.debug("downloading $uri")
         val (request, response, result) =
                 uri.httpGet().awaitStringResponseResult()
         log.debug("downloaded ${response.contentLength} bytes - status ${response.statusCode}")
         if ( ! response.isSuccessful) {
-            throw IllegalStateException("received statuscode ${response.statusCode} - download not successful")
+            return DownloadError("received statuscode ${response.statusCode} - download not successful")
         }
         val content = result.get()
         if(log.isTraceEnabled) log.trace(content)
-        return Pair(uri, content)
+        return DownloadSuccess(uri, content)
     }
 }

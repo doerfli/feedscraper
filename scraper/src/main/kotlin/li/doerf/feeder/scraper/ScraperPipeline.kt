@@ -2,10 +2,7 @@ package li.doerf.feeder.scraper
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.buffer
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.repositories.FeedRepository
@@ -41,13 +38,25 @@ class ScraperPipeline @Autowired constructor(
 
     private fun startPipeline() {
         runBlocking {
-            produceFeedUrls()
+            generateFeedUrls()
+                    // download feeds
                     .map { url -> feedDownloaderStep.download(url) }
+                    .filter { result -> result is DownloadSuccess }
+                    .map { it as DownloadSuccess }
                     .buffer()
-                    .map { (url,content) ->
-                        feedParserStep.parse(url, content) }
+
+                    // parse downloaded feeds
+                    .map { (url, content) -> feedParserStep.parse(url, content) }
+                    .filter { result -> result is ParserSuccess }
+                    .map { it as ParserSuccess }
+
+                    // persist feeds
                     .map { (url, feedDto) ->
                         feedPersisterStep.persist(url, feedDto) }
+                    .filter { result -> result is PersisterSuccess }
+                    .map { it as PersisterSuccess }
+
+                    // notify clients
                     .map{ (firstDownload, itemsUpdated, feedPkey) ->
                         feedNotifierStep.sendMessage(feedPkey, firstDownload, itemsUpdated)
                     }
@@ -55,8 +64,8 @@ class ScraperPipeline @Autowired constructor(
         }
     }
 
-    fun produceFeedUrls() = flow<String> {
-        log.info("starting feed url producer")
+    fun generateFeedUrls() = flow<String> {
+        log.info("starting feed url generator")
         while (true) {
             val startedAt = Instant.now()
             feedRepository.findNotRetryExceeded().forEach { feed ->
