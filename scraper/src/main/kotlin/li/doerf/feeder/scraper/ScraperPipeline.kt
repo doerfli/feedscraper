@@ -3,7 +3,6 @@ package li.doerf.feeder.scraper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.runBlocking
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.util.getLogger
@@ -30,22 +29,20 @@ class ScraperPipeline @Autowired constructor(
         private val log = getLogger(javaClass)
     }
 
-    fun execute() {
+    suspend fun execute() {
         log.info("Starting scraper pipeline")
         addDefaultEntries()
         startPipeline()
     }
 
-    private fun startPipeline() {
-        runBlocking {
-            generateFeedUrls()
-                    .download()
-                    .buffer()
-                    .parse()
-                    .persist()
-                    .notify()
-                    .toList()
-        }
+    suspend fun startPipeline() {
+        generateFeedUrls()
+                .download()
+                .buffer()
+                .parse()
+                .persist()
+                .notify()
+                .toList()
     }
 
     private fun Flow<String>.download(): Flow<DownloadSuccess> {
