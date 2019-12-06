@@ -36,11 +36,11 @@ class FeedParserStepTest {
         val feedAsString = this.javaClass.getResourceAsStream("rss/rss_spiegel.xml").bufferedReader().use(BufferedReader::readText)
 
         // when
-        val feedDto = feedParserStep.parse(uri, feedAsString)
+        val result = feedParserStep.parse(uri, feedAsString) as ParserSuccess
 
         // then
-        assertThat(feedDto.title).isNotNull()
-        assertThat(feedDto.items).isNotEmpty
+        assertThat(result.feedDto.title).isNotNull()
+        assertThat(result.feedDto.items).isNotEmpty
     }
 
     @Test
@@ -52,9 +52,10 @@ class FeedParserStepTest {
         val feedAsString = this.javaClass.getResourceAsStream("rss/rss_spiegel.xml").bufferedReader().use(BufferedReader::readText)
 
         // when
-        val feedDto = feedParserStep.parse(uri, feedAsString)
+        val result = feedParserStep.parse(uri, feedAsString) as ParserSuccess
 
         // then
+        val feedDto = result.feedDto
         assertThat(feedDto.title).isNotNull()
         assertThat(feedDto.type).isEqualTo(FeedType.RSS)
         assertThat(feedDto.items).isNotEmpty
@@ -72,9 +73,10 @@ class FeedParserStepTest {
         val feedAsString = this.javaClass.getResourceAsStream("atom/atom_heise.xml").bufferedReader().use(BufferedReader::readText)
 
         // when
-        val feedDto = feedParserStep.parse(uri, feedAsString)
+        val result = feedParserStep.parse(uri, feedAsString) as ParserSuccess
 
         // then
+        val feedDto = result.feedDto
         assertThat(feedDto.title).isNotNull()
         assertThat(feedDto.items).isNotEmpty
     }
@@ -88,9 +90,10 @@ class FeedParserStepTest {
         val feedAsString = this.javaClass.getResourceAsStream("atom/atom_heise.xml").bufferedReader().use(BufferedReader::readText)
 
         // when
-        val feedDto = feedParserStep.parse(uri, feedAsString)
+        val result = feedParserStep.parse(uri, feedAsString)
 
         // then
+        val feedDto = (result as ParserSuccess).feedDto
         assertThat(feedDto.title).isNotNull()
         assertThat(feedDto.type).isEqualTo(FeedType.Atom)
         assertThat(feedDto.items).isNotEmpty
