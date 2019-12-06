@@ -1,19 +1,20 @@
 package li.doerf.feeder.scraper
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.channels.produce
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.runBlocking
 import li.doerf.feeder.common.entities.Feed
 import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.util.getLogger
-import li.doerf.feeder.scraper.dto.FeedDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.time.Duration
 import java.time.Instant
-import javax.annotation.PreDestroy
 
 @Service
 class ScraperPipeline @Autowired constructor(
@@ -40,33 +41,26 @@ class ScraperPipeline @Autowired constructor(
 
     private fun startPipeline() {
         runBlocking {
-            scope = CoroutineScope(Job())
-            val feedUrlProducer = produceFeedUrls()
-
-            val parserChannel = Channel<Pair<String, String>>()
-            val persisterChannel = Channel<Pair<String, FeedDto>>()
-            val notifierChannel = Channel<FeedPersisterResult>()
-            repeat(2) { launchFeedUrlDownloader(scope, it, feedUrlProducer, parserChannel) }
-            repeat(2) { launchFeedParser(scope, it, parserChannel, persisterChannel) }
-            launchFeedPersister(scope, 0, persisterChannel, notifierChannel)
-            launchFeedNotifier(scope, 0, notifierChannel)
+            produceFeedUrls()
+                    .map { url -> feedDownloaderStep.download(url) }
+                    .buffer()
+                    .map { (url,content) ->
+                        feedParserStep.parse(url, content) }
+                    .map { (url, feedDto) ->
+                        feedPersisterStep.persist(url, feedDto) }
+                    .map{ (firstDownload, itemsUpdated, feedPkey) ->
+                        feedNotifierStep.sendMessage(feedPkey, firstDownload, itemsUpdated)
+                    }
+                    .toList()
         }
     }
 
-    @PreDestroy
-    fun stopPipeline() {
-        log.info("shutting down pipeline")
-        if (scope.isActive) {
-            scope.cancel()
-        }
-    }
-
-    fun CoroutineScope.produceFeedUrls() = produce<String> {
+    fun produceFeedUrls() = flow<String> {
         log.info("starting feed url producer")
         while (true) {
             val startedAt = Instant.now()
             feedRepository.findNotRetryExceeded().forEach { feed ->
-                send(feed.url)
+                emit(feed.url)
             }
             waitIfNecessary(startedAt)
         }
@@ -78,82 +72,6 @@ class ScraperPipeline @Autowired constructor(
             log.debug("waiting for $remaining ms")
             delay(interval)
         }
-    }
-
-    suspend fun launchFeedUrlDownloader(scope: CoroutineScope, id: Int, channel: ReceiveChannel<String>, parserChannel: Channel<Pair<String, String>>) = scope.launch {
-        log.info("starting feed downloader #$id")
-        for (uri in channel) {
-            yield()
-            log.debug("FeedDto Downloader #$id received uri $uri")
-            try {
-                val feedAsString = feedDownloaderStep.download(uri)
-                parserChannel.send(Pair(uri, feedAsString))
-            } catch (e: Exception) {
-                log.error("caught Exception while downloading uri $uri", e)
-            }
-        }
-    }
-
-    fun launchFeedParser(scope: CoroutineScope, id: Int, channel: ReceiveChannel<Pair<String,String>>, persisterChannel: Channel<Pair<String, FeedDto>>) = scope.launch {
-        log.info("starting feed parser #$id")
-        for ((uri, feedAsString) in channel) {
-            yield()
-            log.debug("FeedDto Parser #$id received content for $uri")
-            parseFeed(uri, feedAsString, persisterChannel)
-        }
-    }
-
-    internal suspend fun parseFeed(uri: String, feedAsString: String, persisterChannel: Channel<Pair<String, FeedDto>>) {
-        try {
-            val feed = feedParserStep.parse(uri, feedAsString)
-            persisterChannel.send(Pair(uri, feed))
-        } catch (e: Exception) {
-            log.error("caught Exception while parsing uri $uri", e)
-            handleFeedException(uri)
-        }
-    }
-
-    fun launchFeedPersister(scope: CoroutineScope, id: Int, channel: ReceiveChannel<Pair<String, FeedDto>>, notifierChannel: Channel<FeedPersisterResult>) = scope.launch {
-        log.info("starting feed persister #$id")
-        for ((uri, feed) in channel) {
-            yield()
-            log.debug("FeedDto Perister #$id received feed for $uri")
-            persistFeed(uri, feed, notifierChannel)
-        }
-    }
-
-    internal suspend fun persistFeed(uri: String, feed: FeedDto, notifierChannel: Channel<FeedPersisterResult>) {
-        try {
-            val feedNotification = feedPersisterStep.persist(uri, feed)
-            notifierChannel.send(feedNotification)
-        } catch (e: Exception) {
-            log.error("caught Exception while persisting uri $uri", e)
-            handleFeedException(uri)
-        }
-    }
-
-    fun launchFeedNotifier(scope: CoroutineScope, id: Int, channel: ReceiveChannel<FeedPersisterResult>) = scope.launch {
-        log.info("starting feed notifier #$id")
-        for (result in channel) {
-            yield()
-            log.debug("Feed Notification #$id received msg")
-            try {
-                feedNotifierStep.sendMessage(result)
-            } catch (e: Exception) {
-                log.error("caught Exception while sending notification", e)
-            }
-        }
-    }
-
-    private fun handleFeedException(uri: String) {
-        val feed = feedRepository.findFeedByUrl(uri)
-        if (feed.isEmpty) {
-            log.error("no feed with uri $uri found")
-            return;
-        }
-        feed.get().retry++
-        feedRepository.save(feed.get())
-        log.info("retry counter incremented to ${feed.get().retry} for feed with uri $uri")
     }
 
     private fun addDefaultEntries() {

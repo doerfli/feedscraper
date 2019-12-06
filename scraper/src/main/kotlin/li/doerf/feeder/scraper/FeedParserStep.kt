@@ -25,7 +25,7 @@ class FeedParserStep @Autowired constructor(
         private val rssEndRegex = Regex("\\<\\/rss>")
     }
 
-    fun parse(uri: String, feedAsString: String): FeedDto {
+    fun parse(uri: String, feedAsString: String): Pair<String, FeedDto> {
         log.debug("parsing feed")
         val feedOpt = feedRepository.findFeedByUrl(uri)
         if (feedOpt.isEmpty) {
@@ -44,7 +44,7 @@ class FeedParserStep @Autowired constructor(
         }
 
         feedDto.items.sortBy { i -> i.published }
-        return feedDto
+        return Pair(uri, feedDto)
     }
 
     private fun determineFeedSourceType(feed: Feed, feedAsString: String) {
