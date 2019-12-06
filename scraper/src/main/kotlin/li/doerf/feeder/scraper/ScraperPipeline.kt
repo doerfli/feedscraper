@@ -39,28 +39,37 @@ class ScraperPipeline @Autowired constructor(
     private fun startPipeline() {
         runBlocking {
             generateFeedUrls()
-                    // download feeds
-                    .map { url -> feedDownloaderStep.download(url) }
-                    .filter { result -> result is DownloadSuccess }
-                    .map { it as DownloadSuccess }
+                    .download()
                     .buffer()
-
-                    // parse downloaded feeds
-                    .map { (url, content) -> feedParserStep.parse(url, content) }
-                    .filter { result -> result is ParserSuccess }
-                    .map { it as ParserSuccess }
-
-                    // persist feeds
-                    .map { (url, feedDto) ->
-                        feedPersisterStep.persist(url, feedDto) }
-                    .filter { result -> result is PersisterSuccess }
-                    .map { it as PersisterSuccess }
-
-                    // notify clients
-                    .map{ (firstDownload, itemsUpdated, feedPkey) ->
-                        feedNotifierStep.sendMessage(feedPkey, firstDownload, itemsUpdated)
-                    }
+                    .parse()
+                    .persist()
+                    .notify()
                     .toList()
+        }
+    }
+
+    private fun Flow<String>.download(): Flow<DownloadSuccess> {
+        return this.map { url -> feedDownloaderStep.download(url) }
+                .filter { result -> result is DownloadSuccess }
+                .map { it as DownloadSuccess }
+    }
+
+    private fun Flow<DownloadSuccess>.parse(): Flow<ParserSuccess> {
+        return this.map { (url, content) -> feedParserStep.parse(url, content) }
+                .filter { result -> result is ParserSuccess }
+                .map { it as ParserSuccess }
+    }
+
+    private fun Flow<ParserSuccess>.persist(): Flow<PersisterSuccess> {
+        return this.map { (url, feedDto) ->
+            feedPersisterStep.persist(url, feedDto) }
+                .filter { result -> result is PersisterSuccess }
+                .map { it as PersisterSuccess }
+    }
+
+    private fun Flow<PersisterSuccess>.notify(): Flow<Unit> {
+        return this.map{ (firstDownload, itemsUpdated, feedPkey) ->
+            feedNotifierStep.sendMessage(feedPkey, firstDownload, itemsUpdated)
         }
     }
 
