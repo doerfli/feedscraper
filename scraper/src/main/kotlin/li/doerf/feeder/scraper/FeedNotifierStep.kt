@@ -14,11 +14,11 @@ class FeedNotifierStep @Autowired constructor(
         private val log = getLogger(javaClass)
     }
 
-    fun sendMessage(result: FeedPersisterResult) {
-        if (result.newFeedDownloaded) {
-            sendNewFeedMessage(result.feedPkey)
-        } else if (result.itemsUpdated) {
-            sendItemsUpdatedMessage(result.feedPkey)
+    fun sendMessage(feedPkey: Long, newFeedDownloaded: Boolean, itemsUpdated: Boolean) {
+        if (newFeedDownloaded) {
+            sendNewFeedMessage(feedPkey)
+        } else if (itemsUpdated) {
+            sendItemsUpdatedMessage(feedPkey)
         }
     }
 

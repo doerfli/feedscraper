@@ -1,30 +1,29 @@
 package li.doerf.feeder.scraper
 
-import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.isSuccessful
 import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
+import com.github.kittinunf.fuel.httpGet
 import li.doerf.feeder.common.util.getLogger
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class FeedDownloaderStep @Autowired constructor(
-        private val fuel: Fuel
-){
+class FeedDownloaderStep {
 
     companion object {
         @Suppress("JAVA_CLASS_ON_COMPANION")
         private val log = getLogger(javaClass)
     }
 
-    suspend fun download(uri: String): String {
+    suspend fun download(uri: String): DownloadResult {
         log.debug("downloading $uri")
-        val (request, response, result) = fuel.get(uri).awaitStringResponseResult()
+        val (request, response, result) =
+                uri.httpGet().awaitStringResponseResult()
         log.debug("downloaded ${response.contentLength} bytes - status ${response.statusCode}")
-        if (response.statusCode != 200) {
-            throw IllegalStateException("received statuscode ${response.statusCode} - download not successful")
+        if ( ! response.isSuccessful) {
+            return DownloadError("received statuscode ${response.statusCode} - download not successful")
         }
         val content = result.get()
         if(log.isTraceEnabled) log.trace(content)
-        return content
+        return DownloadSuccess(uri, content)
     }
 }

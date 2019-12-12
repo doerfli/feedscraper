@@ -24,7 +24,7 @@ class FeedPersisterStep @Autowired constructor(
     }
 
     @Transactional
-    fun persist(uri: String, feedDto: FeedDto): FeedPersisterResult {
+    fun persist(uri: String, feedDto: FeedDto): PersisterResult {
         log.debug("starting to persist feed for $uri")
         val feed = feedRepository.findFeedByUrl(uri).orElseThrow()
         feed.lastDownloaded = Instant.now()
@@ -43,7 +43,7 @@ class FeedPersisterStep @Autowired constructor(
         feedRepository.save(feed)
         log.trace("feed saved $feed")
 
-        return FeedPersisterResult(firstDownload, itemsUpdated, feed.pkey)
+        return PersisterSuccess(firstDownload, itemsUpdated, feed.pkey)
     }
 
     private fun updateFeed(feedDto: FeedDto, feed: Feed): Boolean {

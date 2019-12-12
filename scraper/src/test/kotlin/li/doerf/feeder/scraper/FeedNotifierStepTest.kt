@@ -20,8 +20,7 @@ class FeedNotifierStepTest {
     @Test
     fun testSendNewFeedsMessage() {
         val step = FeedNotifierStep(mqttGateway)
-        val result = FeedPersisterResult(newFeedDownloaded = true, itemsUpdated = false, feedPkey = 41)
-        step.sendMessage(result)
+        step.sendMessage(41, true, false)
 
         verify(mqttGateway).sendToNewFeeds(contains("41"))
     }
@@ -29,8 +28,7 @@ class FeedNotifierStepTest {
     @Test
     fun testSendUpdatedItemsMessage() {
         val step = FeedNotifierStep(mqttGateway)
-        val result = FeedPersisterResult(newFeedDownloaded = false, itemsUpdated = true, feedPkey = 3)
-        step.sendMessage(result)
+        step.sendMessage(3, false, true)
 
         verify(mqttGateway).sendToUpdatedItems(contains("3"));
     }
@@ -38,8 +36,7 @@ class FeedNotifierStepTest {
     @Test
     fun testSendNewFeedAndUpdatedItemsMessage() {
         val step = FeedNotifierStep(mqttGateway)
-        val result = FeedPersisterResult(newFeedDownloaded = true, itemsUpdated = true, feedPkey = 3)
-        step.sendMessage(result)
+        step.sendMessage(3, true, true)
 
         verify(mqttGateway).sendToNewFeeds(anyString())
         verify(mqttGateway, never()).sendToUpdatedItems(ArgumentMatchers.anyString())

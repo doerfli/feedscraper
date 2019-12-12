@@ -1,6 +1,7 @@
 package li.doerf.feeder.scraper
 
 import com.github.kittinunf.fuel.Fuel
+import kotlinx.coroutines.runBlocking
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.runApplication
@@ -27,6 +28,9 @@ fun main(args: Array<String>) {
 
     // TODO kotlin style
     Executors.newSingleThreadExecutor().execute {
-        context.getBean(ScraperPipeline::class.java).execute()
+        runBlocking {
+            context.getBean(ScraperPipeline::class.java).execute()
+        }
     }
+    context
 }

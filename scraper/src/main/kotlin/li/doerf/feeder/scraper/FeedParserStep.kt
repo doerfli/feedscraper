@@ -5,7 +5,6 @@ import li.doerf.feeder.common.entities.FeedType
 import li.doerf.feeder.common.repositories.FeedRepository
 import li.doerf.feeder.common.util.getLogger
 import li.doerf.feeder.scraper.atom.AtomFeedParser
-import li.doerf.feeder.scraper.dto.FeedDto
 import li.doerf.feeder.scraper.rss.RssFeedParser
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -25,11 +24,11 @@ class FeedParserStep @Autowired constructor(
         private val rssEndRegex = Regex("\\<\\/rss>")
     }
 
-    fun parse(uri: String, feedAsString: String): FeedDto {
+    fun parse(uri: String, feedAsString: String): ParserResult {
         log.debug("parsing feed")
         val feedOpt = feedRepository.findFeedByUrl(uri)
         if (feedOpt.isEmpty) {
-            throw IllegalArgumentException("feed with uri $uri not found")
+            return ParserError("feed with uri $uri not found")
         }
         val feed = feedOpt.get()
 
@@ -40,11 +39,11 @@ class FeedParserStep @Autowired constructor(
         val feedDto = when(feed.type) {
             FeedType.Atom -> AtomFeedParser().parse(ByteArrayInputStream(feedAsString.toByteArray()))
             FeedType.RSS -> RssFeedParser().parse(ByteArrayInputStream(feedAsString.toByteArray()))
-            else -> throw IllegalArgumentException("unknown type ${feed.type}")
+            else -> return ParserError("unknown type ${feed.type}")
         }
 
         feedDto.items.sortBy { i -> i.published }
-        return feedDto
+        return ParserSuccess(uri, feedDto)
     }
 
     private fun determineFeedSourceType(feed: Feed, feedAsString: String) {
