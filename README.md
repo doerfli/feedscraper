@@ -1,6 +1,6 @@
 # Warning
 
-This repository is currently not maintained. Dependencies can be outdated and may contain vulnerabilities. 
+This repository is currently **not maintained**. Dependencies can be outdated and **may contain vulnerabilities**. 
 
 # Feedscraper 
 [![codebeat badge](https://codebeat.co/badges/3cf4f2b4-7439-4b83-b947-3923f27e7ebc)](https://codebeat.co/projects/github-com-doerfli-feedscraper-master)
